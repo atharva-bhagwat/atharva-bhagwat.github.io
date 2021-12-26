@@ -25,7 +25,7 @@
             body {
                 background-color: #000;
             }
-            
+
             .container {
                 width: 100%;
             }
@@ -41,33 +41,32 @@
                 margin: 0;
             }
         </style>
-        <script>    
-            const jokes = [
-                "Our group had a debate about best names for looping variables.\ni won!",
-                "What type of music do balloons hate?\nPop music!",
-                "Why is E the nicest letter?\nBecause all the others are naughty.",
-                "What’s made of leather and sounds like a sneeze?\nA shoe!",
-                "Who figured out 7 ate 9?\n4 ‘n’ 6!"
-            ];
-
-            function getJoke() {
-                return jokes[Math.floor(Math.random() * 5)];
-            }
-            document.getElementById("joke").innerHTML = getJoke();
-        </script>
     </head>
     <body>
-
+        <div class="container">
+            <div class="copy-container center-xy">
+              <p>
+                404, page not found.
+                <br>
+                Here is a joke for you:
+                <br>
+                <p id="joke"></p>
+              </p>      
+            </div>
+        </div> 
     </body>
-    <div class="container">
-        <div class="copy-container center-xy">
-          <p>
-            404, page not found.
-            <br>
-            Here is a joke for you:
-            <br>
-            <p id="joke"></p>
-          </p>      
-        </div>
-    </div> 
+    <script>    
+        const jokes = [
+            "Our group had a debate about best names for looping variables.\ni won!",
+            "What type of music do balloons hate?\nPop music!",
+            "Why is E the nicest letter?\nBecause all the others are naughty.",
+            "What’s made of leather and sounds like a sneeze?\nA shoe!",
+            "Who figured out 7 ate 9?\n4 ‘n’ 6!"
+        ];
+
+        function getJoke() {
+            return jokes[Math.floor(Math.random() * 5)];
+        }
+        document.getElementById("joke").innerHTML = getJoke();
+    </script>
 </html>
