@@ -4,3 +4,4 @@ plugins:
 
 title: Atharva Bhagwat
 # description: 
+theme: jekyll-theme-cayman
