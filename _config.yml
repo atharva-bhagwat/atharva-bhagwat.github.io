@@ -1,7 +1,7 @@
 title: Dark Reader
 markdown: kramdown
-url: ""
-baseurl: "/jekyll-theme-dark-reader"
+url: "https://atharva-bhagwat.github.io"
+baseurl: ""
 
 # for atom feed
 author:
