@@ -1,7 +1,8 @@
 ---
-layout: home
-pagination: 
-  enabled: true
+title: Blog
+layout: collections_layout
 ---
 
-<!-- BLANK -->
+{% for post in site.posts %}
+<a href="{{site.baseurl}}{{post.url}}">{{post.title}}</a>
+{%endfor%}
