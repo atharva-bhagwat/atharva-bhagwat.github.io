@@ -1,4 +1,14 @@
-theme: jekyll-theme-hacker
-
+# Basic Information
 title: Atharva Bhagwat
 # description: 
+author: atharva-bhagwat
+email: atharva.bhagwat42@gmail.com
+github_username: atharva-bhagwat
+linkedin_username: atharva-bhagwat
+
+
+# Build Settings
+markdown: kramdom
+theme: jekyll-theme-hacker
+github:
+  is_project_page: false
