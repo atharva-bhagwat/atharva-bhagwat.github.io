@@ -5,7 +5,7 @@ profile_pic: "images/me.jpg"
 profile_pic_alt: "Error"
 linkedin: http://linkedin.com/in/atharva-bhagwat
 github: http://github.com/atharva-bhagwat
-resume: "resume/Resume.pdf"
+resume: resume
 ---
 
 This is long bio.
