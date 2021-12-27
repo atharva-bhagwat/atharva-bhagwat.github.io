@@ -29,8 +29,18 @@
         }
         .logo{
           float: left;
-          width: 64px;
-          height: 64px;
+          width: 32px;
+          height: 32px;
+        }
+        .column {
+          float: left;
+          width: 50%;
+          padding: 5px;
+        }
+        .row::after {
+          content: "";
+          clear: both;
+          display: table;
         }
       </style>
       <!-- header -->
@@ -41,8 +51,16 @@
       <main class="content">
         <div class="author-bio">
           <img class="profile_pic" src="{{page.profile_pic}}" alt="{{page.profile_pic_alt}}" />
-          <a href="{{page.linkedin}}"><img class="logo" src="images/linkedin_logo.png" alt="linkedin_error" /></a>
-          <a href="{{page.github}}"><img class="logo" src="images/github_logo.png" alt="github_error" /></a>
+          <br>
+          <br>
+          <div class="row">
+            <div class="column">
+              <a href="{{page.linkedin}}"><img class="logo" src="images/linkedin_logo.png" alt="linkedin_error" /></a>
+            </div>
+            <div class="column">
+              <a href="{{page.github}}"><img class="logo" src="images/github_logo.png" alt="github_error" /></a>
+            </div>
+          </div>
         </div>
         {{content}}
       </main>
