@@ -4,18 +4,16 @@
   <body>
     <div id="indicator"></div>
     <div id="page">
-      <!-- header -->
-      {% include header.html %}
-      <!-- nav -->
-      {% include nav.html %}
-      <!-- page content -->
-      <main class="content">
+        <!-- header -->
+        {% include header.html %}
+        <!-- nav -->
+        {% include nav.html %}
+        <!-- page content -->
         <div class="resume-display">
-          <embed src="{{page.resume}}" type="application/pdf">
+            <embed src="{{page.resume}}" type="application/pdf">
         </div>
-      </main>
-      <!-- footer -->
-      {% include footer.html %}
+        <!-- footer -->
+        {% include footer.html %}
     </div>
   </body>
 </html>
