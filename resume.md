@@ -1,4 +1,5 @@
 ---
 title: Resume
-layout: about
+layout: resume
+resume: "resume/Resume.pdf"
 ---
