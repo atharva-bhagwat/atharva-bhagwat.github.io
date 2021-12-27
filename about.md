@@ -1,5 +1,5 @@
 ---
-title: Atharva Bhagwat
+title: About
 layout: about
 profile_pic: "images/me.jpg"
 profile_pic_alt: "Error"
