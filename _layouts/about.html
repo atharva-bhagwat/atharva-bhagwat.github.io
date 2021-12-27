@@ -24,8 +24,11 @@
         }
         .author-bio img {
           width: 200px !important;
-          border-radius: 100%;
-          border: 4px solid #146641 !important;
+          /* border-radius: 100%; */
+          /* border: 4px solid #146641 !important; */
+        }
+        .logo{
+          float: left;
         }
       </style>
       <!-- header -->
@@ -36,8 +39,8 @@
       <main class="content">
         <div class="author-bio">
           <img src="{{page.profile_pic}}" alt="{{page.profile_pic_alt}}" />
-          <a href="{{page.linkedin}}"><img src="images/linkedin_logo.png" alt="linkedin_error" /></a>
-          <a href="{{page.github}}"><img src="images/github_logo.png" alt="github_error" /></a>
+          <a href="{{page.linkedin}}"><img class="logo" src="images/linkedin_logo.png" alt="linkedin_error" /></a>
+          <a href="{{page.github}}"><img class="logo" src="images/github_logo.png" alt="github_error" /></a>
         </div>
         {{content}}
       </main>
@@ -45,5 +48,12 @@
       <!-- footer -->
       {% include footer.html %}
     </div>
+    <script>
+      $(document).ready(function(){
+          $(document).bind("contextmenu",function(e){
+             return false;
+          });
+       });
+    </script>
   </body>
 </html>
