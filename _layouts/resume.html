@@ -9,7 +9,11 @@
       <!-- nav -->
       {% include nav.html %}
       <!-- page content -->
-        <embed src="{{page.resume}}" type="application/pdf">
+      <main class="content">
+        <div class="resume-display">
+          <embed src="{{page.resume}}" type="application/pdf">
+        </div>
+      </main>
       <!-- footer -->
       {% include footer.html %}
     </div>
