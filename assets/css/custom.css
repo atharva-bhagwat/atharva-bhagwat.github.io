@@ -58,14 +58,14 @@ main {
 	text-decoration: underline;
 }
 
-.post-list a {
+.post-list a.post {
 	text-decoration: none;
 	position: relative;
 	color: var(--theme-color) !important;
 	/* color: #72b6b5 !important; */
 }
 
-.post-list a:after {
+.post-list a.post:after {
 	content: "";
 	position: absolute;
 	bottom: 0;
