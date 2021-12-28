@@ -79,8 +79,8 @@ main {
 	width: 100%;
 }
 
-.post-list a:before,
-.post-list a:before {
+.post-list a.post:before,
+.post-list a.post:before {
 	content: "#";
 	color: #42b983;
 	position: absolute;

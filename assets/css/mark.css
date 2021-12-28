@@ -55,17 +55,6 @@ h6 {
 	color: var(--theme-color);
 	position: relative;
 }
-/* 
-h1:before,
-h2:before {
-	content: "#";
-	color: #42b983;
-	position: absolute;
-	left: -0.8em;
-	top: -2px;
-	font-size: 1.2em;
-	font-weight: bold;
-} */
 
 h1 {
 	/*border-bottom: 8px solid #71BA51 !important;*/
