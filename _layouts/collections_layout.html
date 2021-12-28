@@ -25,10 +25,55 @@
       <!-- nav -->
       {% include nav.html %}
       <!-- page content -->
+      <h3>
+        Hello there!
+      </h3>
+      <p>
+        I am Atharva. I am pursuing Masters in Computer Science at Tandon School of Engineering, NYU. 
+        I love to read books about the cosmos (I am currently reading 'The Science of Interstellar'). 
+        I am also an avid gamer. I love to play CS:GO and Minecraft. 
+        And I absolutely love to cook. I find it extremely calming.
+        Lastly, I strive to imporve everyday.
+      </p>
       <main class="post-list">
         <p class="title">Projects</p>
         {{content}}
       </main>
+
+      <p class="title">New York City</p>
+      <div id="carouselControl" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item" data-interval="5000">
+            <img src="images/nyc/nyc_1.jpeg" class="d-block w-100" alt="???">
+          </div>
+          <div class="carousel-item active" data-interval="5000">
+            <img src="images/nyc/nyc_2.jpeg" class="d-block w-100" alt="???">
+          </div>
+          <div class="carousel-item" data-interval="5000">
+            <img src="images/nyc/nyc_3.jpeg" class="d-block w-100" alt="???">
+          </div>
+          <div class="carousel-item" data-interval="5000">
+            <img src="images/nyc/nyc_4.jpeg" class="d-block w-100" alt="???">
+          </div>
+          <div class="carousel-item" data-interval="5000">
+            <img src="images/nyc/nyc_5.jpeg" class="d-block w-100" alt="???">
+          </div>
+          <div class="carousel-item" data-interval="5000">
+            <img src="images/nyc/nyc_6.jpeg" class="d-block w-100" alt="???">
+          </div>
+          <div class="carousel-item" data-interval="5000">
+            <img src="images/nyc/nyc_7.jpeg" class="d-block w-100" alt="???">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselControl" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselControl" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
 
       <!-- footer -->
       {% include footer.html %}
