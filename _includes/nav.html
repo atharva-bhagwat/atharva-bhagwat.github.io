@@ -1,9 +1,9 @@
 <nav>
 	{% for item in site.data.nav.list %}
 		{% if item.target %}
-			<a class="navigation" href="#!" onclick="openLink('{{site.baseurl}}/{{item.url}}')">{{item.title}}</a>
+			<a href="#!" onclick="openLink('{{site.baseurl}}/{{item.url}}')">{{item.title}}</a>
 		{% else %}
-			<a class="navigation" href="{{site.baseurl}}/{{item.url}}">{{item.title}}</a>
+			<a href="{{site.baseurl}}/{{item.url}}">{{item.title}}</a>
 		{% endif %}
 	{% endfor %}
 </nav>
