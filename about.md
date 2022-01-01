@@ -11,7 +11,7 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 # ***Work***
 
 - ## ResoluteAI.in _(Jul 2020 - May 2021)_
-    **_Machine Learning Engineer_**
+    #### **_Machine Learning Engineer_**
 
 > I joined ResoluteAI.in as a Machine Learning Engineer: Intern in July 2020, I worked on building vairous Proof of Concepts and converting them into an API for  the AI Lab. After completing my 3 month internship period I was hired full-time as Machine Learning Engineer. During this time I had the opportunity to work on developing Proof of Concepts for automating certain aspects of the textile industry. I also had the opportunity to work on client's site to design and develop a system to automate their workflow. Even as a ML Engineer I had the opportunity to learn the buisness side of things. This has given the understanding to think of AI solutions which not only are doable but are also scalable.
 
