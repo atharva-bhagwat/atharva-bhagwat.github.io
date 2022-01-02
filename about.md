@@ -17,8 +17,7 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 
 # ***Education***
 
-- ## <a href="https://engineering.nyu.edu" target="_blank">Tandon School of Engineering, New York University</a> _(Fall 2021 - Present)_
-    _<b style='font-size:16px; color:#8942b9;'>Master of Science in Computer Science</b>_
+- _<b style='font-size:16px; color:#8942b9;'>Master of Science in Computer Science</b>_ at <a href="https://engineering.nyu.edu" target="_blank">Tandon School of Engineering, New York University</a> _(Fall 2021 - Present)_
 
-- ## [Pune Institute of Computer Technology](https://pict.edu) _(2016 - 2020)_
-    _<b style='font-size:16px; color:#8942b9;'>Bachelor of Engineering in Computer Engineering</b>_
+- _<b style='font-size:16px; color:#8942b9;'>Bachelor of Engineering in Computer Engineering</b>_ at <a href="https://pict.edu" target="_blank">Pune Institute of Computer Technology</a> _(2016 - 2020)_
+    
