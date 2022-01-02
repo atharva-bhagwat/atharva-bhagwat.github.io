@@ -10,8 +10,8 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 
 # ***Work***
 
-- ## <a href="https://resoluteai.in/" target="_blank">ResoluteAI.in</a>
-    _**<u>Machine Learning Engineer</u>**_
+- ## <a href="https://resoluteai.in/" target="_blank">ResoluteAI.in</a> _(Jul 2020 - May 2021)_
+    _**<u style='font-size:18px; color:#5e42b9;'>Machine Learning Engineer</u>**_
 
     > I joined ResoluteAI.in as a Machine Learning Engineer: Intern in July 2020, I worked on building vairous Proof of Concepts and converting them into an API for  the AI Lab. After completing my 3 month internship period I was hired full-time as Machine Learning Engineer. During this time I had the opportunity to work on developing Proof of Concepts for automating certain aspects of the textile industry. I also had the opportunity to work on client's site to design and develop a system to automate their workflow. Even as a ML Engineer I had the opportunity to learn the buisness side of things. This has given the understanding to think of AI solutions which not only are doable but are also scalable.
 
