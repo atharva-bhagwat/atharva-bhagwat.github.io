@@ -7,3 +7,4 @@ author: Atharva Bhagwat
 ---
 
 [Here](https://github.com/atharva-bhagwat/CSGY-6643/tree/main/canny_edge_detector) is the link to the code.
+
