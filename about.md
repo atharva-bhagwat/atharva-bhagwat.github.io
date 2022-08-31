@@ -5,12 +5,12 @@ profile_pic: "images/me.jpg"
 profile_pic_alt: "Error"
 ---
 
-<!-- <p>
+<p>
 Hi! My name is Atharva Bhagwat. I am a student at Tandon School of Engineering, NYU studying for a masters in computer science. Before that I worked as a ML engineer at ResoluteAI.in. My areas of interest are machine learning, computational biology, and their intersection.
 </p>
 <p>
 
-</p> -->
+</p>
 
 # ***Work***
 
