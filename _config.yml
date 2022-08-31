@@ -38,6 +38,3 @@ defaults:
       permalink: /posts/:categories/:year/:month/:day/:title/
 
 exclude: ["sitemap.xml", "feed.xml", "LICENSE", "README.md"]
-
-# TODO: post ideas: cv projects, you can add theory code etc. solve leetcode solutions for the 14 day challenge.
-#                   find ml topics to talk about (p-value, residual deviance, null deviance meaning??), analysis of all algorithms?
