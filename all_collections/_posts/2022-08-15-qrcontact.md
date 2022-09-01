@@ -4,6 +4,7 @@ title: QR-Contact
 date: 2022-08-15
 tags: Project
 author: Atharva Bhagwat
+logo: "images/logo/nohello.png"
 ---
 
 While playing around I came across `pyqrcode` and `vobject` libraries in python. So I made an [web app](https://contactqr.herokuapp.com/) which will make sharing your contact information easy with a QR code. You'll be able to download a QR code with your contact information which when scaned will save your contact with just one click! All your information is completely private and not stored at all (This was the main reason I made the app).

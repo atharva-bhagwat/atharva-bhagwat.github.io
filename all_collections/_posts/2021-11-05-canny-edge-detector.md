@@ -4,6 +4,7 @@ title: Canny Edge Detector
 date: 2021-11-05
 tags: Project
 author: Atharva Bhagwat
+logo: "images/logo/nohello.png"
 ---
 
 # Steps:

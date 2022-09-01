@@ -4,6 +4,7 @@ title: Human Detection using HOG Feature
 date: 2021-12-05
 tags: Project
 author: Atharva Bhagwat
+logo: "images/logo/nohello.png"
 ---
 
 # Steps:
