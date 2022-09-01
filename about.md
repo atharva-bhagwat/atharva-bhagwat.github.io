@@ -16,7 +16,7 @@ Hi! My name is Atharva Bhagwat. I am a student at Tandon School of Engineering, 
 
 - _<b style='font-size:16px; color:#8942b9;'>Computational Biology Intern</b>_ at <b style='font-size:16px;'><a href="https://www.tsankovlab.org" target="_blank">Tsankov Lab</a></b> <i style='font-size:15px;'>(May 2022 - Aug 2022)</i>
 
-    > Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    > I replicated pipeline to detect somatic mutations in bulk sequenced data using GATK modules for command line. I than worked with bulk(TCGA) and pseudobulk data for lung adenocarcinoma and colorectal cancer to predict type of mutation using machine learning.
 
 - _<b style='font-size:16px; color:#8942b9;'>Machine Learning Engineer</b>_ at <b style='font-size:16px;'><a href="https://resoluteai.in/" target="_blank">ResoluteAI.in</a></b> <i style='font-size:15px;'>(Jul 2020 - May 2021)</i>
 
