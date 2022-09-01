@@ -2,8 +2,7 @@ title: Atharva Bhagwat
 markdown: kramdown
 url: "https://atharva-bhagwat.github.io"
 baseurl: ""
-# logo: "images/logo/nohello.png"
-logo: "https://github.com/simonhearne/nohello.club/blob/master/images/nohello_640_tr_w.png"
+logo: "images/logo/nohello.png"
 
 # for atom feed
 author:
