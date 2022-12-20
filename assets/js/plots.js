@@ -1,4 +1,17 @@
-const incident = FileAttachment("data_files/incident.csv").csv({typed: true});
+function csvReader(filename){
+    let parser = CSV.parse(filename)
+    let data = {};
+        for (let [col,key] of Object.entries(parser[0])) {
+            data[key] = [];
+            for (let row=1; row<parser.length; row++) {
+            data[key].push(parser[row][col]);
+            }
+        }
+    return data
+}
+
+const incident = csvReader("data_files/incident.csv");
+// const incident = FileAttachment("data_files/incident.csv").csv({typed: true});
 const weapon = FileAttachment("data_files/weapon_state.csv").csv({typed: true});
 const shooter = FileAttachment("data_files/shooter.csv").csv({typed: true});
 const usaGeo = FileAttachment('data_files/gz_2010_us_040_00_20m.json').json();
