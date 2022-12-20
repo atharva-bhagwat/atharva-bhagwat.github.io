@@ -1,11 +1,66 @@
+const incident = FileAttachment("data_files/incident.csv").csv({typed: true});
+const weapon = FileAttachment("data_files/weapon_state.csv").csv({typed: true});
+const shooter = FileAttachment("data_files/shooter.csv").csv({typed: true});
+const usaGeo = FileAttachment('data_files/gz_2010_us_040_00_20m.json').json();
+const stateAbMap = FileAttachment("stateAbMap.json").json();
+
+function formatTime(value) {
+    if(mode === "Over months"){
+      let monthMap = {
+        1: "Jan",
+        2: "Feb",
+        3: "Mar",
+        4: "Apr",
+        5: "May",
+        6: "Jun",
+        7: "Jul",
+        8: "Aug",
+        9: "Sept",
+        10: "Oct",
+        11: "Nov",
+        12: "Dec"
+      }
+      return monthMap[value]
+    } else {
+      let quarterMap = {
+        1: "Spring",
+        2: "Summer",
+        3: "Fall",
+        4: "Winter",
+      }
+      return quarterMap[value]
+    }
+}
+
+function formatAge(value) {
+    const ageMapping = {
+      1: "0-12",
+      2: "13-17",
+      3: "18-21",
+      4: "22-30",
+      5: "31-50",
+      6: "50+"
+    }
+    return ageMapping[value]  
+}
+
+const q1_change_over_year = d3.rollups(incident , v=>v.length, d=>d.Year)
+.map( data => ({
+  "Year": data[0],
+  "Count": data[1]
+}) )
+.sort((a,b) => d3.ascending(a.Year , b.Year));
+
+const q1_years = d3.map(q1_change_over_year , d=>d.Year);
+const q1_extend = d3.extent(q1_years);
+const q1_maxIncident = d3.max(d3.map(q1_change_over_year , d=>d.Count));
+
 function plot1(){
     console.log('plot 1')
     // setup margin
     const margin = {top: 20, right: 10, bottom: 60, left: 50};
     const visWidth = 1152 - margin.left - margin.right;
     const visHeight = 600 - margin.top - margin.bottom;
-  
-    
   
     // define axis
     const x = d3.scaleLinear()
