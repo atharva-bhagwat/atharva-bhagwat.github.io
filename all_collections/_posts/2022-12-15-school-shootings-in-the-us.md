@@ -63,10 +63,10 @@ The missing values in the gender column were set to `unknown`.
 
 In the last decade, school schootings have become a frequent occuring and have been in the news regularly. This motivated us to begin our exploratory data analysis with a time series of the number of incidents in last 50 years in the US to understand how much things have changed. We used the incident table which has shooting incident records from 1970 till now.
 
-<div id='plot1'>
+<div id='incident_over_time'>
 </div>
 
 <script>
-  var div = d3.select("plot1");
+  var div = d3.select("#incident_over_time");
   div.append(plot1())
 </script>
