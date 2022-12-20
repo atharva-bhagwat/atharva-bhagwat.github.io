@@ -2,7 +2,7 @@ function plot1(){
     console.log('plot 1')
     // setup margin
     const margin = {top: 20, right: 10, bottom: 60, left: 50};
-    const visWidth = width - margin.left - margin.right;
+    const visWidth = 1152 - margin.left - margin.right;
     const visHeight = 600 - margin.top - margin.bottom;
   
     
