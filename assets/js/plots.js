@@ -1,8 +1,6 @@
 function csvReader(filename){
-  let file = new File(filename);
-  let parser = new FileReader();
-  parser.readAsText(file);
-  console.log(parser.result);
+  const jsonData= require('incident.json'); 
+  console.log(jsonData);
   let data = {};
       for (let [col,key] of Object.entries(parser[0])) {
           data[key] = [];
