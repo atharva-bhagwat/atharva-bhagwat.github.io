@@ -1,27 +1,19 @@
-const incident1 = Papa.parse("./assets/js/data_files/incident.csv", {
-	complete: function(results) {
-		console.log("Finished:", results.data);
-	}
-});
-console.log(incident1);
-
-const incident2 = Papa.parse("./data_files/incident.csv", {
-	complete: function(results) {
-		console.log("Finished:", results.data);
-	}
-});
-console.log(incident2);
-
 const incident = Papa.parse("/assets/js/data_files/incident.csv", {
 	complete: function(results) {
-		console.log("Finished:", results.data);
+		console.log("Finished:", results);
 	}
 });
 console.log(incident);
+
 const weapon = d3.csv("/assets/js/data_files/weapon_state.csv");
 const shooter = d3.csv("/assets/js/data_files/shooter.csv");
 const usaGeo = get_usaGeo();
 const stateAbMap = get_stateAb();
+
+const x = new FileReader();
+x.readAsText("/assets/js/data_files/weapon_state.csv");
+console.log(x);
+console.log(x.result);
 
 console.log(incident);
 
