@@ -1,4 +1,5 @@
-const incident = get_incident();
+const incident = FileAttachment("./assests/js/data_files/incident.csv").csv({typed: true});
+console.log(incident)
 const weapon = get_weapon();
 const shooter = get_shooter();
 const usaGeo = get_usaGeo();
