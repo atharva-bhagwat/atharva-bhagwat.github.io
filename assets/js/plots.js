@@ -1,15 +1,18 @@
 function format_json(data){
-  formatted_data = []
+  // console.log(data);
+  formatted_data = [];
   
-  for(let itr in Object.keys(data.Incident_ID).length){
+  data_length = Object.keys(data.Incident_ID).length
+
+  for(let itr = 0; itr < data_length; itr++){
     row = {}
     keys = Object.keys(data)
-    for(let col in keys.length){
+    for(let col=0; col < keys.length; col++){
       row[keys[col]] = data[keys[col]][itr]
     }
     formatted_data.push(Object.fromEntries(row))
   }
-  
+
   return formatted_data;
 }
 
