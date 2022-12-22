@@ -1,21 +1,14 @@
-const incident = Papa.parse("/assets/js/data_files/incident.csv", {
-	complete: function(results) {
-		console.log("Finished:", results);
-	}
-});
-console.log(incident);
+function format_json(data){
+  formatted_data = []
+  console.log(data)
+  return formatted_data;
+}
 
-const weapon = d3.csv("/assets/js/data_files/weapon_state.csv");
-const shooter = d3.csv("/assets/js/data_files/shooter.csv");
+const incident = format_json(get_incident());
+const weapon = get_weapon();
+const shooter = get_shooter();
 const usaGeo = get_usaGeo();
 const stateAbMap = get_stateAb();
-
-const x = new FileReader();
-x.readAsText("/assets/js/data_files/weapon_state.csv");
-console.log(x);
-console.log(x.result);
-
-console.log(incident);
 
 function formatTime(value) {
     if(mode === "Over months"){
