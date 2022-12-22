@@ -1,20 +1,9 @@
-function csvReader(filename){
-  console.log(filename)
-  $.getJSON(filename, function(json) {
-    console.log('here')
-    console.log(json); // this will show the info it in firebug console
-  });
-  // let data = {};
-  //     for (let [col,key] of Object.entries(parser[0])) {
-  //         data[key] = [];
-  //         for (let row=1; row<parser.length; row++) {
-  //         data[key].push(parser[row][col]);
-  //         }
-  //     }
-  // return data
-}
+import { get_incident } from './incident_load.js';
+import { get_shooter } from './shooter_load.js';
+import { get_weapon } from './weapon_load.js';
 
-const incident = csvReader("/assets/js/data_files/incident.csv");
+const incident = get_incident();
+console.log(incident);
 // const incident = FileAttachment("data_files/incident.csv").csv({typed: true});
 const weapon = FileAttachment("data_files/weapon_state.csv").csv({typed: true});
 const shooter = FileAttachment("data_files/shooter.csv").csv({typed: true});
