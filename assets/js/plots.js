@@ -1,4 +1,9 @@
-const incident = d3.csv("assets/js/data_files/incident.csv");
+const incident = Papa.parse("assets/js/data_files/incident.csv", {
+	complete: function(results) {
+		console.log("Finished:", results.data);
+	}
+});
+console.log(incident);
 const weapon = d3.csv("assets/js/data_files/weapon_state.csv");
 const shooter = d3.csv("assets/js/data_files/shooter.csv");
 const usaGeo = get_usaGeo();
