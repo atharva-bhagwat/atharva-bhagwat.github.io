@@ -1,5 +1,7 @@
 function csvReader(filename){
-    let parser = CSV.parse(filename)
+    let parser = new FileReader();
+    parser.readAsText(filename);
+    console.log(parser.result);
     let data = {};
         for (let [col,key] of Object.entries(parser[0])) {
             data[key] = [];
