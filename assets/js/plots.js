@@ -1,3 +1,15 @@
+Papa.parse("./assets/js/data_files/incident.csv", {
+	complete: function(results) {
+		console.log("Finished:", results.data);
+	}
+});
+
+Papa.parse("./data_files/incident.csv", {
+	complete: function(results) {
+		console.log("Finished:", results.data);
+	}
+});
+
 const incident = Papa.parse("/assets/js/data_files/incident.csv", {
 	complete: function(results) {
 		console.log("Finished:", results.data);
