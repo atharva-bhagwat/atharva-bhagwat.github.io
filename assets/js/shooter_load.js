@@ -3,5 +3,3 @@ function get_shooter(){
 
     return shooter;
 }
-
-export {get_shooter};

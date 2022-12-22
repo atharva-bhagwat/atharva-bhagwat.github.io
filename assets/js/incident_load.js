@@ -3,5 +3,3 @@ function get_incident(){
 
     return incident
 }
-
-export {get_incident};

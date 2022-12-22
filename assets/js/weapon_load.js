@@ -3,5 +3,3 @@ function get_weapon(){
 
     return weapon;
 }
-
-export {get_weapon};

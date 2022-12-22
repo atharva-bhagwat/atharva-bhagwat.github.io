@@ -1,7 +1,3 @@
-import { get_incident } from './incident_load.js';
-import { get_shooter } from './shooter_load.js';
-import { get_weapon } from './weapon_load.js';
-
 const incident = get_incident();
 console.log(incident);
 // const incident = FileAttachment("data_files/incident.csv").csv({typed: true});
