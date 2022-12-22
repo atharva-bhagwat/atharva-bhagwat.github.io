@@ -1,15 +1,16 @@
 function csvReader(filename){
-    let parser = new FileReader();
-    parser.readAsText(filename);
-    console.log(parser.result);
-    let data = {};
-        for (let [col,key] of Object.entries(parser[0])) {
-            data[key] = [];
-            for (let row=1; row<parser.length; row++) {
-            data[key].push(parser[row][col]);
-            }
-        }
-    return data
+  let file = new File(filename);
+  let parser = new FileReader();
+  parser.readAsText(file);
+  console.log(parser.result);
+  let data = {};
+      for (let [col,key] of Object.entries(parser[0])) {
+          data[key] = [];
+          for (let row=1; row<parser.length; row++) {
+          data[key].push(parser[row][col]);
+          }
+      }
+  return data
 }
 
 const incident = csvReader("data_files/incident.csv");
