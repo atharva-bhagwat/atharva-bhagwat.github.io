@@ -1,6 +1,7 @@
 function csvReader(filename){
-  const jsonData= require('incident.json'); 
-  console.log(jsonData);
+  $.getJSON(filename, function(json) {
+    console.log(json); // this will show the info it in firebug console
+  });
   let data = {};
       for (let [col,key] of Object.entries(parser[0])) {
           data[key] = [];
