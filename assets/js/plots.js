@@ -69,11 +69,11 @@ function plot1(){
     "Count": data[1]
     }) )
     .sort((a,b) => d3.ascending(a.Year , b.Year));
+    console.log(q1_change_over_year)
 
     const q1_years = d3.map(q1_change_over_year , d=>d.Year);
     const q1_extend = d3.extent(q1_years);
     const q1_maxIncident = d3.max(d3.map(q1_change_over_year , d=>d.Count));
-    console.log(q1_extend);
     // setup margin
     const margin = {top: 20, right: 10, bottom: 60, left: 50};
     const visWidth = 1152 - margin.left - margin.right;
@@ -88,14 +88,14 @@ function plot1(){
         .domain([0, q1_maxIncident]).nice()
         .range([visHeight, 0]);
   
-  
+    console.log('axis setup done')
     // define svg
-      const svg = d3.create('svg')
-        .attr('width', visWidth + margin.left + margin.right)
-        .attr('height', visHeight + margin.top + margin.bottom);
+    const svg = d3.create('svg')
+      .attr('width', visWidth + margin.left + margin.right)
+      .attr('height', visHeight + margin.top + margin.bottom);
     
     const g = svg.append('g')
-        .attr('transform', `translate(${margin.left}, ${margin.top})`);
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
   
   
    // line generator
@@ -104,10 +104,11 @@ function plot1(){
         .x(d => x(d.Year))
         .y(d => y(d.Count));
   
+    console.log('line gen')
+
     // axes
     const xAxis = d3.axisBottom(x).ticks(10).tickFormat(d3.format("d"));
     const yAxis = d3.axisLeft(y);
-  
   
     // draw axes and grids
   
@@ -175,6 +176,6 @@ function plot1(){
         .attr('y', -margin.top)
         .text('Shooting incidents in US over the years');
 
-  return svg.node();
+  return svg;
 }
   
