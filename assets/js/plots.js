@@ -1,10 +1,8 @@
 const incident = get_incident();
-console.log(incident);
-// const incident = FileAttachment("data_files/incident.csv").csv({typed: true});
-const weapon = FileAttachment("data_files/weapon_state.csv").csv({typed: true});
-const shooter = FileAttachment("data_files/shooter.csv").csv({typed: true});
-const usaGeo = FileAttachment('data_files/gz_2010_us_040_00_20m.json').json();
-const stateAbMap = FileAttachment("stateAbMap.json").json();
+const weapon = get_weapon();
+const shooter = get_shooter();
+const usaGeo = get_usaGeo();
+const stateAbMap = get_stateAb();
 
 function formatTime(value) {
     if(mode === "Over months"){
