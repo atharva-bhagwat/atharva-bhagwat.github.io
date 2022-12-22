@@ -1,9 +1,10 @@
-const incident = FileAttachment("./assests/js/data_files/incident.csv").csv({typed: true});
-console.log(incident)
-const weapon = get_weapon();
-const shooter = get_shooter();
+const incident = d3.csv("assets/js/data_files/incident.csv");
+const weapon = d3.csv("assets/js/data_files/weapon_state.csv");
+const shooter = d3.csv("assets/js/data_files/shooter.csv");
 const usaGeo = get_usaGeo();
 const stateAbMap = get_stateAb();
+
+console.log(incident);
 
 function formatTime(value) {
     if(mode === "Over months"){
