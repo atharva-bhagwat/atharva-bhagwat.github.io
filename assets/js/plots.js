@@ -13,7 +13,7 @@ function csvReader(filename){
   return data
 }
 
-const incident = csvReader("data_files/incident.csv");
+const incident = csvReader("/assets/js/data_files/incident.csv");
 // const incident = FileAttachment("data_files/incident.csv").csv({typed: true});
 const weapon = FileAttachment("data_files/weapon_state.csv").csv({typed: true});
 const shooter = FileAttachment("data_files/shooter.csv").csv({typed: true});
