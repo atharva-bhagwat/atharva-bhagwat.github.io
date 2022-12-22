@@ -1,24 +1,24 @@
 function format_json(data){
-  // console.log(data);
-  formatted_data = [];
+
+  let formatted_data = [];
   
-  data_length = Object.keys(data.Incident_ID).length
+  const data_length = Object.keys(data.Incident_ID).length
 
   for(let itr = 0; itr < data_length; itr++){
-    row = {}
-    keys = Object.keys(data)
+    let row = {}
+    let keys = Object.keys(data)
     for(let col=0; col < keys.length; col++){
       row[keys[col]] = data[keys[col]][itr]
     }
-    formatted_data.push(Object.fromEntries(row))
+    formatted_data.push(row)
   }
 
   return formatted_data;
 }
 
 const incident = format_json(get_incident());
-const weapon = get_weapon();
-const shooter = get_shooter();
+const weapon = format_json(get_weapon());
+const shooter = format_json(get_shooter());
 const usaGeo = get_usaGeo();
 const stateAbMap = get_stateAb();
 
