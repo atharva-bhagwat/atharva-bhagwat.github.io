@@ -1,16 +1,17 @@
 function csvReader(filename){
   console.log(filename)
   $.getJSON(filename, function(json) {
+    console.log('here')
     console.log(json); // this will show the info it in firebug console
   });
-  let data = {};
-      for (let [col,key] of Object.entries(parser[0])) {
-          data[key] = [];
-          for (let row=1; row<parser.length; row++) {
-          data[key].push(parser[row][col]);
-          }
-      }
-  return data
+  // let data = {};
+  //     for (let [col,key] of Object.entries(parser[0])) {
+  //         data[key] = [];
+  //         for (let row=1; row<parser.length; row++) {
+  //         data[key].push(parser[row][col]);
+  //         }
+  //     }
+  // return data
 }
 
 const incident = csvReader("/assets/js/data_files/incident.csv");
