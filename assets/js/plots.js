@@ -90,9 +90,9 @@ function plot1(){
   
     console.log('axis setup done')
     // define svg
-    const svg = d3.create('svg')
-      .attr('width', visWidth + margin.left + margin.right)
-      .attr('height', visHeight + margin.top + margin.bottom);
+    const svg = d3.select("#incident_over_time").append('svg')
+        .attr('width', visWidth + margin.left + margin.right)
+        .attr('height', visHeight + margin.top + margin.bottom);
     
     const g = svg.append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
@@ -133,8 +133,6 @@ function plot1(){
         .attr('text-anchor', 'center')
         .text('Years');
   
-    console.log('add x axis');
-
     // y-axis and horizontal grid lines
     g.append('g')
         .call(yAxis)
@@ -158,8 +156,6 @@ function plot1(){
           .style("font-size","15px")
          .text('No. of Incidents');
 
-    console.log('add y axis');
-  
     //draw line
     g.append('g')
       .selectAll('path')
@@ -179,9 +175,5 @@ function plot1(){
         .attr('x', visWidth / 2 - 120)
         .attr('y', -margin.top)
         .text('Shooting incidents in US over the years');
-
-    console.log('add line and title');
-
-  return svg;
 }
   
