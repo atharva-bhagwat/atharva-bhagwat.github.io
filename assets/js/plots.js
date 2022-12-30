@@ -77,7 +77,7 @@ function plot1(){
     // setup margin
     const margin = {top: 20, right: 10, bottom: 60, left: 50};
     const visWidth = 900 - margin.left - margin.right;
-    const visHeight = 600 - margin.top - margin.bottom;
+    const visHeight = 550 - margin.top - margin.bottom;
   
     // define axis
     const x = d3.scaleLinear()
