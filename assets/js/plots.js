@@ -76,7 +76,7 @@ function plot1(){
     const q1_maxIncident = d3.max(d3.map(q1_change_over_year , d=>d.Count));
     // setup margin
     const margin = {top: 20, right: 10, bottom: 60, left: 50};
-    const visWidth = 800 - margin.left - margin.right;
+    const visWidth = 950 - margin.left - margin.right;
     const visHeight = 600 - margin.top - margin.bottom;
   
     // define axis
@@ -128,7 +128,7 @@ function plot1(){
       .append('text')
         .attr('x', visWidth / 2)
         .attr('y', 40)
-        .attr('fill', 'black')
+        .attr('fill', '#a79e8b')
         .attr('font-size', '15px')
         .attr('text-anchor', 'center')
         .text('Years');
@@ -150,7 +150,7 @@ function plot1(){
           .attr("transform", "rotate(-90)")
           .attr("x", 0 - visHeight/2)
           .attr("dy", "-2.5em")
-          .attr('fill', 'black')
+          .attr('fill', '#a79e8b')
           .attr('font-family', 'sans-serif')
           .style("text-anchor", "middle")
           .style("font-size","15px")
@@ -172,6 +172,7 @@ function plot1(){
        g.append('text')
         .attr('font-size', '15px')
         .attr('dominant-baseline', 'hanging')
+        .attr('fill', '#a79e8b')
         .attr('x', visWidth / 2 - 120)
         .attr('y', -margin.top)
         .text('Shooting incidents in US over the years');
