@@ -103,7 +103,8 @@ Since, we cant generalize the occurences of incidents across all states, we delv
   colorize(plot2_legend, 'injuried_death_ratio_legend');
   plot2();
   plot3();
-  const le = d3.select('#heatmap_legend').append(`<text>THIS IS A TEST</text>`);
+  const le = document.getElementByID('heatmap_legend');
+  le.innerHTML = "TEXT";
   plot4();
 </script>
 
