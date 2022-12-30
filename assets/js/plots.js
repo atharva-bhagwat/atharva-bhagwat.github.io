@@ -587,10 +587,6 @@ function plot5(){
   const start_year_heatmap = 2000;
   // const count_extent = d3.extent(heatmap_plot_data, d => d.total);
   // const top_count_extent = d3.extent(top_heatmap_plot_data, d => d.total);
-  const top_heatmap_color = d3.scaleSequential()
-    .domain(d3.extent(top_heatmap_plot_data, d => d.total))
-    .interpolator(d3.interpolateOrRd);
-
   const top_heatmap_plot_data = top_state_data
     .flatMap(s=>d3.rollups(
       s[1],
@@ -604,6 +600,9 @@ function plot5(){
           total:arr[1]
         })
       ));
+  const top_heatmap_color = d3.scaleSequential()
+    .domain(d3.extent(top_heatmap_plot_data, d => d.total))
+    .interpolator(d3.interpolateOrRd);
 
   Legend(top_heatmap_color, '#heatmap_small_legend', {title: 'State-wise Incident Distribution from year 2000', width: width});
 
