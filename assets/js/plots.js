@@ -64,6 +64,25 @@ function formatAge(value) {
     return ageMapping[value]  
 }
 
+function colorize(colorList, htmlElement) {
+  var container = document.getElementById(htmlElement);
+
+  for (var key in colorList) {
+      var boxContainer = document.createElement("DIV");
+      var box = document.createElement("DIV");
+      var label = document.createElement("SPAN");
+
+      label.innerHTML = key;
+      box.className = "box";
+      box.style.backgroundColor = colorList[key];
+
+      boxContainer.appendChild(box);
+      boxContainer.appendChild(label);
+
+      container.appendChild(boxContainer);
+ }
+}
+
 function plot1(){
     const q1_change_over_year = d3.rollups(incident , v=>v.length, d=>d.Year)
     .map( data => ({
@@ -194,9 +213,7 @@ function plot2(){
   const q2_color = d3.scaleOrdinal()
       .domain(["Injuries", "Deaths"])
       .range(["#fed976", "#b10026"]);
-  
-  d3.select("#injuried_death_ratio_legend").append(Swatches(q2_color));
-  
+    
   const q2_margin = ({top: 20, right: 10, bottom: 20, left: 50});
   const q2_height = 750; 
 
@@ -207,7 +224,6 @@ function plot2(){
       .attr('height', q2_height);
 
   // sclaces and axis - 
-
   
   const q2_xScale = d3.scaleBand(death_injuries_change.map(d => d.Year),[q2_margin.left, 900 - q2_margin.right]).padding(0.2);
   const q2_yScale = d3.scaleLinear([ 0, q2_maxValue ],[ q2_visHeight, 0 ]);

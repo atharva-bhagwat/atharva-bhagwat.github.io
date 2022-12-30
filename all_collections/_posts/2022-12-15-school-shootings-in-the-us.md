@@ -73,11 +73,14 @@ We notice a rising trend in the number of shootings over the years which is almo
 
 <div id='injuried_death_ratio_legend'>
 </div>
+
 <div id='injuried_death_ratio'>
 </div>
 
 <script>
   plot1();
+  var plot2_legend = {Injuries: '#fed976', Deaths: '#b10026'};
+  colorize(plot2_legend, 'injuried_death_ratio_legend');
   plot2();
 </script>
 
