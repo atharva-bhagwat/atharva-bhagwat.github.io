@@ -68,5 +68,7 @@ In the last decade, school schootings have become a frequent occuring and have b
 
 <script>
   var div = d3.select("#incident_over_time");
-  div.append(plot1());
+  const plt1 = plot1();
+  console.log(plt1);
+  div.append("This is a test!!"));
 </script>
