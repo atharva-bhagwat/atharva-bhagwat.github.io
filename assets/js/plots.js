@@ -375,7 +375,6 @@ function plot3(){
       .attr("transform", state => `translate(${path.centroid(state)})`)
       .attr("d", state => spike(length(vis4_Spike_Data[state.properties.NAME])));
 
-
   // Draw Legend   
   
 // Referenced from https://observablehq.com/@d3/spike-map

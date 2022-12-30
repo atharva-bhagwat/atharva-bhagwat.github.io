@@ -225,6 +225,10 @@ function Swatches(color, {
   <div>${domain.map(value => `<span class="${id}" style="--color: ${color(value)}">${format(value)}</span>`)}</div>`;
 }
 
+function legend({color, ...options}) {
+  return Legend(color, options);
+}
+
 // Copyright 2021, Observable Inc.
 // Released under the ISC license.
 // https://observablehq.com/@d3/color-legend
