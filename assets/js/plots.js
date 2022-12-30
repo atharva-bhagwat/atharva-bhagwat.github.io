@@ -331,17 +331,9 @@ const state_wise_count = d3.rollups(
     item => item.State
   ).sort((a,b)=>d3.descending(a[1],b[1]));
 
-const vis4_Spike_Data = Object.fromEntries(state_wise_count.map(([k, v]) => [ reverse_statetoAbrr[k], v ]));
+const vis4_Spike_Data = Object.fromEntries(state_wise_count.map(([k, v]) => [ stateAbMap[k], v ]));
 
 function plot3(){
-  const age_group_dsbn = getAgeBin();
-  const ageRanges = d3.map(age_group_dsbn, d => d[0]);
-  const genders = ["Unknown", "Male", "Female", "Transgender"];
-  const q3_maxValue = d3.max(
-      age_group_dsbn,
-      ([ageRange, genderCount]) => d3.max(genderCount, ([gender, count]) => count)
-    );
-
   // define margin
   const margin = ({top: 0, right: 20, bottom: 0, left: 50});
   const visWidth =  900 - margin.top - margin.bottom;
