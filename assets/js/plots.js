@@ -23,6 +23,7 @@ const usaGeo = get_usaGeo();
 const stateAbMap = get_stateAb();
 
 const textColor = "#a79e8b";
+const width = 900;
 
 function formatTime(value) {
     if(mode === "Over months"){
@@ -96,7 +97,7 @@ function plot1(){
     const q1_maxIncident = d3.max(d3.map(q1_change_over_year , d=>d.Count));
     // setup margin
     const margin = {top: 20, right: 10, bottom: 60, left: 50};
-    const visWidth = 900 - margin.left - margin.right;
+    const visWidth = width - margin.left - margin.right;
     const visHeight = 550 - margin.top - margin.bottom;
   
     // define axis
@@ -217,15 +218,15 @@ function plot2(){
   const q2_margin = ({top: 20, right: 10, bottom: 20, left: 50});
   const q2_height = 750; 
 
-  const q2_visWidth = 900 - q2_margin.left - q2_margin.right;
+  const q2_visWidth = width - q2_margin.left - q2_margin.right;
   const q2_visHeight = q2_height - q2_margin.top - q2_margin.bottom;
   const svg = d3.select("#injuried_death_ratio").append('svg')
-      .attr('width', 900)
+      .attr('width', width)
       .attr('height', q2_height);
 
   // sclaces and axis - 
   
-  const q2_xScale = d3.scaleBand(death_injuries_change.map(d => d.Year),[q2_margin.left, 900 - q2_margin.right]).padding(0.2);
+  const q2_xScale = d3.scaleBand(death_injuries_change.map(d => d.Year),[q2_margin.left, width - q2_margin.right]).padding(0.2);
   const q2_yScale = d3.scaleLinear([ 0, q2_maxValue ],[ q2_visHeight, 0 ]);
 
 
@@ -336,7 +337,7 @@ const vis4_Spike_Data = Object.fromEntries(state_wise_count.map(([k, v]) => [ st
 function plot3(){
   // define margin
   const margin = ({top: 0, right: 20, bottom: 0, left: 50});
-  const visWidth =  900 - margin.top - margin.bottom;
+  const visWidth =  width - margin.top - margin.bottom;
   const visHeight = 700 - margin.top - margin.bottom;
 
   const projection =  d3.geoAlbersUsa().fitSize([visWidth -100, visHeight], usaGeo);
@@ -386,7 +387,7 @@ function plot3(){
     .selectAll("g")
       .data(length.ticks(4).slice(1).reverse())
     .join("g")
-    .attr('transform' , (d, i) => `translate(${900 - i * 18},${600})` )
+    .attr('transform' , (d, i) => `translate(${width - i * 18},${600})` )
 
   legend.append("path")
       .attr("fill", "red")
