@@ -325,6 +325,14 @@ function getAgeBin(){
     return age_bin_disbn;
 }
 
+const state_wise_count = d3.rollups(
+    incident,
+    group=> group.length,
+    item => item.State
+  ).sort((a,b)=>d3.descending(a[1],b[1]));
+
+const vis4_Spike_Data = Object.fromEntries(state_wise_count.map(([k, v]) => [ reverse_statetoAbrr[k], v ]));
+
 function plot3(){
   const age_group_dsbn = getAgeBin();
   const ageRanges = d3.map(age_group_dsbn, d => d[0]);
