@@ -101,11 +101,6 @@ Since, we cant generalize the occurences of incidents across all states, we delv
   colorize(plot2_legend, 'injuried_death_ratio_legend');
   plot2();
   plot3();
-  legend({
-    color: heatmap_color,
-    width: width,
-    title: 'State-wise Incident Distribution'
-  })
   plot4();
 </script>
 
