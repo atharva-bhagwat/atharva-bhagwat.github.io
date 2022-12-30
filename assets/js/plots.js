@@ -72,7 +72,7 @@ function colorize(colorList, htmlElement) {
       var box = document.createElement("DIV");
       var label = document.createElement("SPAN");
 
-      label.innerHTML = key;
+      label.innerHTML = `  ${key}`;
       box.className = "box";
       box.style.backgroundColor = colorList[key];
 
