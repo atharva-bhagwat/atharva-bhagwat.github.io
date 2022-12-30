@@ -482,11 +482,7 @@ function plot4(){
     .domain(d3.extent(heatmap_plot_data, d => d.total))
     .interpolator(d3.interpolateOrRd);
 
-  // const plot_legend = d3.select('#heatmap_legend').append(legend({
-  //   color: heatmap_color,
-  //   width: width,
-  //   title: 'State-wise Incident Distribution'
-  // }));
+  Legend(heatmap_color, '#heatmap_legend');
 
   // margin
   const margin = ({top: 55, bottom: 20, left: 30, right: 50});

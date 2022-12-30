@@ -1,7 +1,7 @@
 // Copyright 2021, Observable Inc.
 // Released under the ISC license.
 // https://observablehq.com/@d3/color-legend
-function Legend(color, {
+function Legend(color, htmlElement, {
     title,
     tickSize = 6,
     width = 320, 
@@ -27,7 +27,7 @@ function Legend(color, {
       return canvas;
     }
   
-    const svg = d3.create("svg")
+    const svg = d3.select(htmlElement).append("svg")
         .attr("width", width)
         .attr("height", height)
         .attr("viewBox", [0, 0, width, height])
@@ -144,8 +144,6 @@ function Legend(color, {
           .attr("font-weight", "bold")
           .attr("class", "title")
           .text(title));
-  
-    return svg.node();
   }
 
   // Copyright 2021, Observable Inc.
