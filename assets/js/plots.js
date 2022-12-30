@@ -400,15 +400,16 @@ function plot3(){
       .text(length.tickFormat(4, "s"));
 }
 
+const num_states = 5;
+const filtered_incident = incident.filter(i => i.Year >=2000);
+const top_state_data = d3.rollups(
+    filtered_incident ,
+    group=>group,
+    item => item.State
+  ).sort((a,b)=>d3.descending(a[1].length,b[1].length))
+  .slice(0,num_states);
+
 function plot4(){
-  const num_states = 5;
-  const filtered_incident = incident.filter(i => i.Year >=2000);
-  const top_state_data = d3.rollups(
-      filtered_incident ,
-      group=>group,
-      item => item.State
-    ).sort((a,b)=>d3.descending(a[1].length,b[1].length))
-    .slice(0,num_states);
   const state_data = d3.rollups(
       incident ,
       group=>group,
