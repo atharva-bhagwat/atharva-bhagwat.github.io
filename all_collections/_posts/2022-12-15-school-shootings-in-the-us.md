@@ -132,7 +132,7 @@ If we look at the other end of the spectrum, States like Hawaii, Idaho, North Da
   plot4();
   plot5();
   var plot678_legend = {Unknown: '#fed976', Handgun: '#b10026', Other: '', Rifle: '', 'Multiple Handguns': '', 'Multiple Rifles': '', Shotgun: ''};
-  colorize(plot5_legend, 'piechart1_legend');
+  colorize(plot678_legend, 'piechart1_legend');
   // plot6();
 </script>
 
