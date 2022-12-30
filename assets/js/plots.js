@@ -71,7 +71,6 @@ function plot1(){
     "Count": data[1]
     }) )
     .sort((a,b) => d3.ascending(a.Year , b.Year));
-    console.log(q1_change_over_year)
 
     const q1_years = d3.map(q1_change_over_year , d=>d.Year);
     const q1_extend = d3.extent(q1_years);
@@ -90,7 +89,6 @@ function plot1(){
         .domain([0, q1_maxIncident]).nice()
         .range([visHeight, 0]);
   
-    console.log('axis setup done')
     // define svg
     const svg = d3.select("#incident_over_time").append('svg')
         .attr('width', visWidth + margin.left + margin.right)
@@ -105,8 +103,6 @@ function plot1(){
         .curve(d3.curveBundle)
         .x(d => x(d.Year))
         .y(d => y(d.Count));
-  
-    console.log('line gen')
 
     // axes
     const xAxis = d3.axisBottom(x).ticks(10).tickFormat(d3.format("d"));
@@ -263,7 +259,7 @@ function plot2(){
     .call(q2_yAxis)
     .append('text')
     .attr("transform", "rotate(-90)")
-    .attr("x", 0 - q2_visHeight/2)
+    .attr("x", 0 - q2_visHeight/2 - 5)
     .attr("dy", "-2.5em")
     .attr('fill', textColor)
     .attr('font-family', 'sans-serif')
