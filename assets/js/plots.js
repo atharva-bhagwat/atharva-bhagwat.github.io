@@ -213,7 +213,7 @@ function plot2(){
   // sclaces and axis - 
 
   
-  const q2_xScale = d3.scaleBand(death_injuries_change.map(d => d.Year),[q2_margin.left, width - q2_margin.right]).padding(0.2);
+  const q2_xScale = d3.scaleBand(death_injuries_change.map(d => d.Year),[q2_margin.left, 900 - q2_margin.right]).padding(0.2);
   const q2_yScale = d3.scaleLinear([ 0, q2_maxValue ],[ q2_visHeight, 0 ]);
 
 
