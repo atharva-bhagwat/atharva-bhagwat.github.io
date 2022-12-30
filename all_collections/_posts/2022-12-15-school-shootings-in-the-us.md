@@ -108,6 +108,21 @@ If we look at the other end of the spectrum, States like Hawaii, Idaho, North Da
 <div id='heatmap_small'>
 </div>
 
+## What weapons are the most common?
+
+<div id='piechart1_legend'>
+</div>
+
+**States with highest number of incidents**
+
+<div id='piechart_high'>
+</div>
+
+**States with lowest number of incidents**
+
+<div id='piechart_low'>
+</div>
+
 <script>
   plot1();
   var plot2_legend = {Injuries: '#fed976', Deaths: '#b10026'};
@@ -116,5 +131,8 @@ If we look at the other end of the spectrum, States like Hawaii, Idaho, North Da
   plot3();
   plot4();
   plot5();
+  var plot678_legend = {Unknown: '#fed976', Handgun: '#b10026', Other: '', Rifle: '', 'Multiple Handguns': '', 'Multiple Rifles': '', Shotgun: ''};
+  colorize(plot5_legend, 'piechart1_legend');
+  // plot6();
 </script>
 
