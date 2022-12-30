@@ -175,6 +175,7 @@ function plot1(){
         .attr('fill', '#a79e8b')
         .attr('x', visWidth / 2 - 120)
         .attr('y', -margin.top)
+        .style("text-anchor", "middle")
         .text('Shooting incidents in US over the years');
 }
   
