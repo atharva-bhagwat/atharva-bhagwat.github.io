@@ -133,6 +133,8 @@ function plot1(){
         .attr('text-anchor', 'center')
         .text('Years');
   
+    console.log('add x axis');
+
     // y-axis and horizontal grid lines
     g.append('g')
         .call(yAxis)
@@ -155,6 +157,8 @@ function plot1(){
           .style("text-anchor", "middle")
           .style("font-size","15px")
          .text('No. of Incidents');
+
+    console.log('add y axis');
   
     //draw line
     g.append('g')
@@ -175,6 +179,8 @@ function plot1(){
         .attr('x', visWidth / 2 - 120)
         .attr('y', -margin.top)
         .text('Shooting incidents in US over the years');
+
+    console.log('add line and title')
 
   return svg;
 }
