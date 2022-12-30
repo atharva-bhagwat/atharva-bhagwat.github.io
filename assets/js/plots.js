@@ -414,27 +414,6 @@ function plot4(){
       group=>group,
       item => item.State
     ).sort((a,b)=>d3.descending(a[1].length,b[1].length));
-  const top_state_wise_count_dsbn = top_state_data
-    .map(s=>({
-      state: s[0],
-      counts: d3.rollups(
-        s[1],
-        group=>group.length,
-        item=>item.Year)
-      .sort((a,b)=>d3.ascending(a[0],b[0]))
-      .map(arr=>({year:arr[0],total:arr[1]})) 
-    }));
-  const state_wise_count_dsbn = state_data
-    .map(s=>({
-      state: s[0],
-      counts: d3.rollups(
-        s[1],
-        group=>group.length,
-        item=>item.Year)
-      .sort((a,b)=>d3.ascending(a[0],b[0]))
-      .map(arr=>({year:arr[0],total:arr[1]})) 
-    }));
-  const top_state_names = top_state_data.map(a=>a[0]);
   const state_names = state_data.map(a=>a[0]);
   const bottom_state_data = d3.rollups(
       filtered_incident,
@@ -472,12 +451,7 @@ function plot4(){
           total:arr[1]
         })
       ));
-  const start_year_heatmap = 2000;
-  const count_extent = d3.extent(heatmap_plot_data, d => d.total);
-  const top_count_extent = d3.extent(top_heatmap_plot_data, d => d.total);
-  const top_heatmap_color = d3.scaleSequential()
-    .domain(d3.extent(top_heatmap_plot_data, d => d.total))
-    .interpolator(d3.interpolateOrRd);
+
   const heatmap_color = d3.scaleSequential()
     .domain(d3.extent(heatmap_plot_data, d => d.total))
     .interpolator(d3.interpolateOrRd);
@@ -545,7 +519,7 @@ function plot4(){
   const tooltipHeight = 16;
   
   const tooltipRect = tooltip.append('rect')
-      .attr('fill', 'black')
+      .attr('fill', '#101417')
       .attr('rx', 5)
       .attr('height', tooltipHeight);
   
@@ -560,7 +534,7 @@ function plot4(){
    function mouseEnter(event, d) {
     console.log("qwer",d);
     d3.select(this)
-        .attr('stroke', 'black');
+        .attr('stroke', '#101417');
 
     amountText.text(`${d.state},${d.year} : ${d.total}`)
     
@@ -575,6 +549,149 @@ function plot4(){
     tooltip
       // .attr('transform', `translate(${visHeight},${visWidth+20})`)
       .attr('transform', `translate(${visWidth-75},-50)`)
+      .attr('visibility', 'visible');
+  }
+
+  function mouseLeave(event, d) {
+    d3.select(this)
+        .attr('stroke', "");
+    
+    tooltip
+        .attr('visibility', 'hidden');
+  }
+}
+
+function plot5(){
+  // const top_state_wise_count_dsbn = top_state_data
+  //   .map(s=>({
+  //     state: s[0],
+  //     counts: d3.rollups(
+  //       s[1],
+  //       group=>group.length,
+  //       item=>item.Year)
+  //     .sort((a,b)=>d3.ascending(a[0],b[0]))
+  //     .map(arr=>({year:arr[0],total:arr[1]})) 
+  //   }));
+  // const state_wise_count_dsbn = state_data
+  //   .map(s=>({
+  //     state: s[0],
+  //     counts: d3.rollups(
+  //       s[1],
+  //       group=>group.length,
+  //       item=>item.Year)
+  //     .sort((a,b)=>d3.ascending(a[0],b[0]))
+  //     .map(arr=>({year:arr[0],total:arr[1]})) 
+  //   }));
+  const top_state_names = top_state_data.map(a=>a[0]);
+  const start_year_heatmap = 2000;
+  // const count_extent = d3.extent(heatmap_plot_data, d => d.total);
+  // const top_count_extent = d3.extent(top_heatmap_plot_data, d => d.total);
+  const top_heatmap_color = d3.scaleSequential()
+    .domain(d3.extent(top_heatmap_plot_data, d => d.total))
+    .interpolator(d3.interpolateOrRd);
+
+  const top_heatmap_plot_data = top_state_data
+    .flatMap(s=>d3.rollups(
+      s[1],
+      group=>group.length,
+      item=>item.Year)
+      .sort((a,b)=>d3.ascending(a[0],b[0]))
+      .map(
+        arr=>({
+          state:s[0],
+          year:arr[0],
+          total:arr[1]
+        })
+      ));
+
+  Legend(top_heatmap_color, '#heatmap_small_legend', {title: 'State-wise Incident Distribution from year 2000', width: width});
+
+  // margin
+  const margin = ({top: 55, bottom: 20, left: 25, right: 0});
+  const visWidth = 900 - margin.left - margin.right;
+  const visHeight = (top_state_names.length*40) - margin.top - margin.bottom;
+
+
+  // Setup
+  const svg = d3.select('#heatmap_small').append('svg')
+      .attr('width', visWidth + margin.left + margin.right)
+      .attr('height', visHeight + margin.top + margin.bottom);
+
+  const g = svg.append("g")
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+  
+// Define x axis
+  const x = d3.scaleBand()
+    .range([0, visWidth])
+    .domain(d3.range(start_year_heatmap ,2023))
+    .padding(0.2)
+  
+  const xAxis = d3.axisTop(x)
+  
+  g.append('g')
+    .attr('transform', `translate(0,0)`)
+    .call(xAxis)
+    .selectAll("text")
+        .attr("transform","rotate(-90)")
+        .style("text-anchor", "mid")
+        .attr("dx", "1.75em")
+        .attr("dy", "1.35em")
+  
+  // Define y-axis
+  const y = d3.scaleBand()
+		.domain(top_state_names)
+    .range([0, visHeight - 30])
+		.padding(0.2)
+  
+  const yAxis = d3.axisLeft(y)
+  
+	g.append('g').call(yAxis)
+    
+	// draw rectangles
+	g.selectAll('rect')
+		.data(top_heatmap_plot_data)
+		.enter()
+    .append('rect')
+			.attr('x', d => x(d.year))
+			.attr('y', d => y(d.state))
+			.attr('width', x.bandwidth())
+			.attr('height', y.bandwidth())
+			.attr('fill', d => top_heatmap_color(d.total))
+      .on('mouseenter', mouseEnter)
+      .on('mouseleave', mouseLeave);
+
+  const tooltip = g.append('g')
+      .attr('visibility', 'hidden');
+  
+  const tooltipHeight = 16;
+  
+  const tooltipRect = tooltip.append('rect')
+      .attr('fill', '#101417')
+      .attr('rx', 5)
+      .attr('height', tooltipHeight);
+  
+  const amountText = tooltip.append('text')
+      .attr('fill', 'white')
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', 12)
+      .attr('y', 2)
+      .attr('x', 3)
+      .attr('dominant-baseline', 'hanging')
+
+   function mouseEnter(event, d) {
+    console.log("qwer",d);
+    d3.select(this)
+        .attr('stroke', '#101417');
+
+    amountText.text(`${d.total}`)
+
+    tooltipRect.attr('width', 20);
+
+    const xPos = x(d.year) - 5;
+    const yPos = y(d.state) - 5;
+
+    tooltip
+      .attr('transform', `translate(${xPos},${yPos})`)
       .attr('visibility', 'visible');
   }
 

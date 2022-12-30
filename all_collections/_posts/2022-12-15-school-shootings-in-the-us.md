@@ -97,6 +97,17 @@ Since, we cant generalize the occurences of incidents across all states, we delv
 <div id='heatmap'>
 </div>
 
+As we notice, this visualization is highly similar to the cumulative incident distribution over the years we see initially. There seems to a sharp increase in number of incidents after 2015 across most of the states, denoted by a orange to dark-red shades in the right side of the visualization. Large number of white spaces in heatmap signifies that there is little to no incidents for majortiy of the states for large number of years. 
+
+This motivates us to understand recent trends inorder to correlate with current state laws. Hence we shift our focus only to incident occurence after the year 2000. Interesting patterns arise when we inspect state-wise breakdown of data from year 2000. States like California, Texas, Illinois, Florida, Pittsburgh, Ohio has seen higher incidents when compared to rest of the country, with California topping the list five times over the last 6 years. Average number of incidents across the top 5 states over the last 22 years seems to over 7. Sadly, there has been only 15 occurences where the top 5 states didnt have a single incident for an entire year over the last 22 years. Illinois has also the highest number of incidents in the recent years, which motivates us further to focus on this group of states. 
+
+If we look at the other end of the spectrum, States like Hawaii, Idaho, North Dakota, US Virgin Islands, West Virginia has low incident count with an average incident occurence of 3.8 per years over the last 22 years. Hence, we decide to compare on these two groups of state in our analysis further.
+
+<div id='heatmap_small_legend'>
+</div>
+<div id='heatmap_small'>
+</div>
+
 <script>
   plot1();
   var plot2_legend = {Injuries: '#fed976', Deaths: '#b10026'};
@@ -104,5 +115,6 @@ Since, we cant generalize the occurences of incidents across all states, we delv
   plot2();
   plot3();
   plot4();
+  plot5();
 </script>
 
