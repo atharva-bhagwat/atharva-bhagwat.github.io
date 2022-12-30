@@ -2,8 +2,6 @@
 // Released under the ISC license.
 // https://observablehq.com/@d3/color-legend
 
-const textColor = "#a79e8b";
-
 function Legend(color, htmlElement, {
     title,
     tickSize = 6,
