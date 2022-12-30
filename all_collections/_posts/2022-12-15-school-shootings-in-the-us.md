@@ -71,6 +71,8 @@ We notice a rising trend in the number of shootings over the years which is almo
 ## ...and Deadlier
 
 
+<div id='injuried_death_ratio_legend'>
+</div>
 <div id='injuried_death_ratio'>
 </div>
 

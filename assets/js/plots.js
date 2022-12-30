@@ -195,7 +195,7 @@ function plot2(){
       .domain(["Injuries", "Deaths"])
       .range(["#fed976", "#b10026"]);
   
-  Swatches(q2_color);
+  d3.select("#injuried_death_ratio_legend").append(Swatches(q2_color));
   
   const q2_margin = ({top: 20, right: 10, bottom: 20, left: 50});
   const q2_height = 750; 
@@ -250,6 +250,7 @@ function plot2(){
       .attr('font-family', 'sans-serif')
       .attr('x', q2_visWidth / 2)
       .style("font-size","12px")
+      .style("text-anchor", "middle")
       .attr('y', 40)
       .text("Years");
 
@@ -259,7 +260,7 @@ function plot2(){
     .call(q2_yAxis)
     .append('text')
     .attr("transform", "rotate(-90)")
-    .attr("x", 0 - q2_visHeight/2 - 5)
+    .attr("x", 0 - q2_visHeight/2)
     .attr("dy", "-2.5em")
     .attr('fill', textColor)
     .attr('font-family', 'sans-serif')
