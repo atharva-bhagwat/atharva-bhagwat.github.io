@@ -86,11 +86,26 @@ Looking at the last 5 years, we see not only the number of incidents which has g
 <div id='statewise'>
 </div>
 
+Now lets see the state-wise spread of indicidents over the years. To visualize this we used a spike map. Here the length of the spike shows the number of total shooting incidents. As we can observe states like California, Texas, Florida have highest number of incidents followed by Illinois, Michigan, Pennsylvania, Ohio and New York.
+
+On paper these states can also be classified highly populated states, so one might believe thats the reason for the high incident count. California is the most populated state followed by Texas, Florida, New York. These states rank in the top 10 states in terms of population. But, when we look ar population density, these states fall down rank. New Jersey which ranks 2nd in population density has very less shooting incidents (21 incidents) as compared to its neighbour New York (83 incidents). So high population cannot be the sole factor for the incident counts across the states.
+
+Since, we cant generalize the occurences of incidents across all states, we delve further and look at the spread of incidents for each state across the timespan from 1970 to 2022. We can use a heatmap to visualize as it help compare all the states with each other using a sequential color scale.
+
+<div id='heatmap'>
+</div>
+
 <script>
   plot1();
   var plot2_legend = {Injuries: '#fed976', Deaths: '#b10026'};
   colorize(plot2_legend, 'injuried_death_ratio_legend');
   plot2();
   plot3();
+  legend({
+    color: heatmap_color,
+    width: width,
+    title: 'State-wise Incident Distribution'
+  })
+  plot4();
 </script>
 

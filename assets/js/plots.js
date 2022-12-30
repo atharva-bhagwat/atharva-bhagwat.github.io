@@ -399,3 +399,188 @@ function plot3(){
       .attr("dy", "1.3em")
       .text(length.tickFormat(4, "s"));
 }
+
+function plot4(){
+  const num_states = 5;
+  const filtered_incident = incident.filter(i => i.Year >=2000);
+  const top_state_data = d3.rollups(
+      filtered_incident ,
+      group=>group,
+      item => item.State
+    ).sort((a,b)=>d3.descending(a[1].length,b[1].length))
+    .slice(0,num_states);
+  const state_data = d3.rollups(
+      incident ,
+      group=>group,
+      item => item.State
+    ).sort((a,b)=>d3.descending(a[1].length,b[1].length));
+  const top_state_wise_count_dsbn = top_state_data
+    .map(s=>({
+      state: s[0],
+      counts: d3.rollups(
+        s[1],
+        group=>group.length,
+        item=>item.Year)
+      .sort((a,b)=>d3.ascending(a[0],b[0]))
+      .map(arr=>({year:arr[0],total:arr[1]})) 
+    }));
+  const state_wise_count_dsbn = state_data
+    .map(s=>({
+      state: s[0],
+      counts: d3.rollups(
+        s[1],
+        group=>group.length,
+        item=>item.Year)
+      .sort((a,b)=>d3.ascending(a[0],b[0]))
+      .map(arr=>({year:arr[0],total:arr[1]})) 
+    }));
+  const top_state_names = top_state_data.map(a=>a[0]);
+  const state_names = state_data.map(a=>a[0]);
+  const bottom_state_data = d3.rollups(
+      filtered_incident,
+      group=>group,
+      item => item.State
+    ).sort((a,b)=>d3.ascending(a[1].length,b[1].length))
+    .slice(0,num_states);
+  const bottom_state_names = bottom_state_data.map(a=>a[0]);
+  const minYear = 1970;
+  const maxYear = 2022;
+  const top_heatmap_plot_data = top_state_data
+    .flatMap(s=>d3.rollups(
+      s[1],
+      group=>group.length,
+      item=>item.Year)
+      .sort((a,b)=>d3.ascending(a[0],b[0]))
+      .map(
+        arr=>({
+          state:s[0],
+          year:arr[0],
+          total:arr[1]
+        })
+    ));
+
+  const heatmap_plot_data = state_data
+    .flatMap(s=>d3.rollups(
+      s[1],
+      group=>group.length,
+      item=>item.Year)
+      .sort((a,b)=>d3.ascending(a[0],b[0]))
+      .map(
+        arr=>({
+          state:s[0],
+          year:arr[0],
+          total:arr[1]
+        })
+      ));
+  const start_year_heatmap = 2000;
+  const count_extent = d3.extent(heatmap_plot_data, d => d.total);
+  const top_count_extent = d3.extent(top_heatmap_plot_data, d => d.total);
+  const top_heatmap_color = d3.scaleSequential()
+    .domain(d3.extent(top_heatmap_plot_data, d => d.total))
+    .interpolator(d3.interpolateOrRd);
+  const heatmap_color = d3.scaleSequential()
+    .domain(d3.extent(heatmap_plot_data, d => d.total))
+    .interpolator(d3.interpolateOrRd);
+
+  // margin
+  const margin = ({top: 55, bottom: 20, left: 30, right: 50});
+  const visWidth = width - margin.left - margin.right;
+  const visHeight = 800 - margin.top - margin.bottom;
+  // const visHeight = (state_names.length*12) - margin.top - margin.bottom;
+
+
+  // Setup
+  const svg = d3.select('#heatmap').append('svg')
+      .attr('width', visWidth + margin.left + margin.right)
+      .attr('height', visHeight + margin.top + margin.bottom);
+
+  const g = svg.append("g")
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+  
+// Define x axis
+  const x = d3.scaleBand()
+    .range([0, visWidth])
+    .domain(d3.range(1970 ,2023))
+    .padding(0.2)
+  
+  const xAxis = d3.axisTop(x)
+  
+  g.append('g')
+    .attr('transform', `translate(0,0)`)
+    .call(xAxis)
+    .selectAll("text")
+        .attr("transform","rotate(-90)")
+        .style("text-anchor", "mid")
+        .attr("dx", "1.75em")
+        .attr("dy", "1.35em")
+  
+  // Define y-axis
+  const y = d3.scaleBand()
+		.domain(state_names)
+    .range([0, visHeight - 30])
+		.padding(0.2)
+  
+  const yAxis = d3.axisLeft(y)
+  
+	g.append('g').call(yAxis)
+    
+	// draw rectangles
+	g.selectAll('rect')
+		.data(heatmap_plot_data)
+		.enter()
+    .append('rect')
+			.attr('x', d => x(d.year))
+			.attr('y', d => y(d.state))
+			.attr('width', x.bandwidth())
+			.attr('height', y.bandwidth())
+			.attr('fill', d => heatmap_color(d.total))
+      .on('mouseenter', mouseEnter)
+      .on('mouseleave', mouseLeave);
+
+  const tooltip = g.append('g')
+      .attr('visibility', 'hidden');
+  
+  const tooltipHeight = 16;
+  
+  const tooltipRect = tooltip.append('rect')
+      .attr('fill', 'black')
+      .attr('rx', 5)
+      .attr('height', tooltipHeight);
+  
+  const amountText = tooltip.append('text')
+      .attr('fill', 'white')
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', 12)
+      .attr('y', 2)
+      .attr('x', 3)
+      .attr('dominant-baseline', 'hanging')
+
+   function mouseEnter(event, d) {
+    console.log("qwer",d);
+    d3.select(this)
+        .attr('stroke', 'black');
+
+    amountText.text(`${d.state},${d.year} : ${d.total}`)
+    
+    const labelWidth = amountText.node().getComputedTextLength();
+
+    tooltipRect.attr('width', labelWidth+10);
+    tooltipRect.attr('text-align', 'center');
+
+    const xPos = x(d.year) - 5;
+    const yPos = y(d.state) - 5;
+
+    tooltip
+      // .attr('transform', `translate(${visHeight},${visWidth+20})`)
+      .attr('transform', `translate(${visWidth-75},-50)`)
+      .attr('visibility', 'visible');
+  }
+
+  function mouseLeave(event, d) {
+    d3.select(this)
+        .attr('stroke', "");
+    
+    tooltip
+        .attr('visibility', 'hidden');
+  }
+}
