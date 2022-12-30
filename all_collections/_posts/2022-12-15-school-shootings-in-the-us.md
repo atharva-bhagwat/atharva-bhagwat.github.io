@@ -66,8 +66,18 @@ In the last decade, school schootings have become a frequent occuring and have b
 <div id='incident_over_time'>
 </div>
 
+
+
+<div id='circle'>
+</div>
+
 <script>
-  var div = d3.select("#incident_over_time");
-  const plt1 = plot1();
-  div.append(plt1.node());
+  var div = d3.select("#circle");
+  div.append("svg")
+      .attr("cy", 100)
+      .attr("r", 90)
+      .attr("fill", "red");
+
+  document.getElementById('incident_over_time').innerHTML = plot1().node();
 </script>
+

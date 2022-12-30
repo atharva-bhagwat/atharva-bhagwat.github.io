@@ -180,7 +180,7 @@ function plot1(){
         .attr('y', -margin.top)
         .text('Shooting incidents in US over the years');
 
-    console.log('add line and title')
+    console.log('add line and title');
 
   return svg;
 }
