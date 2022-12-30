@@ -170,7 +170,7 @@ function Swatches(color, {
     return `&#${character.charCodeAt(0).toString()};`;
   }
 
-  if (columns !== null) return htl.html`<div style="display: flex; align-items: center; margin-left: ${+marginLeft}px; min-height: 33px; font: 10px sans-serif;">
+  if (columns !== null) return `<div style="display: flex; align-items: center; margin-left: ${+marginLeft}px; min-height: 33px; font: 10px sans-serif;">
   <style>
 
 .${id}-item {
@@ -196,7 +196,7 @@ function Swatches(color, {
   </style>
   <div style=${{width: "100%", columns}}>${domain.map(value => {
     const label = `${format(value)}`;
-    return htl.html`<div class=${id}-item>
+    return `<div class=${id}-item>
       <div class=${id}-swatch style=${{background: color(value)}}></div>
       <div class=${id}-label title=${label}>${label}</div>
     </div>`;
@@ -204,7 +204,7 @@ function Swatches(color, {
   </div>
 </div>`;
 
-  return htl.html`<div style="display: flex; align-items: center; min-height: 33px; margin-left: ${+marginLeft}px; font: 10px sans-serif;">
+  return `<div style="display: flex; align-items: center; min-height: 33px; margin-left: ${+marginLeft}px; font: 10px sans-serif;">
   <style>
 
 .${id} {
@@ -222,7 +222,7 @@ function Swatches(color, {
 }
 
   </style>
-  <div>${domain.map(value => htl.html`<span class="${id}" style="--color: ${color(value)}">${format(value)}</span>`)}</div>`;
+  <div>${domain.map(value => `<span class="${id}" style="--color: ${color(value)}">${format(value)}</span>`)}</div>`;
 }
 
 // Copyright 2021, Observable Inc.
@@ -247,7 +247,7 @@ function Swatches(color, {
       return `&#${character.charCodeAt(0).toString()};`;
     }
   
-    if (columns !== null) return htl.html`<div style="display: flex; align-items: center; margin-left: ${+marginLeft}px; min-height: 33px; font: 10px sans-serif;">
+    if (columns !== null) return `<div style="display: flex; align-items: center; margin-left: ${+marginLeft}px; min-height: 33px; font: 10px sans-serif;">
     <style>
   
   .${id}-item {
@@ -273,7 +273,7 @@ function Swatches(color, {
     </style>
     <div style=${{width: "100%", columns}}>${domain.map(value => {
       const label = `${format(value)}`;
-      return htl.html`<div class=${id}-item>
+      return `<div class=${id}-item>
         <div class=${id}-swatch style=${{background: color(value)}}></div>
         <div class=${id}-label title=${label}>${label}</div>
       </div>`;
@@ -281,7 +281,7 @@ function Swatches(color, {
     </div>
   </div>`;
   
-    return htl.html`<div style="display: flex; align-items: center; min-height: 33px; margin-left: ${+marginLeft}px; font: 10px sans-serif;">
+    return `<div style="display: flex; align-items: center; min-height: 33px; margin-left: ${+marginLeft}px; font: 10px sans-serif;">
     <style>
   
   .${id} {
@@ -299,5 +299,5 @@ function Swatches(color, {
   }
   
     </style>
-    <div>${domain.map(value => htl.html`<span class="${id}" style="--color: ${color(value)}">${format(value)}</span>`)}</div>`;
+    <div>${domain.map(value => `<span class="${id}" style="--color: ${color(value)}">${format(value)}</span>`)}</div>`;
 }
