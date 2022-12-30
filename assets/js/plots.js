@@ -182,7 +182,25 @@ function plot1(){
 }
 
 function plot2(){
+  const incidentFilter = d3.filter(incident, d => d.Year >= 2000);
+  const death_injuries_change = d3.rollups(incidentFilter , group => 
+            ({
+              "wounded" : d3.sum(group , d=>d.Victims_Wounded),
+              "killed" : d3.sum(group , d=>d.Victims_Killed)
+            }) , d=>d.Year)
+        .map(data => ({
+        "Year" : data[0],
+        "Injuries" : data[1].wounded,
+        "Deaths" : data[1].killed,
+        "Total" : data[1].wounded + data[1].killed
+        })).sort((a,b) => d3.ascending( a.Year , b.Year));
+  const q2_maxValue = d3.max(death_injuries_change, d => d.Total);
+  const q2_color = d3.scaleOrdinal()
+      .domain(["Injuries", "Deaths"])
+      .range(["#fed976", "#b10026"]);
+  
   Swatches(q2_color);
+  
   const q2_margin = ({top: 20, right: 10, bottom: 20, left: 50});
   const q2_height = 750; 
 
