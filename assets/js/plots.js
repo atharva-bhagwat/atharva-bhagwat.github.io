@@ -284,3 +284,118 @@ function plot2(){
     .style("font-size","12px")
     .text('No. of Incidents');
 }
+
+function getAgeBin(){
+    const res = {}
+    shooter.forEach(row=>{
+      const age = row.Age
+      let key = ''
+      if(Number.isInteger(age)){
+        if(age>=0 && age < 13){ // mior child
+          key = 1  // 0-12
+        }
+        if(age>=13 && age < 18){
+          key = 2 // 13-17
+        }
+        if(age>=18 && age < 22){
+          key = 3 // 18-21
+        }
+        if(age>=22 && age < 31) {
+          key = 4 // 22-30
+        }
+        if(age>=31 && age < 51) {
+          key = 5 // 31-50
+        }
+        if(age>=51 ) {
+          key = 6 // 50+
+        }
+      }
+      // if(!key) key = age
+      if(key) {
+        if(res[key]) res[key].push(row)
+        else res[key] = [row]    
+      }
+    })
+    const age_bin_disbn = []
+    Object.keys(res).forEach(b=>{
+      console.log(b,res[b])
+      const val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown")
+      age_bin_disbn.push([b,val])
+    })
+    return age_bin_disbn;
+}
+
+function plot3(){
+  const age_group_dsbn = getAgeBin();
+  const ageRanges = d3.map(age_group_dsbn, d => d[0]);
+  const genders = ["Unknown", "Male", "Female", "Transgender"];
+  const q3_maxValue = d3.max(
+      age_group_dsbn,
+      ([ageRange, genderCount]) => d3.max(genderCount, ([gender, count]) => count)
+    );
+
+  // define margin
+  const margin = ({top: 0, right: 20, bottom: 0, left: 50});
+  const visWidth =  900 - margin.top - margin.bottom;
+  const visHeight = 700 - margin.top - margin.bottom;
+
+  const projection =  d3.geoAlbersUsa().fitSize([visWidth -100, visHeight], usaGeo);
+  const path = d3.geoPath().projection(projection);
+
+  // Referenced from https://observablehq.com/@d3/spike-map
+  const spike = (length, width = 8) => `M${-width / 2},0L0,${-length}L${width / 2},0`;
+
+  const maxRate = d3.max(Object.values(vis4_Spike_Data));
+  const length = d3.scaleLinear().domain([0, maxRate]).range([0, 150]);
+
+    // Setup
+  const svg = d3.select('#statewise').append('svg')
+      .attr('width', visWidth + margin.left + margin.right)
+      .attr('height', visHeight + margin.top + margin.bottom);
+
+  const g = svg.append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  
+  // Draw map
+  g.selectAll("path")
+    .data(usaGeo.features)
+    .join("path")
+      .attr("d", path)
+      .attr("fill", "lightgrey")
+      .attr("stroke", "white");
+
+  // draw spikes 
+  g.append("g")
+      .attr("fill", "red" )
+      .attr("fill-opacity", 0.2)
+      .attr("stroke", "red")
+    .selectAll("path")
+    .data(usaGeo.features)
+    .join("path") 
+      .attr("transform", state => `translate(${path.centroid(state)})`)
+      .attr("d", state => spike(length(vis4_Spike_Data[state.properties.NAME])));
+
+
+  // Draw Legend   
+  
+// Referenced from https://observablehq.com/@d3/spike-map
+  const legend = svg.append("g")
+      .attr("fill", "#777")
+      .attr("text-anchor", "middle")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", 10)
+    .selectAll("g")
+      .data(length.ticks(4).slice(1).reverse())
+    .join("g")
+    .attr('transform' , (d, i) => `translate(${900 - i * 18},${600})` )
+
+  legend.append("path")
+      .attr("fill", "red")
+      .attr("fill-opacity", 0.2)
+      .attr("stroke", "red")
+      .attr("d", d => spike(length(d)));
+
+  legend.append("text")
+      .attr("dy", "1.3em")
+      .text(length.tickFormat(4, "s"));
+}

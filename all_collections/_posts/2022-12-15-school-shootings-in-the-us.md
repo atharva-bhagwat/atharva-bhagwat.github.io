@@ -77,10 +77,20 @@ We notice a rising trend in the number of shootings over the years which is almo
 <div id='injuried_death_ratio'>
 </div>
 
+We focus on the incidents in the 21st century and look at how the number of injuries and deaths has changed over the years. We use a stacked bar chart to better show both number of injuries and deaths in a year. From the graph above we can see an overview of the injuries and deaths ratio, where injuries are more than deaths however we notice that the death to injury ratio was higher in 2012 compared to the rest of the years. Looking at the data of 2012, the Sandy Hook Elementary School incident led to over 25 deaths and is more likely to have skewed the ratio.
+
+Looking at the last 5 years, we see not only the number of incidents which has gone up, but also the number of deaths have increased.
+
+## Is it the same for everywhere?
+
+<div id='statewise'>
+</div>
+
 <script>
   plot1();
   var plot2_legend = {Injuries: '#fed976', Deaths: '#b10026'};
   colorize(plot2_legend, 'injuried_death_ratio_legend');
   plot2();
+  plot3();
 </script>
 
