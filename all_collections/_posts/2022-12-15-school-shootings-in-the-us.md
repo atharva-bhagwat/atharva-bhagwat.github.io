@@ -66,7 +66,16 @@ In the last decade, school schootings have become a frequent occuring and have b
 <div id='incident_over_time'>
 </div>
 
+We notice a rising trend in the number of shootings over the years which is almost 1200% increase in five decades. Where in during the 70s the yearly shooting occurrence was as low as 20, to the current time where it is almost 260 yearly. We notice a jump in the number of incidents after 2015 where it has increased almost 4 times.
+
+## ...and Deadlier
+
+
+<div id='injuried_death_ratio'>
+</div>
+
 <script>
   plot1();
+  plot2();
 </script>
 

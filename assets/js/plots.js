@@ -22,6 +22,8 @@ const shooter = format_json(get_shooter());
 const usaGeo = get_usaGeo();
 const stateAbMap = get_stateAb();
 
+const textColor = "#a79e8b";
+
 function formatTime(value) {
     if(mode === "Over months"){
       let monthMap = {
@@ -128,7 +130,7 @@ function plot1(){
       .append('text')
         .attr('x', visWidth / 2)
         .attr('y', 40)
-        .attr('fill', '#a79e8b')
+        .attr('fill', textColor)
         .attr('font-size', '15px')
         .attr('text-anchor', 'center')
         .text('Years');
@@ -150,7 +152,7 @@ function plot1(){
           .attr("transform", "rotate(-90)")
           .attr("x", 0 - visHeight/2)
           .attr("dy", "-2.5em")
-          .attr('fill', '#a79e8b')
+          .attr('fill', textColor)
           .attr('font-family', 'sans-serif')
           .style("text-anchor", "middle")
           .style("font-size","15px")
@@ -172,10 +174,82 @@ function plot1(){
        g.append('text')
         .attr('font-size', '15px')
         .attr('dominant-baseline', 'hanging')
-        .attr('fill', '#a79e8b')
-        .attr('x', visWidth / 2 - 120)
+        .attr('fill', textColor)
+        .attr('x', visWidth / 2)
         .attr('y', -margin.top)
         .style("text-anchor", "middle")
         .text('Shooting incidents in US over the years');
 }
+
+function plot2(){
+  Swatches(q2_color);
+  const q2_margin = ({top: 20, right: 10, bottom: 20, left: 50});
+  const q2_height = 750; 
+
+  const q2_visWidth = 900 - q2_margin.left - q2_margin.right;
+  const q2_visHeight = q2_height - q2_margin.top - q2_margin.bottom;
+  const svg = d3.select("#injuried_death_ratio").append('svg')
+      .attr('width', 900)
+      .attr('height', q2_height);
+
+  // sclaces and axis - 
+
   
+  const q2_xScale = d3.scaleBand(death_injuries_change.map(d => d.Year),[q2_margin.left, width - q2_margin.right]).padding(0.2);
+  const q2_yScale = d3.scaleLinear([ 0, q2_maxValue ],[ q2_visHeight, 0 ]);
+
+
+
+  const q2_xAxis = d3.axisBottom(q2_xScale).tickSizeOuter(0);
+  const q2_yAxis = d3.axisLeft(q2_yScale)
+
+  const q2_stack = d3.stack().keys(["Injuries", "Deaths"])
+  
+  // Pass our data to the stack to generate the layer positions
+  const chartData = q2_stack(death_injuries_change)
+  
+  const groups = svg.append('g')
+    // Each layer of the stack goes in a group
+    // the group contains that layer for all countries
+    .selectAll('g')
+    .data(chartData)
+    .join('g')
+      // rects in the same layer will all have the same color, so we can put it on the group
+      // we can use the key on the layer's array to set the color
+      .style('fill', (d,i) => q2_color(d.key))
+  
+  groups.selectAll('rect')
+    // Now we place the rects, which are the children of the layer array
+    .data(d => d)
+    .join('rect')
+      .attr('x', d => q2_xScale(d.data.Year))
+      .attr('y', d => q2_yScale(d[1]))
+      .attr('height', d => q2_yScale(d[0]) - q2_yScale(d[1]))
+      .attr('width', q2_xScale.bandwidth())
+
+  svg.append('g')
+    .attr('transform', `translate(0,${q2_visHeight})`)
+    .call(q2_xAxis)
+      // add a label for the x-axis
+    .append('text')
+      .attr('fill', textColor)
+      .attr('font-family', 'sans-serif')
+      .attr('x', q2_visWidth / 2)
+      .style("font-size","12px")
+      .attr('y', 40)
+      .text("Years");
+
+  
+  svg.append('g')
+    .attr('transform', `translate(${ q2_margin.left },0)`)
+    .call(q2_yAxis)
+    .append('text')
+    .attr("transform", "rotate(-90)")
+    .attr("x", 0 - q2_visHeight/2)
+    .attr("dy", "-2.5em")
+    .attr('fill', textColor)
+    .attr('font-family', 'sans-serif')
+    .style("text-anchor", "middle")
+    .style("font-size","12px")
+    .text('No. of Incidents');
+}
