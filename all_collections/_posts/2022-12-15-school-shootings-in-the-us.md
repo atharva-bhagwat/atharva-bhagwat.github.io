@@ -92,6 +92,8 @@ On paper these states can also be classified highly populated states, so one mig
 
 Since, we cant generalize the occurences of incidents across all states, we delve further and look at the spread of incidents for each state across the timespan from 1970 to 2022. We can use a heatmap to visualize as it help compare all the states with each other using a sequential color scale.
 
+<div id='heatmap_legend'>
+</div>
 <div id='heatmap'>
 </div>
 
