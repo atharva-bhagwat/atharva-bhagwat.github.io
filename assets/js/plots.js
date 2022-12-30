@@ -75,7 +75,7 @@ function plot1(){
     const q1_extend = d3.extent(q1_years);
     const q1_maxIncident = d3.max(d3.map(q1_change_over_year , d=>d.Count));
     // setup margin
-    const margin = {top: 20, right: 10, bottom: 60, left: 50};
+    const margin = {top: 20, right: 10, bottom: 60, left: 0};
     const visWidth = 950 - margin.left - margin.right;
     const visHeight = 600 - margin.top - margin.bottom;
   
