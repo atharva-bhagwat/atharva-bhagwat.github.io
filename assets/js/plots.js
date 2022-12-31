@@ -888,7 +888,8 @@ function getAgeBin(){
       }
     }
   }
-  console.log(`RES: ${res}`);
+  console.log(`RES:`);
+  console.log(res);
   let age_bin_disbn = [];
   for(let i=0; i < Object.keys(res).length; i++){
     let val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown");
