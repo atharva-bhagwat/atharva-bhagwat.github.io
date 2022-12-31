@@ -1040,7 +1040,7 @@ function plot10(){
       .call(q6_yAxis)
       .call(g => g.select('.domain').remove())
     .append('text')
-      .attr('fill', 'black')
+      .attr('fill', 'white')
       .attr('text-anchor', 'start')
       .attr('dominant-baseline', 'hanging')
       .attr('font-weight', 'bold')
