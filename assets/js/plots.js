@@ -861,7 +861,6 @@ function getAgeBin(){
     const age = parseInt(row.Age);
     var key = '';
     if(Number.isInteger(age)){
-      console.log('here')
       if(age>=0 && age < 13){// mior child
         key = 1; // 0-12
       }
@@ -887,10 +886,11 @@ function getAgeBin(){
   console.log(`RES:`);
   console.log(res);
   let age_bin_disbn = [];
-  for(let i=0; i < Object.keys(res).length; i++){
-    let val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown");
-    age_bin_disbn.push([b,val]);
-  }
+  Object.keys(res).forEach(b=>{
+    console.log(b,res[b])
+    const val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown")
+    age_bin_disbn.push([b,val])
+  })
   return age_bin_disbn;
 }
 
