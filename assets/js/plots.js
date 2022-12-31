@@ -856,7 +856,7 @@ function generatePies(data, divName) {
 }
 
 function getAgeBin(){
-  const res = {}
+  var res = {}
   shooter.forEach(row=>{
     const age = row.Age
     let key = ''
@@ -886,9 +886,9 @@ function getAgeBin(){
       else res[key] = [row]    
     }
   })
-  const age_bin_disbn = []
+  var age_bin_disbn = []
   Object.keys(res).forEach(b=>{
-    const val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown")
+    var val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown")
     age_bin_disbn.push([b,val])
   })
   return age_bin_disbn;
@@ -1031,13 +1031,7 @@ function plot10(){
       .call(q6_xAxis)
       .call(g => g.select('.domain').remove());
 
-  let titleText = ""
-  if(mode === "Over months"){
-    titleText = "months"
-  } else {
-    titleText = "quarters"
-  }
-  
+  let titleText = "quarters";
   
   g.append('g')
       .call(q6_yAxis)
