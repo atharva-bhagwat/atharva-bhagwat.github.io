@@ -861,6 +861,7 @@ function getAgeBin(){
     const age = parseInt(row.Age);
     var key = '';
     if(Number.isInteger(age)){
+      console.log('here')
       if(age>=0 && age < 13){// mior child
         key = 1; // 0-12
       }
