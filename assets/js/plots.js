@@ -288,46 +288,6 @@ function plot2(){
     .text('No. of Incidents');
 }
 
-function getAgeBin(){
-    const res = {}
-    shooter.forEach(row=>{
-      const age = row.Age
-      let key = ''
-      if(Number.isInteger(age)){
-        if(age>=0 && age < 13){ // mior child
-          key = 1  // 0-12
-        }
-        if(age>=13 && age < 18){
-          key = 2 // 13-17
-        }
-        if(age>=18 && age < 22){
-          key = 3 // 18-21
-        }
-        if(age>=22 && age < 31) {
-          key = 4 // 22-30
-        }
-        if(age>=31 && age < 51) {
-          key = 5 // 31-50
-        }
-        if(age>=51 ) {
-          key = 6 // 50+
-        }
-      }
-      // if(!key) key = age
-      if(key) {
-        if(res[key]) res[key].push(row)
-        else res[key] = [row]    
-      }
-    })
-    const age_bin_disbn = []
-    Object.keys(res).forEach(b=>{
-      console.log(b,res[b])
-      const val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown")
-      age_bin_disbn.push([b,val])
-    })
-    return age_bin_disbn;
-}
-
 const state_wise_count = d3.rollups(
     incident,
     group=> group.length,
@@ -410,6 +370,12 @@ const top_state_data = d3.rollups(
     item => item.State
   ).sort((a,b)=>d3.descending(a[1].length,b[1].length))
   .slice(0,num_states);
+const bottom_state_data = d3.rollups(
+    filtered_incident,
+    group=>group,
+    item => item.State
+  ).sort((a,b)=>d3.ascending(a[1].length,b[1].length))
+  .slice(0,num_states);
 
 function plot4(){
   const state_data = d3.rollups(
@@ -418,29 +384,6 @@ function plot4(){
       item => item.State
     ).sort((a,b)=>d3.descending(a[1].length,b[1].length));
   const state_names = state_data.map(a=>a[0]);
-  const bottom_state_data = d3.rollups(
-      filtered_incident,
-      group=>group,
-      item => item.State
-    ).sort((a,b)=>d3.ascending(a[1].length,b[1].length))
-    .slice(0,num_states);
-  const bottom_state_names = bottom_state_data.map(a=>a[0]);
-  const minYear = 1970;
-  const maxYear = 2022;
-  const top_heatmap_plot_data = top_state_data
-    .flatMap(s=>d3.rollups(
-      s[1],
-      group=>group.length,
-      item=>item.Year)
-      .sort((a,b)=>d3.ascending(a[0],b[0]))
-      .map(
-        arr=>({
-          state:s[0],
-          year:arr[0],
-          total:arr[1]
-        })
-    ));
-
   const heatmap_plot_data = state_data
     .flatMap(s=>d3.rollups(
       s[1],
@@ -546,9 +489,6 @@ function plot4(){
     tooltipRect.attr('width', labelWidth+10);
     tooltipRect.attr('text-align', 'center');
 
-    const xPos = x(d.year) - 5;
-    const yPos = y(d.state) - 5;
-
     tooltip
       // .attr('transform', `translate(${visHeight},${visWidth+20})`)
       .attr('transform', `translate(${visWidth-75},-50)`)
@@ -565,30 +505,8 @@ function plot4(){
 }
 
 function plot5(){
-  // const top_state_wise_count_dsbn = top_state_data
-  //   .map(s=>({
-  //     state: s[0],
-  //     counts: d3.rollups(
-  //       s[1],
-  //       group=>group.length,
-  //       item=>item.Year)
-  //     .sort((a,b)=>d3.ascending(a[0],b[0]))
-  //     .map(arr=>({year:arr[0],total:arr[1]})) 
-  //   }));
-  // const state_wise_count_dsbn = state_data
-  //   .map(s=>({
-  //     state: s[0],
-  //     counts: d3.rollups(
-  //       s[1],
-  //       group=>group.length,
-  //       item=>item.Year)
-  //     .sort((a,b)=>d3.ascending(a[0],b[0]))
-  //     .map(arr=>({year:arr[0],total:arr[1]})) 
-  //   }));
   const top_state_names = top_state_data.map(a=>a[0]);
   const start_year_heatmap = 2000;
-  // const count_extent = d3.extent(heatmap_plot_data, d => d.total);
-  // const top_count_extent = d3.extent(top_heatmap_plot_data, d => d.total);
   const top_heatmap_plot_data = top_state_data
     .flatMap(s=>d3.rollups(
       s[1],
@@ -704,4 +622,462 @@ function plot5(){
     tooltip
         .attr('visibility', 'hidden');
   }
+}
+
+const unique_weapons = Array.from(new Set(weapon.map(d => (d.Weapon_Type === "unknown") ? "Unknown" : d.Weapon_Type)));
+const top_state_names = top_state_data.map(a=>a[0]);
+const topStates = d3.filter(weapon, d => top_state_names.slice(0,5).includes(d.State));
+const topWeaponState = d3.rollups(
+    topStates,
+    g => g.reduce((valueCount, current) => {
+      const count = valueCount[current.Weapon_Type] ?? 0;
+      valueCount[current.Weapon_Type] = count + 1;
+      return valueCount;
+    }, {}),
+    d => d.State
+  ).map(data => ({
+    "State" : data[0],
+    "unknown" : data[1].unknown ?? 0,
+    "Handgun" : data[1].Handgun ?? 0,
+    "Other": data[1].Other ?? 0,
+    "Rifle": data[1].Rifle ?? 0,
+    "Multiple Handguns": data[1]["Multiple Handguns"] ?? 0,
+    "Multiple Rifles": data[1]["Multiple Rifles"] ?? 0,
+    "Shotgun": data[1].Shotgun ?? 0
+  })).sort((a,b) => d3.ascending(a.State, b.State));
+const bottom_state_names = bottom_state_data.map(a=>a[0]);
+const bottomStates = d3.filter(weapon, d => bottom_state_names.slice(0,5).includes(d.State));
+const bottomWeaponState = d3.rollups(
+    bottomStates,
+    g => g.reduce((valueCount, current) => {
+      const count = valueCount[current.Weapon_Type] ?? 0;
+      valueCount[current.Weapon_Type] = count + 1;
+      return valueCount;
+    }, {}),
+    d => d.State
+  ).map(data => ({
+    "State" : data[0],
+    "unknown" : data[1].unknown ?? 0,
+    "Handgun" : data[1].Handgun ?? 0,
+    "Other": data[1].Other ?? 0,
+    "Rifle": data[1].Rifle ?? 0,
+    "Multiple Handguns": data[1]["Multiple Handguns"] ?? 0,
+    "Multiple Rifles": data[1]["Multiple Rifles"] ?? 0,
+    "Shotgun": data[1].Shotgun ?? 0
+  })).sort((a,b) => d3.ascending(a.State, b.State));
+const q5_height = 250;
+const q5_margin = ({top:100, bottom:0, left:100, right:20});
+const q5_visWidth = width - q5_margin.left - q5_margin.right;
+const q5_visHeight = q5_height - q5_margin.top - q5_margin.bottom;
+const q5_cols = 5;
+const q5_rows = 1;
+const grid = d3.cross(d3.range(q5_rows), d3.range(q5_cols), (row, col) => ({row, col}));
+const topData = d3.zip(Array.from(topWeaponState), grid).map(
+    ([data, {row, col}]) => ({
+      data,
+      row,
+      col
+    })
+  ).map(d => ({
+    "State" : d.data.State,
+    "values": [
+      ({"State" : d.data.State, "weapon": "Unknown", "count": d.data.unknown, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Handgun", "count": d.data.Handgun, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Other", "count": d.data.Other, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Rifle", "count": d.data.Rifle, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Multiple Handguns", "count": d.data["Multiple Handguns"], "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Multiple Rifles", "count": d.data["Multiple Rifles"], "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Shotgun", "count": d.data.Shotgun, "row": d.row, "col": d.col})
+    ],
+    "row": d.row,
+    "col": d.col
+  }));
+const bottomData = d3.zip(Array.from(bottomWeaponState), grid).map(
+    ([data, {row, col}]) => ({
+      data,
+      row,
+      col
+    })
+  ).map(d => ({
+    "State" : d.data.State,
+    "values": [
+      ({"State" : d.data.State, "weapon": "Unknown", "count": d.data.unknown, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Handgun", "count": d.data.Handgun, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Other", "count": d.data.Other, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Rifle", "count": d.data.Rifle, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Multiple Handguns", "count": d.data["Multiple Handguns"], "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Multiple Rifles", "count": d.data["Multiple Rifles"], "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Shotgun", "count": d.data.Shotgun, "row": d.row, "col": d.col})
+    ],
+    "row": d.row,
+    "col": d.col
+  }));
+const q5_row = d3.scaleBand()
+  .domain(d3.range(q5_rows))
+  .range([0, q5_visHeight]);
+const q5_col = d3.scaleBand()
+  .domain(d3.range(q5_cols))
+  .range([0, q5_visWidth])
+  .paddingInner(0.2);
+const q5_colorScale = d3.scaleOrdinal()
+  .domain(unique_weapons)
+  .range(['lightgray','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#e41a1c']);
+const q5_angleGenerator = d3.pie()
+  .value(d => d.count);
+const q5_arcGenerator = d3.arc()
+  .innerRadius(0)
+  .outerRadius(80);
+
+const top_state_killed_data = top_state_data.map(s=>{
+  const only_deaths = s[1].filter(i=> i.Victims_Killed > 0)
+  return [s[0],only_deaths]
+});
+
+const topFiveIncident = d3.filter(incident, d => top_state_names.includes(d.State))
+  .map(d => ({"Incident_ID": d.Incident_ID, "Victims_Killed": d.Victims_Killed, "Victims_Wounded": d.Victims_Wounded}));
+const topFiveWeapon = d3.filter(weapon, d => top_state_names.includes(d.State))
+  .map(d => ({"Incident_ID": d.Incident_ID, "Weapon_Type": d.Weapon_Type, "State": d.State}));
+const dataset = topFiveWeapon.map(d => ({
+    Incident_ID: d.Incident_ID,
+    Weapon_Type: d.Weapon_Type,
+    Victims_Killed: topFiveIncident.filter(i => i.Incident_ID === d.Incident_ID).map(i => i.Victims_Killed)[0],
+    Victims_Wounded: topFiveIncident.filter(i => i.Incident_ID === d.Incident_ID).map(i => i.Victims_Wounded)[0],
+    State: d.State
+  }));
+const datasetRollup = d3.rollups(
+    dataset,
+    g => g.reduce((valueCount, current) => {
+      const count = valueCount[current.Weapon_Type] ?? 0;
+      valueCount[current.Weapon_Type] = count + current.Victims_Killed;
+      return valueCount
+    }, {}),
+    d => d.State,
+  ).map(data => ({
+    "State": data[0],
+    "unknown" : data[1].unknown ?? 0,
+    "Handgun" : data[1].Handgun ?? 0,
+    "Other": data[1].Other ?? 0,
+    "Rifle": data[1].Rifle ?? 0,
+    "Multiple Handguns": data[1]["Multiple Handguns"] ?? 0,
+    "Multiple Rifles": data[1]["Multiple Rifles"] ?? 0,
+    "Shotgun": data[1].Shotgun ?? 0
+  })).sort((a,b) => d3.ascending(a.State, b.State));
+const grid_dataset = d3.cross(d3.range(q5_rows), d3.range(q5_cols), (row, col) => ({row, col}));
+const weaponDeath = d3.zip(Array.from(datasetRollup), grid).map(
+    ([data, {row, col}]) => ({
+      data,
+      row,
+      col
+    })
+  ).map(d => ({
+    "State" : d.data.State,
+    "values": [
+      ({"State" : d.data.State, "weapon": "Unknown", "count": d.data.unknown, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Handgun", "count": d.data.Handgun, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Other", "count": d.data.Other, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Rifle", "count": d.data.Rifle, "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Multiple Handguns", "count": d.data["Multiple Handguns"], "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Multiple Rifles", "count": d.data["Multiple Rifles"], "row": d.row, "col": d.col}),
+      ({"State" : d.data.State, "weapon": "Shotgun", "count": d.data.Shotgun, "row": d.row, "col": d.col})
+    ],
+    "row": d.row,
+    "col": d.col
+  }));
+
+function plot678(){
+  generatePies(topData, '#piechart_high');
+  generatePies(bottomData, '#piechart_low');
+  generatePies(weaponDeath, '#killed_vs_weapon');
+}
+
+function generatePies(data, divName) {
+  const svg = d3.select(divName).append('svg')
+    .attr('width', width)
+    .attr('height', q5_height);
+
+  const g = svg.append('g')
+    .attr('transform', `translate(${q5_margin.left}, ${q5_margin.top})`);
+
+  const pieGroups = svg.append('g')
+    .attr('transform', `translate(${q5_margin.left}, ${q5_margin.top})`);
+
+  const pieCharts = pieGroups.selectAll('g')
+    .data(data)
+    .join('g')
+      .attr('transform', d => `translate(${q5_col(d.col)}, ${q5_row(d.row)})`);
+
+  pieCharts.selectAll('path')
+    .data(d => q5_angleGenerator(d.values))
+    .join('path')
+      .attr('d', d => q5_arcGenerator(d))
+      .attr('fill', d => q5_colorScale(d.data.weapon))
+      .on('mouseenter', mouseEnter)
+      .on('mouseleave', mouseLeave);
+
+  const textGroups = svg.append('g')
+    .attr('transform', `translate(${q5_margin.left}, ${q5_margin.top})`);
+
+  const textBoxes = textGroups.selectAll('g')
+    .data(data)
+    .join('g')
+      .attr('transform', d => `translate(${q5_col(d.col)}, ${q5_row(d.row) - 95})`)
+    .append('text')
+      .text(d => stateAbMap[d.State])
+      .attr('font-family', 'sans-serif')
+      .attr('text-anchor', 'middle')
+      .attr('font-size', 12)
+      .attr('dominant-baseline', 'hanging');
+
+  const radius = 2;
+  const tooltip = g.append('g')
+      .attr('visibility', 'hidden');
+  
+  const tooltipHeight = 16;
+  
+  const tooltipRect = tooltip.append('rect')
+      .attr('fill', 'black')
+      .attr('rx', 5)
+      .attr('height', tooltipHeight);
+  
+  const amountText = tooltip.append('text')
+      .attr('fill', 'white')
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', 12)
+      .attr('y', 2)
+      .attr('x', 3)
+      .attr('dominant-baseline', 'hanging')
+
+  function mouseEnter(event, d) {
+    console.log(d)
+    d3.select(this)
+        .attr('stroke', 'black');
+
+    amountText.text(`${d.data.weapon}: ${d.data.count}`)
+    
+    const labelWidth = amountText.node().getComputedTextLength();
+
+    tooltipRect.attr('width', labelWidth + 6);
+
+    const xPos = q5_col(d.data.col) - 35;
+    const yPos = q5_row(d.data.row) + 95;
+
+    tooltip
+      .attr('transform', `translate(${xPos},${yPos})`)
+      .attr('visibility', 'visible');
+  }
+
+  function mouseLeave(event, d) {
+    d3.select(this)
+        .attr('stroke', "");
+    
+    tooltip
+        .attr('visibility', 'hidden');
+  }
+}
+
+function getAgeBin(){
+  const res = {}
+  shooter.forEach(row=>{
+    const age = row.Age
+    let key = ''
+    if(Number.isInteger(age)){
+      if(age>=0 && age < 13){ // mior child
+        key = 1  // 0-12
+      }
+      if(age>=13 && age < 18){
+        key = 2 // 13-17
+      }
+      if(age>=18 && age < 22){
+        key = 3 // 18-21
+      }
+      if(age>=22 && age < 31) {
+        key = 4 // 22-30
+      }
+      if(age>=31 && age < 51) {
+        key = 5 // 31-50
+      }
+      if(age>=51 ) {
+        key = 6 // 50+
+      }
+    }
+    // if(!key) key = age
+    if(key) {
+      if(res[key]) res[key].push(row)
+      else res[key] = [row]    
+    }
+  })
+  const age_bin_disbn = []
+  Object.keys(res).forEach(b=>{
+    console.log(b,res[b])
+    const val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown")
+    age_bin_disbn.push([b,val])
+  })
+  return age_bin_disbn;
+}
+
+function plot9(){
+  const age_group_dsbn = getAgeBin();
+  const ageRanges = d3.map(age_group_dsbn, d => d[0]);
+  const genders = ["Unknown", "Male", "Female", "Transgender"];
+  const q3_maxValue = d3.max(
+      age_group_dsbn,
+      ([ageRange, genderCount]) => d3.max(genderCount, ([gender, count]) => count)
+    );
+  const q3_color = d3.scaleOrdinal()
+    .domain(genders)
+    .range(d3.schemeCategory10);
+
+  //setup 
+  const q3_margin = ({top: 10, bottom: 50,left: 85, right: 10});
+  const q3_height = 800;
+  const q3_visWidth = width - q3_margin.left - q3_margin.right;
+  const q3_visHeight = q3_height - q3_margin.top - q3_margin.bottom;
+
+  // scales and axes
+  const q3_group = d3.scaleBand()
+  .domain(ageRanges)
+  .range([0, q3_visWidth])
+  .padding(0.1);
+
+  const q3_barX = d3.scaleBand()
+  .domain(genders)
+  .range([0, q3_group.bandwidth()])
+  .padding(0.1);
+
+  const q3_y = d3.scaleLinear()
+  .domain([0, q3_maxValue]).nice()
+  .range([q3_visHeight, 0]);
+
+  const q3_xAxis = d3.axisBottom(q3_group)
+  .tickFormat(formatAge);;
+
+  const q3_yAxis = d3.axisLeft(q3_y);
+  
+  const svg = d3.select('#age').append('svg')
+    .attr('width', width)
+    .attr('height', q3_height);
+
+  const g = svg.append('g')
+    .attr('transform', `translate(${q3_margin.left}, ${q3_margin.top})`)
+
+  const groups = g.selectAll('g')
+    .data(age_group_dsbn)
+    .join('g')
+      .attr('transform', ([ageRange, genderCount]) => `translate(${q3_group(ageRange)})`)
+
+  groups.selectAll('rect')
+    .data(([ageRange, genderCount]) => genderCount)
+    .join('rect')
+      .attr('x', ([gender, count]) => q3_barX(gender))
+      .attr('y', ([gender, count]) => q3_y(count))
+      .attr('width', ([gender, count]) => q3_barX.bandwidth())
+      .attr('height', ([gender, count]) => q3_visHeight - q3_y(count))
+      .attr('fill', ([gender, count]) => q3_color(gender))
+
+  g.append('g')
+    .attr('transform', `translate(0,${q3_visHeight})`)
+    .call(q3_xAxis)
+   .append('text')
+      .attr('x', q3_visWidth / 2)
+      .attr('y', 30)
+      .attr('dominant-baseline', 'hanging')
+      .attr('text-align', 'middle')
+      .attr('fill', 'black')
+      .text('Age Range');
+  
+ g.append('g')
+    .call(q3_yAxis)
+  .append('text')
+    .attr('x', -50)
+    .attr('y', q3_visHeight / 2)
+    .attr('dominant-baseline', 'middle')
+    .attr('text-align', 'end')
+    .attr('fill', 'black')
+    .text('Count');
+}
+
+function plot10(){
+  const q6_data = d3.rollups(
+      incident,
+      g => g.reduce((valueCount, current) => {
+        const count = valueCount[current.Quarter] ?? 0;
+        valueCount[current.Quarter] = count + 1;
+        return valueCount;
+      }, {}),
+      d => d.Year
+    ).map(d => ({
+      "year": d[0],
+      "values": [
+        ({"time": 1, "count": d[1].Spring ?? 0}),
+        ({"time": 2, "count": d[1].Summer ?? 0}),
+        ({"time": 3, "count": d[1].Fall ?? 0}),
+        ({"time": 4, "count": d[1].Winter ?? 0})
+      ]
+    })).sort((a,b) => d3.ascending(a.year, b.year));
+  const q6_height = 700;
+  const q6_margin = ({top: 30, right: 30, bottom: 20, left: 40});
+  const q6_visWidth = width - q6_margin.left - q6_margin.right;
+  const q6_visHeight = q6_height - q6_margin.top - q6_margin.bottom;
+  const q6_years = q6_data.map(d => d.year);
+  const q6_xData = d3.extent(d3.map(q6_data[0].values, d => d.time));
+  const q6_x = d3.scaleLinear()
+    .domain(q6_xData)
+    .range([0, q6_visWidth]);
+  const q6_maxValue = d3.max(q6_data, d => d3.max(d.values, d => d.count));
+  const q6_y = d3.scaleLinear()
+    .domain([0, q6_maxValue])
+    .range([q6_visHeight, 0])
+    .nice();
+  const q6_color = d3.scaleOrdinal()
+    .domain(q6_years.slice(q6_years.length - 5, q6_years.length))
+    .range(d3.schemeCategory10)
+    .unknown("lightgray");
+  const q6_line = d3.line()
+    .x(d => q6_x(d.time))
+    .y(d => q6_y(d.count));
+  const q6_xAxis = d3.axisBottom(q6_x)
+    .tickFormat(formatTime);
+  const q6_yAxis = d3.axisLeft(q6_y);
+  
+  const svg = d3.select('#trend').append('svg')
+    .attr('width', width)
+    .attr('height', q6_height);
+
+  const g = svg.append('g')
+      .attr('transform', `translate(${q6_margin.left}, ${q6_margin.top})`);
+
+  g.append('g')
+      .attr('transform', `translate(0,${q6_visHeight})`)
+      .call(q6_xAxis)
+      .call(g => g.select('.domain').remove());
+
+  let titleText = ""
+  if(mode === "Over months"){
+    titleText = "months"
+  } else {
+    titleText = "quarters"
+  }
+  
+  
+  g.append('g')
+      .call(q6_yAxis)
+      .call(g => g.select('.domain').remove())
+    .append('text')
+      .attr('fill', 'black')
+      .attr('text-anchor', 'start')
+      .attr('dominant-baseline', 'hanging')
+      .attr('font-weight', 'bold')
+      .attr('y', -q6_margin.top + 5)
+      .attr('x', -q6_margin.left)
+      .text(`Number of incidents over ${titleText}`)
+
+  const linesGroup = g.append('g');
+  
+  linesGroup.selectAll('path')
+    .data(q6_data)
+    .join('path')
+      .attr('stroke', d => q6_color(d.year))
+      .attr('fill', 'None')
+      .attr('stroke-width', 2)
+      .attr('d', d => q6_line(d.values))
 }
