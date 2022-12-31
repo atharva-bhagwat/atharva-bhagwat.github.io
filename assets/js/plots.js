@@ -856,40 +856,39 @@ function generatePies(data, divName) {
 }
 
 function getAgeBin(){
-  let res = {}
+  let res = {};
   for(let i=0; i < shooter.length; i++){
     const age = shooter[i].Age;
-    console.log(shooter[i])
-    let key = ''
+    let key = '';
     if(Number.isInteger(age)){
       if(age>=0 && age < 13){ // mior child
-        key = 1  // 0-12
+        key = 1; // 0-12
       }
       if(age>=13 && age < 18){
-        key = 2 // 13-17
+        key = 2; // 13-17
       }
       if(age>=18 && age < 22){
-        key = 3 // 18-21
+        key = 3; // 18-21
       }
       if(age>=22 && age < 31) {
-        key = 4 // 22-30
+        key = 4; // 22-30
       }
       if(age>=31 && age < 51) {
-        key = 5 // 31-50
+        key = 5; // 31-50
       }
       if(age>=51 ) {
-        key = 6 // 50+
+        key = 6; // 50+
       }
     }
     if(key) {
       if(res[key]){
-        res[key].push(row)
+        res[key].push(row);
       } else {
-        res[key] = [row]
+        res[key] = [row];
       }
     }
   }
-  console.log(res);
+  console.log(`RES: ${res}`);
   let age_bin_disbn = [];
   for(let i=0; i < Object.keys(res).length; i++){
     let val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown");
@@ -900,7 +899,7 @@ function getAgeBin(){
 
 function plot9(){
   const age_group_dsbn = getAgeBin();
-  console.log(age_group_dsbn);
+  console.log(`age groups: ${age_group_dsbn}`);
   const ageRanges = d3.map(age_group_dsbn, d => d[0]);
   const genders = ["Unknown", "Male", "Female", "Transgender"];
   const q3_maxValue = d3.max(
