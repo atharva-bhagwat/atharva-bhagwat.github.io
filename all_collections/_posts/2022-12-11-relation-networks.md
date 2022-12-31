@@ -16,12 +16,3 @@ In this project, we study the Relation Networks implementations of AI approaches
 Relation Networks by DeepMind is a simple and representationally flexible general solution to relational reasoning in neural networks. We solve our problem using two different types of data, pixel-based and state-descriptions based.
 
 [Here](https://github.com/atharva-bhagwat/CSGY-6613) is the link to the repository.
-
-$f_\theta$
-
-$$f_\phi$$
-
-```math
-f_\theta
-\sqrt{3}
-```
