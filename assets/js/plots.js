@@ -26,31 +26,13 @@ const textColor = "#a79e8b";
 const width = 900;
 
 function formatTime(value) {
-    if(mode === "Over months"){
-      let monthMap = {
-        1: "Jan",
-        2: "Feb",
-        3: "Mar",
-        4: "Apr",
-        5: "May",
-        6: "Jun",
-        7: "Jul",
-        8: "Aug",
-        9: "Sept",
-        10: "Oct",
-        11: "Nov",
-        12: "Dec"
-      }
-      return monthMap[value]
-    } else {
-      let quarterMap = {
-        1: "Spring",
-        2: "Summer",
-        3: "Fall",
-        4: "Winter",
-      }
-      return quarterMap[value]
+    let quarterMap = {
+      1: "Spring",
+      2: "Summer",
+      3: "Fall",
+      4: "Winter",
     }
+    return quarterMap[value];
 }
 
 function formatAge(value) {
