@@ -3,7 +3,7 @@ layout: post
 title: School Shootings in the US
 date: 2022-12-15
 tags: Project
-author: Atharva Bhagwat
+author: Atharva Bhagwat, Danna Alamer, Karthik Udhayakumar, and Shreeraj Pawar
 logo: "images/logo/nohello.png"
 ---
 

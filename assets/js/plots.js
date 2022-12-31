@@ -478,7 +478,6 @@ function plot4(){
       .attr('dominant-baseline', 'hanging')
 
    function mouseEnter(event, d) {
-    console.log("qwer",d);
     d3.select(this)
         .attr('stroke', '#101417');
 
@@ -597,9 +596,9 @@ function plot5(){
       .attr('y', 2)
       .attr('x', 3)
       .attr('dominant-baseline', 'hanging')
+      .style("text-anchor", "mid");
 
    function mouseEnter(event, d) {
-    console.log("qwer",d);
     d3.select(this)
         .attr('stroke', '#101417');
 
@@ -824,18 +823,18 @@ function generatePies(data, divName) {
     .append('text')
       .text(d => stateAbMap[d.State])
       .attr('font-family', 'sans-serif')
+      .attr('fill', 'white')
       .attr('text-anchor', 'middle')
       .attr('font-size', 12)
       .attr('dominant-baseline', 'hanging');
 
-  const radius = 2;
   const tooltip = g.append('g')
       .attr('visibility', 'hidden');
   
   const tooltipHeight = 16;
   
   const tooltipRect = tooltip.append('rect')
-      .attr('fill', 'black')
+      .attr('fill', '#101417')
       .attr('rx', 5)
       .attr('height', tooltipHeight);
   
@@ -848,9 +847,8 @@ function generatePies(data, divName) {
       .attr('dominant-baseline', 'hanging')
 
   function mouseEnter(event, d) {
-    console.log(d)
     d3.select(this)
-        .attr('stroke', 'black');
+        .attr('stroke', '#101417');
 
     amountText.text(`${d.data.weapon}: ${d.data.count}`)
     
@@ -908,7 +906,6 @@ function getAgeBin(){
   })
   const age_bin_disbn = []
   Object.keys(res).forEach(b=>{
-    console.log(b,res[b])
     const val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown")
     age_bin_disbn.push([b,val])
   })
@@ -917,6 +914,7 @@ function getAgeBin(){
 
 function plot9(){
   const age_group_dsbn = getAgeBin();
+  console.log(age_group_dsbn)
   const ageRanges = d3.map(age_group_dsbn, d => d[0]);
   const genders = ["Unknown", "Male", "Female", "Transgender"];
   const q3_maxValue = d3.max(
@@ -982,7 +980,7 @@ function plot9(){
       .attr('y', 30)
       .attr('dominant-baseline', 'hanging')
       .attr('text-align', 'middle')
-      .attr('fill', 'black')
+      .attr('fill', 'white')
       .text('Age Range');
   
  g.append('g')
@@ -992,7 +990,7 @@ function plot9(){
     .attr('y', q3_visHeight / 2)
     .attr('dominant-baseline', 'middle')
     .attr('text-align', 'end')
-    .attr('fill', 'black')
+    .attr('fill', 'white')
     .text('Count');
 }
 
