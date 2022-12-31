@@ -19,4 +19,9 @@ Relation Networks by DeepMind is a simple and representationally flexible genera
 
 $f_\theta$
 
-$$f_\theta$$
+$$f_\phi$$
+
+```math
+f_\theta
+\sqrt{3}
+```
