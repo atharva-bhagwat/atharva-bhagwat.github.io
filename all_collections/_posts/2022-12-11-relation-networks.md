@@ -7,8 +7,6 @@ author: Atharva Bhagwat, Harini Appansrinivasan, and Abdulqadir Zakir
 logo: "images/logo/nohello.png"
 ---
 
-# Goal
-
 Visual Question Answering (VQA) is a multi-modal task relating text and images through captions or a questionnaire. For example, with a picture of a busy highway, there could be a question: “How many red cars are there?” or “Are there more motorbikes than cars?”. It is a very challenging task since it requires high-level understanding of both the text and the image and the relationships between them.
 
 In this project, we study the Relation Networks implementations of AI approaches that offer the ability to combine neural and symbolic representations to answer VQA task.
