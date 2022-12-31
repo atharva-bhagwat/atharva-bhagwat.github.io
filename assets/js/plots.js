@@ -888,11 +888,8 @@ function getAgeBin(){
     if(res[key]) res[key].push(row)
     else res[key] = [row]
   });
-  console.log(`RES:`);
-  console.log(res);
   let age_bin_disbn = [];
   Object.keys(res).forEach(b=>{
-    console.log(b,res[b])
     const val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown")
     age_bin_disbn.push([b,val])
   })
@@ -901,7 +898,6 @@ function getAgeBin(){
 
 function plot9(){
   const age_group_dsbn = getAgeBin();
-  console.log(`age groups: ${age_group_dsbn}`);
   const ageRanges = d3.map(age_group_dsbn, d => d[0]);
   const genders = ["Unknown", "Male", "Female", "Transgender"];
   const q3_maxValue = d3.max(
@@ -975,11 +971,8 @@ function plot9(){
     .call(q3_yAxis)
     .call(g => g.selectAll('.domain').remove())
   .append('text')
-    .attr("transform", "rotate(-90)")
-    .attr("x", 0 - q3_visHeight/2)
-    .attr("dy", "-2.5em")
-    // .attr('x', -50)
-    // .attr('y', q3_visHeight / 2)
+    .attr('x', -50)
+    .attr('y', q3_visHeight / 2)
     .attr('dominant-baseline', 'middle')
     .attr('text-align', 'end')
     .attr('fill', 'white')
