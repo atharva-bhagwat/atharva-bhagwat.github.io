@@ -856,9 +856,9 @@ function generatePies(data, divName) {
 }
 
 function getAgeBin(){
-  var res = {}
-  shooter.forEach(row=>{
-    const age = row.Age
+  let res = {}
+  for(let i=0; i < shooter.length; i++){
+    const age = shooter[i].Age;
     let key = ''
     if(Number.isInteger(age)){
       if(age>=0 && age < 13){ // mior child
@@ -880,15 +880,18 @@ function getAgeBin(){
         key = 6 // 50+
       }
     }
-    // if(!key) key = age
     if(key) {
-      if(res[key]) res[key].push(row)
-      else res[key] = [row]    
+      if(res[key]){
+        res[key].push(row)
+      } else {
+        res[key] = [row]
+      }
     }
-  })
-  var age_bin_disbn = []
+    console.log(res)
+  }
+  let age_bin_disbn = []
   Object.keys(res).forEach(b=>{
-    var val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown")
+    let val = d3.rollup(res[b],group=>group.length,item=>item.Gender||"Unknown")
     age_bin_disbn.push([b,val])
   })
   return age_bin_disbn;
