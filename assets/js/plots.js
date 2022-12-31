@@ -44,7 +44,7 @@ function formatAge(value) {
       5: "31-50",
       6: "50+"
     }
-    return ageMapping[value]  
+    return ageMapping[value];
 }
 
 function colorize(colorList, htmlElement) {
@@ -857,11 +857,11 @@ function generatePies(data, divName) {
 
 function getAgeBin(){
   let res = {};
-  for(let i=0; i < shooter.length; i++){
-    const age = shooter[i].Age;
-    let key = '';
+  shooter.forEach(row=>{
+    const age = parseInt(row.Age);
+    var key = '';
     if(Number.isInteger(age)){
-      if(age>=0 && age < 13){ // mior child
+      if(age>=0 && age < 13){// mior child
         key = 1; // 0-12
       }
       if(age>=13 && age < 18){
@@ -880,14 +880,9 @@ function getAgeBin(){
         key = 6; // 50+
       }
     }
-    if(key) {
-      if(res[key]){
-        res[key].push(row);
-      } else {
-        res[key] = [row];
-      }
-    }
-  }
+    if(res[key]) res[key].push(row)
+    else res[key] = [row]
+  });
   console.log(`RES:`);
   console.log(res);
   let age_bin_disbn = [];
