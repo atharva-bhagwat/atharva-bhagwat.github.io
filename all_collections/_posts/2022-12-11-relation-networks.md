@@ -18,3 +18,5 @@ Relation Networks by DeepMind is a simple and representationally flexible genera
 [Here](https://github.com/atharva-bhagwat/CSGY-6613) is the link to the repository.
 
 $f_\theta$
+
+$$f_\theta$$
