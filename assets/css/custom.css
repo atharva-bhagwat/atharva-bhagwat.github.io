@@ -153,6 +153,16 @@ footer {
 	}
 }
 
+.swatch {
+	width: 100%;
+	overflow: hidden;
+}
+
+.swatch-col {
+	width: 10%;
+	float: left;
+}
+
 .box {
 	display: inline-block;
 	height: 20px;

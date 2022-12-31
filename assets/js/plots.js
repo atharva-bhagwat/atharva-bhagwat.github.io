@@ -67,9 +67,11 @@ function formatAge(value) {
 
 function colorize(colorList, htmlElement) {
   var container = document.getElementById(htmlElement);
+  container.className = "swatch";
 
   for (var key in colorList) {
       var boxContainer = document.createElement("DIV");
+      boxContainer.className = "swatch-col";
       var box = document.createElement("DIV");
       var label = document.createElement("SPAN");
 
