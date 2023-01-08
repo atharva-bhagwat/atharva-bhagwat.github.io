@@ -22,7 +22,7 @@ We would like to start with the number of K-12 schools in the US where school sh
 
 ## About the Data
 
-**Source:** Riedman, David (2022). [K-12 School Shooting Database](https://k12ssdb.org/all-shootings).
+**Source:** [K-12 School Shooting Database](https://k12ssdb.org/all-shootings). Riedman, David (2022).
 
 **Description:**
 
