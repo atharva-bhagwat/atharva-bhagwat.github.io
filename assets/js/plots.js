@@ -476,7 +476,6 @@ function plot4(){
     tooltipRect.attr('text-align', 'center');
 
     tooltip
-      // .attr('transform', `translate(${visHeight},${visWidth+20})`)
       .attr('transform', `translate(${visWidth-75},-50)`)
       .attr('visibility', 'visible');
   }
@@ -585,19 +584,19 @@ function plot5(){
       .attr('dominant-baseline', 'hanging')
       .style("text-anchor", "mid");
 
-   function mouseEnter(event, d) {
+  function mouseEnter(event, d) {
     d3.select(this)
         .attr('stroke', '#101417');
 
-    amountText.text(`${d.total}`)
+    amountText.text(`${d.state},${d.year} : ${d.total}`)
+    
+    const labelWidth = amountText.node().getComputedTextLength();
 
-    tooltipRect.attr('width', 20);
-
-    const xPos = x(d.year) - 5;
-    const yPos = y(d.state) - 5;
+    tooltipRect.attr('width', labelWidth+10);
+    tooltipRect.attr('text-align', 'center');
 
     tooltip
-      .attr('transform', `translate(${xPos},${yPos})`)
+      .attr('transform', `translate(${visWidth-75},-50)`)
       .attr('visibility', 'visible');
   }
 
