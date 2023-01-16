@@ -468,7 +468,7 @@ function plot4(){
     d3.select(this)
         .attr('stroke', '#101417');
 
-    amountText.text(`${d.state},${d.year} : ${d.total}`)
+    amountText.text(`${d.state}, ${d.year} : ${d.total}`)
     
     const labelWidth = amountText.node().getComputedTextLength();
 
@@ -588,8 +588,7 @@ function plot5(){
     d3.select(this)
         .attr('stroke', '#101417');
 
-    amountText.text(`${d.state},${d.year} : ${d.total}`)
-    console.log(`${d.state},${d.year} : ${d.total}`)
+    amountText.text(`${d.state}, ${d.year} : ${d.total}`)
     
     const labelWidth = amountText.node().getComputedTextLength();
 
