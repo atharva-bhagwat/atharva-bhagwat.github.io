@@ -589,6 +589,7 @@ function plot5(){
         .attr('stroke', '#101417');
 
     amountText.text(`${d.state},${d.year} : ${d.total}`)
+    console.log(`${d.state},${d.year} : ${d.total}`)
     
     const labelWidth = amountText.node().getComputedTextLength();
 
@@ -596,7 +597,7 @@ function plot5(){
     tooltipRect.attr('text-align', 'center');
 
     tooltip
-      .attr('transform', `translate(${visWidth-75},-50)`)
+      .attr('transform', `translate(${visWidth-100},-50)`)
       .attr('visibility', 'visible');
   }
 
