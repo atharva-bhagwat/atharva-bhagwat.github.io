@@ -14,9 +14,9 @@ Hi! My name is Atharva Bhagwat. I am a student at Tandon School of Engineering, 
 
 # ***Work***
 
-- _<b style='font-size:16px; color:#8942b9;'>Computational Biology Intern</b>_ at <b style='font-size:16px;'><a href="https://www.tsankovlab.org" target="_blank">Tsankov Lab</a></b> <i style='font-size:15px;'>(May 2022 - Aug 2022)</i>
+<!-- - _<b style='font-size:16px; color:#8942b9;'>Computational Biology Intern</b>_ at <b style='font-size:16px;'><a href="https://www.tsankovlab.org" target="_blank">Tsankov Lab</a></b> <i style='font-size:15px;'>(May 2022 - Aug 2022)</i>
 
-    > I replicated pipeline to detect somatic mutations in bulk sequenced data using GATK modules for command line. I than worked with bulk(TCGA) and pseudobulk data for lung adenocarcinoma and colorectal cancer to predict type of mutation using machine learning.
+    > I replicated pipeline to detect somatic mutations in bulk sequenced data using GATK modules for command line. I than worked with bulk(TCGA) and pseudobulk data for lung adenocarcinoma and colorectal cancer to predict type of mutation using machine learning. -->
 
 - _<b style='font-size:16px; color:#8942b9;'>Machine Learning Engineer</b>_ at <b style='font-size:16px;'><a href="https://resoluteai.in/" target="_blank">ResoluteAI.in</a></b> <i style='font-size:15px;'>(Jul 2020 - May 2021)</i>
 
@@ -27,4 +27,3 @@ Hi! My name is Atharva Bhagwat. I am a student at Tandon School of Engineering, 
 - _<b style='font-size:16px; color:#8942b9;'>Master of Science in Computer Science</b>_ at <b style='font-size:16px;'><a href="https://engineering.nyu.edu" target="_blank">Tandon School of Engineering, New York University</a></b> <i style='font-size:15px;'>(Sept 2021 - Present)</i>
 
 - _<b style='font-size:16px; color:#8942b9;'>Bachelor of Engineering in Computer Engineering</b>_ at <b style='font-size:16px;'><a href="https://pict.edu" target="_blank">Pune Institute of Computer Technology</a></b> <i style='font-size:15px;'>(2016 - 2020)</i>
-    
