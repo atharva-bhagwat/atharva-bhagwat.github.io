@@ -18,6 +18,11 @@
           font-weight: normal;
           text-transform: uppercase;
         }
+        .date {
+          font-size: 0.7rem;
+          font-weight: normal;
+          vertical-align: bottom;
+        }
       </style>
       <!-- header -->
       {% include header.html %}
@@ -27,7 +32,7 @@
       <main class="content">
         <p class="title">
           {{page.title}} <span class="meta">~ {{page.author}}</span>
-          <span class="meta">~ {{page.author}}</span>
+          <span class="date">~ {{page.date}}</span>
         </p>
         {{content}}
       </main>
