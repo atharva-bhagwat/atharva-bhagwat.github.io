@@ -21,7 +21,7 @@
         .date {
           font-size: 0.7rem;
           font-weight: normal;
-          vertical-align: bottom;
+          bottom: 2px;
         }
       </style>
       <!-- header -->
@@ -32,7 +32,8 @@
       <main class="content">
         <p class="title">
           {{page.title}} <span class="meta">~ {{page.author}}</span>
-          <span class="date">~ {{page.date}}</span>
+          <span class="date">{{page.date}}</span>
+          {{console.log(typeof(page.date))}}
         </p>
         {{content}}
       </main>
