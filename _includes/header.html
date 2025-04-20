@@ -1,19 +1,16 @@
-<header>
-	<a href="{{site.baseurl}}/" style="text-align: left !important; text-decoration: none !important;">
-		<h3>{{site.title}}</h3>
-	</a>
-	<a href="https://nohello.club" target="_blank" title="No Hello Club"><img src="{{site.logo}}" width="48" height="48" alt="nohello.club"></a>
-	<div class="parent" style="text-align: right !important; float: right !important;">
-		<div class="row">
-			<div class="column">
-			  <a class="fa-brands fa-linkedin" title="LinkedIn" href="http://linkedin.com/in/atharva-bhagwat" style="text-decoration: none !important; color: #42b983 !important;"></a>
-			</div>
-			<div class="column">
-			  <a class="fa-brands fa-github" title="GitHub" href="http://github.com/atharva-bhagwat" style="text-decoration: none !important; color: #42b983 !important;"></a>
-			</div>
-			<div class="column">
-			  <a class="fa-solid fa-file-lines" title="Resume" onclick="openLink('resume/Resume.pdf')" style="text-decoration: none !important; cursor: pointer !important; color: #42b983 !important;"></a>
-			</div>
-		  </div>
-	</div>
+<header id="masthead">
+	<h1>
+  		<a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
+  		<!-- <div class="mastheadspacer"/></div> -->
+   		<!-- <span class="masthead-slash">/</span> -->
+   		<!-- <small>{{ site.tagline }}</small> -->
+	</h1>
+	<nav>
+		<a href="{{ site.url }}/cv"><div><i class="fa fa-portrait icon icon-right-space"></i>CV</div></a>
+		<a href="{{ site.url }}/projects"><div><i class="fa fa-shapes icon icon-right-space"></i>Projects</div></a>
+		<a href="{{ site.url }}/everything-else"><div><i class="fa fa-list-ul icon icon-right-space"></i>Everything Else</div></a>
+		<!-- <a href="{{ site.baseurl }}/cv">CV</a>
+		<a href="{{ site.baseurl }}/projects">Projects</a>
+		<a href="{{ site.baseurl }}/everything-else">Everything Else</a> -->
+	</nav>
 </header>

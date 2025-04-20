@@ -1,41 +1,34 @@
 title: Atharva Bhagwat
-markdown: kramdown
-url: "https://atharva-bhagwat.github.io"
+tagline: Research Scientist at Apple
+url: https://atharva-bhagwat.github.io
 baseurl: ""
-logo: "/images/nohello.png"
+# gems: [jekyll-paginate]
+# paginate: 5
 
-# for atom feed
+# Use of `relative_permalinks` ensures post links from the index work properly.
+# permalink: "/:title"
+# relative_permalinks: true
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
 author:
   name: Atharva Bhagwat
+  url: https://atharva-bhagwat.github.io
   email: atharva.bhagwat42@gmail.com
 
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    default_lang: html
+    css_class: "syntax"
+
+excerpt_separator: <!--more-->
+
 plugins:
-  - jekyll-paginate
-  - jemoji
-  - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-feed
-
-paginate_path: "/page:num/"
-
-paginate: 5
-
-collections_dir: all_collections
-collections:
-  posts:
-    output: true
-  projects:
-    output: true
-
-defaults:
-  - scope:
-      path: ""
-    values:
-      layout: "post"
-  - scope:
-      path: "_posts"
-    values:
-      layout: "post"
-      permalink: /posts/:categories/:year/:month/:day/:title/
-
-exclude: ["sitemap.xml", "feed.xml", "LICENSE", "README.md"]
+  - jekyll-redirect-from

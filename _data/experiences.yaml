@@ -1,0 +1,27 @@
+- institution: Mount Sinai
+  location: "New York, NY"
+  position: Associate Computational Researcher
+  group: "Tsankov Lab"
+  year: "Jan. 2023 — Present"
+  description: ""
+  institution-url: https://icahn.mssm.edu/
+  group-url: https://www.tsankovlab.org
+  type: work
+
+- institution: Mount Sinai
+  location: "New York, NY"
+  position: Associate Computational Researcher Intern
+  group: "Tsankov Lab"
+  year: "May 2022 — Aug. 2022"
+  description: ""
+  institution-url: https://icahn.mssm.edu/
+  group-url: https://www.tsankovlab.org
+  type: work
+
+- institution: ResoluteAI.in
+  location: "Bangalore, India"
+  position: Machine Learning Engineer
+  year: "July 2020 — May 2021"
+  description: ""
+  institution-url: https://resoluteaisoftware.in
+  type: work

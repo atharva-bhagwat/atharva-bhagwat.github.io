@@ -1,15 +1,9 @@
-# frozen_string_literal: true
-
 source "https://rubygems.org"
-
-# gem "rails"
-
-gem "jekyll-paginate", "~> 1.1"
-
-gem "jemoji", "~> 0.11.1"
-
-gem "jekyll-seo-tag", "~> 2.6"
-
+gem "jekyll", github: "jekyll/jekyll"
 gem "jekyll-sitemap", "~> 1.4"
 
 gem "jekyll-feed", "~> 0.13.0"
+
+gem "rouge", "~> 3.19"
+
+gem "jekyll-redirect-from", "~> 0.16.0"

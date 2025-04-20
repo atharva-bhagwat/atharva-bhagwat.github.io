@@ -1,47 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-  {% include head.html %}
-  <body>
-    <div id="page">
-      <style>
-        .title {
-          padding: 10%;
-          color: #101417;
-          font-size: 18px;
-          font-weight: bold;
-          text-align: center;
-          background: #f78e66;
-          display: grid;
-          position: relative;
-        }
-        .meta {
-          font-size: 0.7rem;
-          font-weight: normal;
-          text-transform: uppercase;
-        }
-        .date {
-          font-size: 0.5rem;
-          font-weight: lighter;
-          position: absolute;
-          bottom: 10px;
-          text-align: center;
-        }
-      </style>
-      <!-- header -->
-      {% include header.html %}
-      <!-- nav -->
-      {% include nav.html %}
-      <!-- page content -->
-      <main class="content">
-        <p class="title">
-          {{page.title}} <span class="meta">~ {{page.author}}</span>
-          <span class="date">{{ page.date | date: "%B %d, %Y" }}</span>
-        </p>
-        {{content}}
-      </main>
+---
+layout: default
+---
 
-      <!-- footer -->
-      {% include footer.html %}
-    </div>
-  </body>
-</html>
+<!-- <article class="post"> -->
+  <h1 class="post-title">{{ page.title }}</h1>
+  <time datetime="{{ page.date | date: "%B %-d, %Y" }}" class="post-date">{{ page.date | date: "%B %-d, %Y" }}</time>
+  {{ content }}
+<!-- </article> -->

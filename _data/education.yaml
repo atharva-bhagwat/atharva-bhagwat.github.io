@@ -1,0 +1,19 @@
+- degree: "M.S. in Computational Science"
+  institution: New York University
+  location: "NYC, NY"
+  years: "Sept. 2021 —"
+  years-extra: "May 2023"
+  institution-url: https://engineering.nyu.edu
+  description:
+    - "GPA: 3.63/4.00"
+
+- degree: "B.E. in Computer Engineering"
+  institution: "Pune Institute of Computer Technology"
+  location: "Pune, India"
+  years: "Aug. 2016 —"
+  years-extra: "May 2020"
+  thesis: "Video Summarization"
+  thesis-pdf: ../papers/atharva_bhagwat_be_thesis.pdf
+  institution-url: https://www.pict.edu
+  description:
+    - "GPA: 8.45/10"
