@@ -45,7 +45,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 <p class="feature-text">
  Latest research for fans of human-computer interaction, data visualization, and machine learning.
 </p>
-
+<!-- 
 <div class="cover-wrapper cover-wrapper-3-col l-page">
  {% assign sortedPublications = site.categories.papers | sort: 'feature-order' %}
  {% for feature in sortedPublications %}
@@ -53,7 +53,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
    {% include feature.html feature=feature %}
   {% endif %}
  {% endfor %}
-</div>
+</div> -->
 
 <br>
 <h2 class="feature-title">Featured <a href="/dissertation">Dissertation Publications</a></h2>
@@ -66,14 +66,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
  {% include dissertation/document.html details=false location=home %}
 </div>
 
-<div class="cover-wrapper cover-wrapper-3-col l-page">
+<!-- <div class="cover-wrapper cover-wrapper-3-col l-page">
  {% assign sortedPublications = site.categories.papers | sort: 'feature-order' %}
  {% for feature in sortedPublications %}
   {% if feature.dissertation == true %}
    {% include feature.html feature=feature %}
   {% endif %}
  {% endfor %}
-</div>
+</div> -->
 
 <br>
 <h2 class="feature-title">Apple <a href="https://developer.apple.com/design/human-interface-guidelines/">Chart Design Guidelines</a></h2>
@@ -119,11 +119,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
  A born-digital, experimental magazine dedicated to showcasing the expository power of the web.
 </p>
 
-<div class="cover-wrapper cover-wrapper-2-col l-middle">
+<!-- <div class="cover-wrapper cover-wrapper-2-col l-middle">
  {% assign parametric = site.data.articles | where: "parametric-issue", true %}
  {% for feature in parametric %}
   {% include feature.html feature=feature %}
  {% endfor %}
-</div>
+</div> -->
 
 [cv]: {{ site.url }}/cv
