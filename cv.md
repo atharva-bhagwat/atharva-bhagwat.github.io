@@ -70,11 +70,9 @@ Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipi
 
 ## Work Experience
 
-{::nomarkdown}
 {% for experience in site.data.experiences %}
 {% include cv/experience.html experience=experience %}
 {% endfor %}
-{:/}
 
 ## Publications
 
@@ -83,14 +81,6 @@ Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipi
 {% assign journal = site.categories.papers | where: 'type', "journal" %}
 {% for pub in journal %}
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
-{% endfor %}
-
-## Articles
-
-{% for article in site.data.articles %}
- {% unless article.feature-only %}
-  {% include cv/article.html article=article %}
- {% endunless %}
 {% endfor %}
 
 ## Awards
