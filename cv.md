@@ -30,13 +30,13 @@ jsarr:
 </div> -->
 
 <div>
-I design and develop <b><span class="cv-vis">interactive interfaces</span></b> to help people <b><span class="cv-ai">understand machine learning</span></b> models and data-driven systems. Besides building tools, I also create data visualizations and write interactive articles to simply communicate complex ideas.
+Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipiscing elit, sed do eiusmod <b><span class="cv-ai">tempor</span></b> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </div>
 
 <div class="cv-spacer"></div>
 
 <div>
-I have collaborated with researchers, designers, developers, and artists while working at Apple, Microsoft Research, NASA Jet Propulsion Lab, and Pacific Northwest National Lab.
+Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipiscing elit, sed do eiusmod <b><span class="cv-ai">tempor</span></b> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </div>
 
 <div class="cv-spacer"></div>
