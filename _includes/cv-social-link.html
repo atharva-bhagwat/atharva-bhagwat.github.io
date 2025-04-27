@@ -6,7 +6,7 @@
 		{% if link.id == 'email' %}
 		  class="copy-link" 
 		  data-tooltip="Copy" 
-		  onclick="copyText(this, '{{ link.url }}')"
+		  onclick="copyText(this, '{{ link.description }}')"
 		{% endif %}
 	  >
 		<i class="{{ link.class }}" style="color: {{ link.color }}"></i>
@@ -19,7 +19,7 @@
 		{% if link.id == 'email' %}
 		  class="copy-link" 
 		  data-tooltip="Copy" 
-		  onclick="copyText(this, '{{ link.url }}')"
+		  onclick="copyText(this, '{{ link.description }}')"
 		{% endif %}
 	  >
 		{{ link.description }}
