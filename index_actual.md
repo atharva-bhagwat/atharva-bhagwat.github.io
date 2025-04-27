@@ -40,7 +40,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <hr class="l-middle home-hr">
 
-<h2 class="feature-title">Featured <a href="/cv/#publications">Research Publications</a></h2>
+<h2 class="feature-title"><a href="/cv/#publications">Publications</a></h2>
 
 <p class="feature-text">
  Latest research for fans of human-computer interaction, data visualization, and machine learning.
@@ -71,8 +71,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <br>
 
-<br>
-<h2 class="feature-title">Featured <a href="/cv/#articles">Articles</a></h2>
+<h2 class="feature-title"><a href="/cv/#articles">Articles</a></h2>
 
 <p class="feature-text">
  Enhanced reading experiences that demonstrate what's possible when dynamic media are effectively combined.
