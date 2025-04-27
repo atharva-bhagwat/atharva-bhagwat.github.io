@@ -21,5 +21,3 @@ title: Home
  </div>
 
 🚧 Work in progress.. 🚧
-
-[cv]: {{ site.url }}/cv
