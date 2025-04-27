@@ -10,17 +10,19 @@ Things I do, including research, academic course projects, and miscellaneous int
 
 My dissertation contributed interactive interfaces to enable machine learning interpretability at scale and for everyone.
 
+{% comment %}
 <div class="cover-wrapper cover-wrapper-1-col l-text">
-	{% include dissertation/document.html details=false location=home %}
+ {% include dissertation/document.html details=false location=home %}
 </div>
+{% endcomment %}
 
 <div class="cover-wrapper cover-wrapper-3-col l-page">
-	{% assign sortedPublications = site.categories.papers | sort: 'feature-order' %}
-	{% for feature in sortedPublications %}
-		{% if feature.dissertation == true %}
-			{% include feature.html feature=feature %}
-		{% endif %}
-	{% endfor %}
+ {% assign sortedPublications = site.categories.papers | sort: 'feature-order' %}
+ {% for feature in sortedPublications %}
+  {% if feature.dissertation == true %}
+   {% include feature.html feature=feature %}
+  {% endif %}
+ {% endfor %}
 </div>
 
 <div class="project-spacer-small"></div>
@@ -46,14 +48,14 @@ Enhanced reading experiences that demonstrate what's possible when dynamic media
 <div class="project-spacer-small"></div>
 
 <div class="cover-wrapper cover-wrapper-2-col l-middle">
-	{% assign sortedArticles = site.data.articles | where: "featured", true %}
-	{% assign ia = site.categories.papers | where:"permalink", "papers/interactive-articles" %}
+ {% assign sortedArticles = site.data.articles | where: "featured", true %}
+ {% assign ia = site.categories.papers | where:"permalink", "papers/interactive-articles" %}
 
-	{% assign feature = sortedArticles[0] %}
-	{% include feature.html feature=feature %}
+ {% assign feature = sortedArticles[0] %}
+ {% include feature.html feature=feature %}
 
-	{% assign feature = ia[0] %}
-	{% include feature.html feature=feature %}
+ {% assign feature = ia[0] %}
+ {% include feature.html feature=feature %}
 </div>
 
 <div class="project-spacer-small"></div>
@@ -75,15 +77,14 @@ Guidance and best practices to help designers and developers create the best cha
 <div class="project-spacer-small"></div>
 
 <div class="cover-wrapper cover-wrapper-2-col l-middle">
-	{% for feature in site.data.designs %}
-		{% if feature.featured == true %}
-			{% include feature.html feature=feature %}
-		{% endif %}
-	{% endfor %}
+ {% for feature in site.data.designs %}
+  {% if feature.featured == true %}
+   {% include feature.html feature=feature %}
+  {% endif %}
+ {% endfor %}
 </div>
 
 <div class="project-spacer"></div>
-
 
 ## Parametric Press Articles
 
@@ -92,10 +93,10 @@ A born-digital, experimental magazine dedicated to showcasing the expository pow
 <div class="project-spacer-small"></div>
 
 <div class="cover-wrapper cover-wrapper-2-col l-middle">
-	{% assign parametric = site.data.articles | where: "parametric-issue", true %}
-	{% for feature in parametric %}
-		{% include feature.html feature=feature %}
-	{% endfor %}
+ {% assign parametric = site.data.articles | where: "parametric-issue", true %}
+ {% for feature in parametric %}
+  {% include feature.html feature=feature %}
+ {% endfor %}
 </div>
 
 <div class="project-spacer-small"></div>
@@ -148,4 +149,3 @@ A born-digital, experimental magazine dedicated to showcasing the expository pow
 
 [trefoil]: {{ site.url }}/projects/3d-printing-the-trefoil-knot-and-its-pages "3D Printing the Trefoil Knot and its Pages"
 [reu]: {{ site.url }}/projects/mathematics-&-computational-science-reu "Mathematics & Computational Science REU"
-
