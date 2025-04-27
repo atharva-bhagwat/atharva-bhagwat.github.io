@@ -63,9 +63,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
  My dissertation contributed interactive interfaces to enable machine learning interpretability at scale and for everyone.
 </p>
 
+{% comment %}
 <div class="cover-wrapper cover-wrapper-1-col l-text">
  {% include dissertation/document.html details=false location=home %}
 </div>
+{% endcomment %}
 
 {% comment %}
 <div class="cover-wrapper cover-wrapper-3-col l-page">
