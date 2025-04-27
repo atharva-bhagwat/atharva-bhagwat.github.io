@@ -23,7 +23,7 @@
 		{% endif %}
 	{% endfor %}
 
-	{% if person == "Your Name" %}
+	{% if person == "Atharva Bhagwat" %}
 		{% assign is_me = true %}
 	{% endif %}
 
@@ -48,11 +48,13 @@
 	  </a>
 	{% endif %}
 
+	{% comment %}
 	{% if pub.url %}
 	  <a href="{{ pub.url }}">
 	    <i class="fas fa-link" aria-hidden="true"></i> Project
 	  </a>
 	{% endif %}
+	{% endcomment %}
 
 	{% if pub.demo %}
 	  <a href="{{ pub.demo }}">
