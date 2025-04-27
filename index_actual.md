@@ -46,7 +46,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
  Latest research for fans of human-computer interaction, data visualization, and machine learning.
 </p>
 
-{% comment %}
 <div class="cover-wrapper cover-wrapper-3-col l-page">
  {% assign sortedPublications = site.categories.papers | sort: 'feature-order' %}
  {% for feature in sortedPublications %}
@@ -54,7 +53,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
    {% include feature.html feature=feature %}
   {% endif %}
  {% endfor %}
-{% endcomment %}
 
 <br>
 
