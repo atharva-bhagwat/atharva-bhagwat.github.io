@@ -15,7 +15,7 @@
 	<div class="cv-social-link-text-wrapper">
 	  <a 
 		href="{{ link.url }}" 
-		{% if link.id != 'home' %}target="_blank"{% endif %}
+		{% if link.id != 'home' and link.id != 'email' %}target="_blank"{% endif %}
 		{% if link.id == 'email' %}
 		  class="copy-link" 
 		  data-tooltip="Copy" 
