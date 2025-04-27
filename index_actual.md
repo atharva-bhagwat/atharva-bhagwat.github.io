@@ -46,26 +46,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
  Latest research for fans of human-computer interaction, data visualization, and machine learning.
 </p>
 
-<div class="cover-wrapper cover-wrapper-3-col l-page">
- {% assign sortedPublications = site.categories.papers | sort: 'feature-order' %}
- {% for feature in sortedPublications %}
-  {% if feature.featured == true %}
-   {% include feature.html feature=feature %}
-  {% endif %}
- {% endfor %}
-
-<br>
-
-{% comment %}
-<div class="cover-wrapper cover-wrapper-3-col l-page">
- {% assign sortedPublications = site.categories.papers | sort: 'feature-order' %}
- {% for feature in sortedPublications %}
-  {% if feature.dissertation == true %}
-   {% include feature.html feature=feature %}
-  {% endif %}
- {% endfor %}
-</div>
-{% endcomment %}
+{% assign journal = site.categories.papers | where: 'type', "journal" %}
+{% for pub in journal %}
+{% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
+{% endfor %}
 
 <br>
 
