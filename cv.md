@@ -60,13 +60,15 @@ Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipi
 
 ***
 
-## Education
+{% comment %}
+<!-- ## Education
 
 {::nomarkdown}
 {% for degree in site.data.education %}
 {% include cv/degree.html degree=degree %}
 {% endfor %}
-{:/}
+{:/} -->
+{% endcomment %}
 
 ## Work Experience
 
