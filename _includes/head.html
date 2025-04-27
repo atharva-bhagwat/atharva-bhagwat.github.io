@@ -7,13 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Share card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@fredhohman" />
-  <meta name="twitter:creator" content="@fredhohman" />
-  <meta property="og:url" content="https://fredhohman.com/" />
-  <meta property="og:title" content="Fred Hohman" />
-  <meta property="og:description" content="Fred Hohman is a Research Scientist at Apple creating interactive interfaces and data visualizations for machine learning." />
-  <meta property="og:image" content="http://fredhohman.com/images/share.png" />
+  <meta property="og:url" content="https://atharva-bhagwat.github.io/" />
+  <meta property="og:title" content="Atharva Bhagwat" />
+  <meta property="og:description" content="Atharva Bhagawt is an Associate Computational Researcher at Tsankov Lab, Mount Sinai working on lung senescence." />
+  <meta property="og:image" content="http://atharva-bhagwat.github.io/images/share.png" />
 
   <title>
     {% if page.title == "Home" %}
@@ -29,7 +26,6 @@
   <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
 
   <!-- Icons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=xQdLjRyXLj">
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=xQdLjRyXLj">
   <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=xQdLjRyXLj">
   <link rel="manifest" href="/icons/site.webmanifest?v=xQdLjRyXLj">
@@ -50,6 +46,17 @@
     gtag('js', new Date());
 
     gtag('config', 'G-YMVTT71WC1');
+
+    function copyText(element, text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          element.setAttribute('data-tooltip', 'Copied!');
+          setTimeout(() => {
+            element.setAttribute('data-tooltip', 'Copy');
+          }, 1500); // Change back after 1.5 seconds
+        })
+        .catch(err => console.error('Failed to copy text: ', err));
+    }
   </script>
 
 </head>

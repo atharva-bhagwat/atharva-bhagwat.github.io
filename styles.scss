@@ -28,3 +28,27 @@
 @import "projects";
 
 @import "print";
+
+.copy-link {
+    position: relative;
+    cursor: pointer;
+}
+.copy-link::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: black;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+}
+.copy-link:hover::after {
+    opacity: 1;
+}
