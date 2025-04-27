@@ -16,6 +16,7 @@ My dissertation contributed interactive interfaces to enable machine learning in
 </div>
 {% endcomment %}
 
+{% comment %}
 <div class="cover-wrapper cover-wrapper-3-col l-page">
  {% assign sortedPublications = site.categories.papers | sort: 'feature-order' %}
  {% for feature in sortedPublications %}
@@ -24,6 +25,7 @@ My dissertation contributed interactive interfaces to enable machine learning in
   {% endif %}
  {% endfor %}
 </div>
+{% endcomment %}
 
 <div class="project-spacer-small"></div>
 
@@ -33,11 +35,13 @@ Research publications for fans of human-computer interaction, data visualization
 
 <div class="project-spacer-small"></div>
 
+{% comment %}
 <div class="l-page project-grid">
     {% for project in site.categories.papers %}
     {% include project.html project=project %}
     {% endfor %}
 </div>
+{% endcomment %}
 
 <div class="project-spacer"></div>
 
@@ -47,6 +51,7 @@ Enhanced reading experiences that demonstrate what's possible when dynamic media
 
 <div class="project-spacer-small"></div>
 
+{% comment %}
 <div class="cover-wrapper cover-wrapper-2-col l-middle">
  {% assign sortedArticles = site.data.articles | where: "featured", true %}
  {% assign ia = site.categories.papers | where:"permalink", "papers/interactive-articles" %}
@@ -147,5 +152,4 @@ A born-digital, experimental magazine dedicated to showcasing the expository pow
 <li><a href="{{ site.url }}/projects/road-bike-restoration">Road Bike Restoration</a> <small style="color: #c0c0c0">2012</small></li>
 </ul>
 
-[trefoil]: {{ site.url }}/projects/3d-printing-the-trefoil-knot-and-its-pages "3D Printing the Trefoil Knot and its Pages"
-[reu]: {{ site.url }}/projects/mathematics-&-computational-science-reu "Mathematics & Computational Science REU"
+{% endcomment %}
