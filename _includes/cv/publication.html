@@ -29,7 +29,7 @@
 
 	<span
 	{% if equal %} title="Equal contribution"{% endif %}
-	{% if is_me %} style="text-decoration: underline;"{% endif %}
+	{% if is_me %} style="text-decoration: bold;"{% endif %}
 	>
 		{% include person.html person=person %}
 			{% if equal %}*{% endif %}

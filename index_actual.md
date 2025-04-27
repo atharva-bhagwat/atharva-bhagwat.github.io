@@ -52,8 +52,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
 
-<br>
-
 <h2 class="feature-title"><a href="/cv/#articles">Articles</a></h2>
 
 <p class="feature-text">
