@@ -4,3 +4,44 @@
    {% endif %}>
     <i class="{{ link.class }}" style="color: {{ link.color }}"></i>
 </a>
+
+<style>
+    .copy-link {
+      position: relative;
+      cursor: pointer;
+      text-decoration: underline;
+      color: blue;
+    }
+    .copy-link::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: black;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .copy-link:hover::after {
+      opacity: 1;
+    }
+  </style>
+
+<script>
+function copyText(element, text) {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      element.setAttribute('data-tooltip', 'Copied!');
+      setTimeout(() => {
+        element.setAttribute('data-tooltip', 'Copy');
+      }, 1500); // Change back after 1.5 seconds
+    })
+    .catch(err => console.error('Failed to copy text: ', err));
+}
+</script>
