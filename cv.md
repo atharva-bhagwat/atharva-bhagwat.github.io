@@ -70,9 +70,11 @@ Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipi
 
 ## Work Experience
 
+{::nomarkdown}
 {% for experience in site.data.experiences %}
 {% include cv/experience.html experience=experience %}
 {% endfor %}
+{:/}
 
 ## Publications
 
