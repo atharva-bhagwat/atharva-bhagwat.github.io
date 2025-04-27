@@ -46,7 +46,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
  Latest research for fans of human-computer interaction, data visualization, and machine learning.
 </p>
 
-{% assign journal = site.categories.papers | where: 'type', "journal" %}
+{% assign selectedBoolForBibtex = false %}
+{% assign journal = site.data.publications | where: 'type', "journal" %}
 {% for pub in journal %}
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}

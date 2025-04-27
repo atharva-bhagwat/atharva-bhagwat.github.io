@@ -78,7 +78,7 @@ Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipi
 
 {% assign selectedBoolForBibtex = false %}
 
-{% assign journal = site.categories.papers | where: 'type', "journal" %}
+{% assign journal = site.data.publications | where: 'type', "journal" %}
 {% for pub in journal %}
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
