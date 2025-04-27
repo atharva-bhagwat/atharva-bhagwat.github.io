@@ -57,17 +57,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 {% endcomment %}
 
 <br>
-<h2 class="feature-title">Featured <a href="/dissertation">Dissertation Publications</a></h2>
-
-<p class="feature-text">
- My dissertation contributed interactive interfaces to enable machine learning interpretability at scale and for everyone.
-</p>
-
-{% comment %}
-<div class="cover-wrapper cover-wrapper-1-col l-text">
- {% include dissertation/document.html details=false location=home %}
-</div>
-{% endcomment %}
 
 {% comment %}
 <div class="cover-wrapper cover-wrapper-3-col l-page">
@@ -81,24 +70,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 {% endcomment %}
 
 <br>
-<h2 class="feature-title">Apple <a href="https://developer.apple.com/design/human-interface-guidelines/">Chart Design Guidelines</a></h2>
-
-<p class="feature-text">
- Guidance and best practices to help designers and developers create the best charts for Apple platforms.
-</p>
-
-{% comment %}
-<div class="cover-wrapper cover-wrapper-2-col l-middle">
- {% for feature in site.data.designs %}
-  {% if feature.featured == true %}
-   {% include feature.html feature=feature %}
-  {% endif %}
- {% endfor %}
-</div>
-{% endcomment %}
 
 <br>
-<h2 class="feature-title">Featured <a href="/cv/#interactive-articles">Interactive Articles</a></h2>
+<h2 class="feature-title">Featured <a href="/cv/#articles">Articles</a></h2>
 
 <p class="feature-text">
  Enhanced reading experiences that demonstrate what's possible when dynamic media are effectively combined.
@@ -118,22 +92,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
  {% assign feature = ia[0] %}
  {% include feature.html feature=feature %}
-</div>
-{% endcomment %}
-
-<br>
-<h2 class="feature-title"><a href="https://parametric.press/about">Parametric Press</a></h2>
-
-<p class="feature-text">
- A born-digital, experimental magazine dedicated to showcasing the expository power of the web.
-</p>
-
-{% comment %}
-<div class="cover-wrapper cover-wrapper-2-col l-middle">
- {% assign parametric = site.data.articles | where: "parametric-issue", true %}
- {% for feature in parametric %}
-  {% include feature.html feature=feature %}
- {% endfor %}
 </div>
 {% endcomment %}
 

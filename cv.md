@@ -83,6 +83,14 @@ I have collaborated with researchers, designers, developers, and artists while w
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
 
+## Articles
+
+{% for article in site.data.articles %}
+ {% unless article.feature-only %}
+  {% include cv/article.html article=article %}
+ {% endunless %}
+{% endfor %}
+
 ## Awards
 
 {% for award in site.data.awards %}
