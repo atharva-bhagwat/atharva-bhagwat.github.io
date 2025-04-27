@@ -10,25 +10,6 @@ jsarr:
 
 <p id="cv-subtitle"><i>Associate Computational Researcher</i></p>
 
-<!-- <div id="cv-toc">
-<ul class="cv-description">
-	<li>Education</li>
-	<li>Industry Research</li>
-	<li>Academic Research</li>
-	<li>Honors and Awards</li>
-	<li>Publications</li>
-	<li>Talks</li>
-	<li>Press</li>
-	<li>Teaching</li>
-	<li>Mentoring</li>
-	<li>Grants and Funding</li>
-	<li>Interactive Articles</li>
-	<li>Service</li>
-	<li>Design</li>
-	<li>References</li>
-</ul>
-</div> -->
-
 <div>
 Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipiscing elit, sed do eiusmod <b><span class="cv-ai">tempor</span></b> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </div>

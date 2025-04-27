@@ -42,10 +42,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <h2 class="feature-title"><a href="/cv/#publications">Publications</a></h2>
 
-<p class="feature-text">
- Latest research for fans of human-computer interaction, data visualization, and machine learning.
-</p>
-
 {% assign selectedBoolForBibtex = false %}
 {% assign journal = site.data.publications | where: 'type', "journal" %}
 {% for pub in journal %}
@@ -53,11 +49,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 {% endfor %}
 
 <h2 class="feature-title"><a href="/cv/#articles">Articles</a></h2>
-
-<p class="feature-text">
- Enhanced reading experiences that demonstrate what's possible when dynamic media are effectively combined.
-
-</p>
 
 {% comment %}
 <div class="cover-wrapper cover-wrapper-3-col l-page">
