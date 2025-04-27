@@ -1,3 +1,6 @@
-<a class="social-link" href="{{ link.url }}">
+<a class="social-link" href="{{ link.url }}" 
+   {% if link.id == 'email' %}
+       href="#" class="copy-link" data-tooltip="Copy" onclick="copyText(this, {{ link.description }})"
+   {% endif %}>
     <i class="{{ link.class }}" style="color: {{ link.color }}"></i>
 </a>

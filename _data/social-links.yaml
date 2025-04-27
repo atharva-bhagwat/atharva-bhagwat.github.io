@@ -2,7 +2,7 @@
   description: "atharva.bhagwat42@gmail.com"
   color: "#515151"
   class: "fas fa-envelope icon"
-  url: "mailto:atharva.bhagwat42@gmail.com"
+  url: "#"
   on-homepage: true
   cv-group: 1
 
