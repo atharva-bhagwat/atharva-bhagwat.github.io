@@ -1,6 +1,8 @@
-<a class="social-link" href="{{ link.url }}" target="_blank"
-   {% if link.id == 'email' %}
-       href="#" class="copy-link social-link" data-tooltip="Copy" onclick="copyText(this, '{{ link.description }}')"
-   {% endif %}>
+<a class="social-link" href="{{ link.url }}"
+    {% if link.id == 'email' %}
+        href="#" class="copy-link social-link" data-tooltip="Copy" onclick="copyText(this, '{{ link.description }}')"
+    {% else %}
+        target="_blank"
+    {% endif %}>
     <i class="{{ link.class }}" style="color: {{ link.color }}"></i>
 </a>
