@@ -66,30 +66,38 @@ Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipi
 {% for degree in site.data.education %}
 {% include cv/degree.html degree=degree %}
 {% endfor %}
+{:/}
 
 ## Work Experience
 
+{::nomarkdown}
 {% for experience in site.data.experiences %}
 {% include cv/experience.html experience=experience %}
 {% endfor %}
+{:/}
 
 ## Publications
 
+{::nomarkdown}
 {% assign selectedBoolForBibtex = false %}
 
 {% assign journal = site.categories.papers | where: 'type', "journal" %}
 {% for pub in journal %}
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
+{:/}
 
 ## Awards
 
+{::nomarkdown}
 {% for award in site.data.awards %}
 {% include cv/award.html award=award %}
 {% endfor %}
+{:/}
 
 ## Mentoring
 
+{::nomarkdown}
 {% for mentee in site.data.mentoring %}
 {% include cv/mentee.html mentee=mentee %}
 {% endfor %}
