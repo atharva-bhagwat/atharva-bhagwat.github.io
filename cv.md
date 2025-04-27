@@ -62,6 +62,7 @@ Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipi
 
 ## Education
 
+{::nomarkdown}
 {% for degree in site.data.education %}
 {% include cv/degree.html degree=degree %}
 {% endfor %}
@@ -89,7 +90,6 @@ Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipi
 
 ## Mentoring
 
-{::nomarkdown}
 {% for mentee in site.data.mentoring %}
 {% include cv/mentee.html mentee=mentee %}
 {% endfor %}
