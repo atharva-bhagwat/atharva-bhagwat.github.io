@@ -47,17 +47,16 @@
 
     gtag('config', 'G-YMVTT71WC1');
 
-  function copyText(event, element, text) {
-    event.preventDefault();
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        element.setAttribute('data-tooltip', 'Copied!');
-        setTimeout(() => {
-          element.setAttribute('data-tooltip', 'Copy');
-        }, 1500);
-    })
-    .catch(err => console.error('Failed to copy text: ', err));
-  }
+    function copyText(element, text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          element.setAttribute('data-tooltip', 'Copied!');
+          setTimeout(() => {
+            element.setAttribute('data-tooltip', 'Copy');
+          }, 1500); // Change back after 1.5 seconds
+        })
+        .catch(err => console.error('Failed to copy text: ', err));
+    }
   </script>
 
 </head>
