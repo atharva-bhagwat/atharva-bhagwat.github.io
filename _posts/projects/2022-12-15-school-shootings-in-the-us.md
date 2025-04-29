@@ -1,13 +1,13 @@
 ---
 layout: post
 title: School Shootings in the US
-date: 2022-12-15
-tags: Project
-author: Atharva Bhagwat, Danna Alamer, Karthik Udhayakumar, and Shreeraj Pawar
-logo: "images/logo/nohello.png"
+categories: projects
+permalink: projects/school-shootings
+author: Atharva Bhagwat
 ---
 
 ## Introduction
+
 United states is one of the most diverse and multi-cultural places in the world. It is home to approximately 332 million, of which more than 25% are people under 17 years of age.
 
 When compared to other countries, the US has a ratio of 120.5 firearms per 100 residents, up from 88 per 100 in 2011, highest among that of other countries around the world.
@@ -26,9 +26,9 @@ We would like to start with the number of K-12 schools in the US where school sh
 
 **Description:**
 
-K-12 School Shooting Database is an open source database launched and managed by David Riedman in 2018. 
+K-12 School Shooting Database is an open source database launched and managed by David Riedman in 2018.
 
-The data consists of all incidents from 1970 to 2022 and is consistently updated. The dataset is divided in to 4 tables: Incident, Shooter, Victim, and Weapon. 
+The data consists of all incidents from 1970 to 2022 and is consistently updated. The dataset is divided in to 4 tables: Incident, Shooter, Victim, and Weapon.
 
 We are using subsets of the incident, weapon, and shooter data tables to generate visualization and answer our questions.
 
@@ -39,6 +39,7 @@ Subset of indicent table has 2171 entries and 19 columns. All tables have featur
 The table contains 2171 incidents from year 1970 to 2022.
 
 Out of all the features in the incident table, analysis focuses on:
+
 - Measures like `victims killed`, `wounded`, and `total number of victims`
 - Time series data like `date` and `quarter`
 - Geographical information like `state`
@@ -50,6 +51,7 @@ The original data containted a lot of empty values in the `Weapon_Type` column. 
 ## Shooter Table
 
 The `Age` column in this table consists of `string` data, like: Adult and `integer` data like, 17. While data cleaning, these values were grouped into the following bins:
+
 - 0-12
 - 13-17
 - 18-21
@@ -59,7 +61,7 @@ The `Age` column in this table consists of `string` data, like: Adult and `integ
 
 The missing values in the gender column were set to `unknown`.
 
-## More Frequent...
+## More Frequent
 
 In the last decade, school schootings have become a frequent occuring and have been in the news regularly. This motivated us to begin our exploratory data analysis with a time series of the number of incidents in last 50 years in the US to understand how much things have changed. We used the incident table which has shooting incident records from 1970 till now.
 
@@ -69,7 +71,6 @@ In the last decade, school schootings have become a frequent occuring and have b
 We notice a rising trend in the number of shootings over the years which is almost 1200% increase in five decades. Where in during the 70s the yearly shooting occurrence was as low as 20, to the current time where it is almost 260 yearly. We notice a jump in the number of incidents after 2015 where it has increased almost 4 times.
 
 ## ...and Deadlier
-
 
 <div id='injuried_death_ratio_legend'>
 </div>
@@ -97,9 +98,9 @@ Since, we cant generalize the occurences of incidents across all states, we delv
 <div id='heatmap'>
 </div>
 
-As we notice, this visualization is highly similar to the cumulative incident distribution over the years we see initially. There seems to a sharp increase in number of incidents after 2015 across most of the states, denoted by a orange to dark-red shades in the right side of the visualization. Large number of white spaces in heatmap signifies that there is little to no incidents for majortiy of the states for large number of years. 
+As we notice, this visualization is highly similar to the cumulative incident distribution over the years we see initially. There seems to a sharp increase in number of incidents after 2015 across most of the states, denoted by a orange to dark-red shades in the right side of the visualization. Large number of white spaces in heatmap signifies that there is little to no incidents for majortiy of the states for large number of years.
 
-This motivates us to understand recent trends inorder to correlate with current state laws. Hence we shift our focus only to incident occurence after the year 2000. Interesting patterns arise when we inspect state-wise breakdown of data from year 2000. States like California, Texas, Illinois, Florida, Pittsburgh, Ohio has seen higher incidents when compared to rest of the country, with California topping the list five times over the last 6 years. Average number of incidents across the top 5 states over the last 22 years seems to over 7. Sadly, there has been only 15 occurences where the top 5 states didnt have a single incident for an entire year over the last 22 years. Illinois has also the highest number of incidents in the recent years, which motivates us further to focus on this group of states. 
+This motivates us to understand recent trends inorder to correlate with current state laws. Hence we shift our focus only to incident occurence after the year 2000. Interesting patterns arise when we inspect state-wise breakdown of data from year 2000. States like California, Texas, Illinois, Florida, Pittsburgh, Ohio has seen higher incidents when compared to rest of the country, with California topping the list five times over the last 6 years. Average number of incidents across the top 5 states over the last 22 years seems to over 7. Sadly, there has been only 15 occurences where the top 5 states didnt have a single incident for an entire year over the last 22 years. Illinois has also the highest number of incidents in the recent years, which motivates us further to focus on this group of states.
 
 If we look at the other end of the spectrum, States like Hawaii, Idaho, North Dakota, US Virgin Islands, West Virginia has low incident count with an average incident occurence of 3.8 per years over the last 22 years. Hence, we decide to compare on these two groups of state in our analysis further.
 
@@ -169,6 +170,7 @@ In addition to having low population, the state of Hawaii also has stricter gun 
 To uncover seasonality trends, we were interested into seeing what quarter of the year has the most number of incidents. For this, we use a line chart highlighting the last 5 years and plotting number of incidents over quarters.
 
 We observed a couple of things:
+
 - There has been a tremendous increase in number of incidents in last 5 years.
 - All years have higher number of incidents in Fall.
 
@@ -178,7 +180,7 @@ While most states have an age limit of 18 to purchase weapons, We observed that 
 
 In addition to this, increasing the age limit for purchasing weapons to 21 will benefit, as the age range 18-21 has the 2nd highest amount of shooters.
 
-States with no laws restricting access to rifles leads to incidents with higher casualties. Restricting access to automatic rifles, in 
+States with no laws restricting access to rifles leads to incidents with higher casualties. Restricting access to automatic rifles, in
 all states will significantly reduce the number of fatalities.
 
 Since there are a lot of *unknowns* in the weapon type feature of the weapons' table, reducing this could help us uncover patterns.
@@ -208,4 +210,3 @@ These incidents are rising at an alarming rate and have happened in every part o
   colorize(trend_legend, 'trend_legend');
   plot10();
 </script>
-

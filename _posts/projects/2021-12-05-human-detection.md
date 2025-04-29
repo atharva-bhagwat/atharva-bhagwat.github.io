@@ -1,13 +1,13 @@
 ---
 layout: post
 title: Human Detection using HOG Feature
-date: 2021-12-05
-tags: Project
+categories: projects
+permalink: projects/hog-human-detection
 author: Atharva Bhagwat
-logo: "images/logo/nohello.png"
 ---
 
-# Steps:
+# Steps
+
 - Read image. Convert to grayscale using: Gray = round(0.299Red + 0.587Green + 0.114*Blue)
 - Gradient calculation using prewitt's operator, magnitude calculation (sqrt(Gx^2+Gy^2)) and normalization.
 - Gradient angle calculation.

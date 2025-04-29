@@ -1,10 +1,9 @@
 ---
 layout: post
 title: Separating Perception and Reasoning via Relation Networks
-date: 2022-12-11
-tags: Project
-author: Atharva Bhagwat, Harini Appansrinivasan, and Abdulqadir Zakir
-logo: "images/logo/nohello.png"
+categories: projects
+permalink: projects/relation-networks
+author: Atharva Bhagwat
 ---
 
 Visual Question Answering (VQA) is a multi-modal task relating text and images through captions or a questionnaire. For example, with a picture of a busy highway, there could be a question: “How many red cars are there?” or “Are there more motorbikes than cars?”. It is a very challenging task since it requires high-level understanding of both the text and the image and the relationships between them.
