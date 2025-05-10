@@ -27,13 +27,8 @@
 		{% assign is_me = true %}
 	{% endif %}
 
-	<span
-	{% if equal %} title="Equal contribution"{% endif %}
-	{% if is_me %} style="font-weight: bold;"{% endif %}
-	>
-		{% include person.html person=person %}
-			{% if equal %}*{% endif %}
-	</span>{% unless forloop.last %}, {% endunless %}
+	<span {% if equal %} title="Equal contribution"{% endif %} {% if is_me %} style="font-weight: bold;"{% endif %}>{% include person.html person=person %}{% if equal %}*{% endif %}</span>
+	{% unless forloop.last %}, {% endunless %}
 	{% endfor %}
 </div>
 
@@ -166,9 +161,7 @@
 {% if selectedBoolForBibtex == true %}
 <div class="highlighter-rouge bibtex bibtex-wrapper" style="display: none;" id="_{{ pub.id }}_selected">
 	<div class="highlight">
-		<pre>
-			{{ pub.bibtex }}
-		</pre>
+		<pre>{{ pub.bibtex }}</pre>
 	</div>
 </div>
 {% endif %}
