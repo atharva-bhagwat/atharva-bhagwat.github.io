@@ -11,13 +11,7 @@ jsarr:
 <p id="cv-subtitle"><i>Associate Computational Researcher</i></p>
 
 <div>
-Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipiscing elit, sed do eiusmod <b><span class="cv-ai">tempor</span></b> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</div>
-
-<div class="cv-spacer"></div>
-
-<div>
-Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipiscing elit, sed do eiusmod <b><span class="cv-ai">tempor</span></b> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></b> impacts lung tissue using <b><span class="cv-ai">10x Genomics Xenium spatial transcriptomics data</span></b>, with the goal of uncovering key biological pathways that drive these processes.
 </div>
 
 <div class="cv-spacer"></div>
