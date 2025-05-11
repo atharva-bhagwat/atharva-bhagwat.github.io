@@ -64,6 +64,13 @@ Lorem ipsum dolor sit amet, <b><span class="cv-vis">consectetur</span></b> adipi
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
 
+## Articles
+
+{% for article in site.data.articles %}
+{% unless article.feature-only %}
+{% include cv/article.html article=article %}
+{% endunless %} {% endfor %}
+
 ## Awards
 
 {% for award in site.data.awards %}
