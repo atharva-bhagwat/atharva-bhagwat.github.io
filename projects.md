@@ -17,9 +17,9 @@ Things I do, including research, academic course projects, and miscellaneous int
 
 <div class="project-spacer-small"></div>
 
-## Title in progress
+<!-- ## Title in progress
 
-## Undergraduate Thesis
+## Undergraduate Thesis -->
 
 ## Other
 
