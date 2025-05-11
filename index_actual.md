@@ -50,7 +50,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <h2 class="feature-title"><a href="/cv/#articles">Articles</a></h2>
 
-{% comment %}
 <div class="cover-wrapper cover-wrapper-3-col l-page">
  {% assign sortedArticles = site.data.articles | where: "featured", true %}
  {% assign ia = site.categories.papers | where:"permalink", "papers/interactive-articles" %}
@@ -64,6 +63,5 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
  {% assign feature = ia[0] %}
  {% include feature.html feature=feature %}
 </div>
-{% endcomment %}
 
 [cv]: {{ site.url }}/cv
