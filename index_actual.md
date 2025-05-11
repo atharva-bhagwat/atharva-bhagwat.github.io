@@ -52,16 +52,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 <div class="cover-wrapper cover-wrapper-3-col l-page">
  {% assign sortedArticles = site.data.articles | where: "featured", true %}
- {% assign ia = site.categories.papers | where:"permalink", "papers/interactive-articles" %}
-
- {% assign feature = sortedArticles[1] %}
- {% include feature.html feature=feature %}
-
- {% assign feature = sortedArticles[0] %}
- {% include feature.html feature=feature %}
-
- {% assign feature = ia[0] %}
- {% include feature.html feature=feature %}
+{% for feature in sortedArticles %}
+{% include feature.html feature=feature %}
+{% endfor %}
 </div>
 
 [cv]: {{ site.url }}/cv
