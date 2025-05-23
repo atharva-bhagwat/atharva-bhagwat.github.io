@@ -13,3 +13,17 @@
   featured: true
   parametric: false
   feature-parametric-order: 1000
+
+- title: "SQL Noir: The Vanishing Briefcase"
+  authors:
+    - Atharva Bhagwat
+  description: "Case #001 walkthrough"
+  month: "May"
+  year: 2025
+  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-1
+  image: /images/featured/sqlnoir-case1.png
+  feature-title: "SQL Noir: The Vanishing Briefcase"
+  feature-description: "Case #001 walkthrough"
+  featured: true
+  parametric: false
+  feature-parametric-order: 1000
