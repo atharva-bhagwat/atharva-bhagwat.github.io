@@ -10,34 +10,30 @@ Set in the gritty 1980s, a valuable briefcase has disappeared from the Blue Note
 
 Reading the case description these are the **clues** we can pick up:
 
-- Crime happened 1980s
+- Crime happened in the 1980s
 - Briefcase disappeared
-- Location: Blue Note Lounge
-- Man wearing trench coat was seen fleeing the scene
+- Location: **Blue Note Lounge**
+- Man in a **trench coat** was seen fleeing the scene
 
 ## Going over the schema
 
 There are 3 tables:
 
 - crime_scene:
-  - id: PRIMARY KEY
+  - id: **PRIMARY KEY**
 - suspects:
-  - id: PRIMARY KEY
+  - id: **PRIMARY KEY**
 - interviews:
-  - suspect_id: FORIEGN KEY referencing `id` in `suspects`
+  - suspect_id: **FORIEGN KEY** referencing `id` in `suspects`
 
 <!-- ![case1_schema]() -->
 <img src='/assets/images/articles/sqlnoir_case1/schema.png' alt-text='case1_schema' width="50">
 
 ## Investigation
 
-We start by looking through all the crime scenes that happened at the Blue Note Lounge.
+We start by looking through all the crime scenes that happened at the **Blue Note Lounge**.
 
-```sql
-
-select * from crime_scene where location = 'Blue Note Lounge';
-
-```
+<pre> ```sql select * from crime_scene where location = 'Blue Note Lounge';``` </pre>
 
 We get this description of the crime:
 
@@ -45,25 +41,17 @@ We get this description of the crime:
 
 New **clue**:
 
-- Suspect has a scar on his left cheek
+- Suspect has a **scar** on his **left cheek**
 
 We now have enough information on the suspect, so we look in the suspects table where the attire is trench coat and there is a scar on the left cheek.
 
-```sql
-
-select * from suspects where attire = 'trench coat' and scar = 'left cheek';
-
-```
+<pre> ```sql select * from suspects where attire = 'trench coat' and scar = 'left cheek';``` </pre>
 
 There are two suspects *Frankie Lombardi* and *Vincent Malone* who match the description.
 
 We can now look at the interviews for these two suspects to see who our culprit is. This can be done in many ways, we simply use a `JOIN` on suspects and interviews tables as they share a common key, filtered using conditions on attire and scar.
 
-```sql
-
-select suspect_id, transcript, name from interviews join suspects on suspects.id = interviews.suspect_id where attire = 'trench coat' and scar = 'left cheek';
-
-```
+<pre> ```sql select suspect_id, transcript, name from interviews join suspects on suspects.id = interviews.suspect_id where attire = 'trench coat' and scar = 'left cheek'; ``` </pre>
 
 > "I wasn’t going to steal it, but I did." ~ Vincent Malone
 
