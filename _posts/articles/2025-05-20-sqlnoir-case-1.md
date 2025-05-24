@@ -55,13 +55,11 @@ There are two suspects *Frankie Lombardi* and *Vincent Malone* who match the des
 
 We can now look at the interviews for these two suspects to see who our culprit is. This can be done in many ways, we simply use a `JOIN` on suspects and interviews tables as they share a common key, filtered using conditions on attire and scar.
 
-<!-- markdownlint-disable-next-line MD033 -->
-<pre>
-  <!-- markdownlint-disable-next-line MD033 -->
-  <code class="language-sql">
-  select suspect_id, transcript, name from interviews join suspects on suspects.id = interviews.suspect_id where attire = 'trench coat' and scar = 'left cheek';
-  </code>
-</pre>
+```sql
+select suspect_id, transcript, name from interviews 
+join suspects on suspects.id = interviews.suspect_id 
+where attire = 'trench coat' and scar = 'left cheek';
+```
 
 > "I wasn’t going to steal it, but I did." ~ Vincent Malone
 
