@@ -41,3 +41,17 @@
   featured: true
   parametric: false
   feature-parametric-order: 1000
+
+- title: "SQL Noir: The Miami Marina Murder"
+  authors:
+    - Atharva Bhagwat
+  description: "Case #003 walkthrough"
+  month: "May"
+  year: 2025
+  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-3
+  image: /images/featured/sqlnoir-case3.png
+  feature-title: "SQL Noir: The Miami Marina Murder"
+  feature-description: "Case #003 walkthrough"
+  featured: true
+  parametric: false
+  feature-parametric-order: 1000

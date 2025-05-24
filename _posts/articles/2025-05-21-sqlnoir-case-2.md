@@ -7,7 +7,7 @@ author: Atharva Bhagwat
 ---
 <!-- markdownlint-disable MD032 MD033 -->
 
-In the neon glow of 1980s Los Angeles, the West Hollywood Records store was rocked by a daring theft. A prized vinyl record, worth over $10,000, vanished during a busy evening, leaving the store owner desperate for answers. Vaguely recalling the details, you know the incident occurred on July 15, 1983, at this famous store. Your task is to track down the thief and bring them to justice.
+In the neon glow of 1980s Los Angeles, the West Hollywood Records store was rocked by a daring theft. A prized vinyl record, worth over $10,000, vanished during a busy evening, leaving the store owner desperate for answers. Vaguely recalling the details, you know the incident occurred on July 15, 1983, at this famous store.
 
 Reading the case description these are the **clues** we can pick up:
 
@@ -22,13 +22,13 @@ There are 4 tables:
   - id: **PRIMARY KEY**
 - witnesses:
   - id: **PRIMARY KEY**
-  - crime_scene_id: **FORIGEN KEY** referencing `id` in `crime_scene`
+  - crime_scene_id: **FOREIGN KEY** referencing `id` in `crime_scene`
 - suspects:
   - id: **PRIMARY KEY**
 - interviews:
-  - suspect_id: **FORIEGN KEY** referencing `id` in `suspects`
+  - suspect_id: **FOREIGN KEY** referencing `id` in `suspects`
 
-<img src='/assets/images/articles/sqlnoir_case2/schema.png' alt='case2_schema' style="width: 50; height: 50;">
+<img src='/assets/images/articles/sqlnoir_case2/schema.png' alt='case2_schema'>
 
 ## Investigation
 
@@ -77,7 +77,7 @@ where bandana_color = 'red' and accessory = 'gold watch';
 
 > "I couldn't help it. I snapped and took the record." ~ Rico Delgado
 
-We got him. Turns out the record played both ways.
+We got him. Turns out the vinyl played both sides—and side B had all the evidence.
 
 ----
 

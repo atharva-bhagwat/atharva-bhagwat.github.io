@@ -24,9 +24,9 @@ There are 3 tables:
 - suspects:
   - id: **PRIMARY KEY**
 - interviews:
-  - suspect_id: **FORIEGN KEY** referencing `id` in `suspects`
+  - suspect_id: **FOREIGN KEY** referencing `id` in `suspects`
 
-<img src="/assets/images/articles/sqlnoir_case1/schema.png" alt="case1_schema" width="25">
+<img src="/assets/images/articles/sqlnoir_case1/schema.png" alt="case1_schema">
 
 ## Investigation
 
@@ -62,7 +62,7 @@ where attire = 'trench coat' and scar = 'left cheek';
 
 > "I wasn’t going to steal it, but I did." ~ Vincent Malone
 
-We got the guy. The briefcase didn’t walk out on its own.
+We got the guy. The briefcase didn’t grow legs—just found the wrong hands.
 
 ----
 
