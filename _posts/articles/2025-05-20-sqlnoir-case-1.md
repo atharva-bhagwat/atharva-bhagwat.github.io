@@ -26,7 +26,7 @@ There are 3 tables:
 - interviews:
   - suspect_id: **FORIEGN KEY** referencing `id` in `suspects`
 
-<img src='/assets/images/articles/sqlnoir_case1/schema.png' alt-text='case1_schema' width="25">
+<img src="/assets/images/articles/sqlnoir_case1/schema.png" alt="case1_schema" width="25">
 
 ## Investigation
 
