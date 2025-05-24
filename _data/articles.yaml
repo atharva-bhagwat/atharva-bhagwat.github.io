@@ -55,3 +55,17 @@
   featured: true
   parametric: false
   feature-parametric-order: 1000
+
+- title: "SQL Noir: The Midnight Masquerade Murder"
+  authors:
+    - Atharva Bhagwat
+  description: "Case #004 walkthrough"
+  month: "May"
+  year: 2025
+  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-4
+  image: /images/featured/sqlnoir-case4.png
+  feature-title: "SQL Noir: The Midnight Masquerade Murder"
+  feature-description: "Case #004 walkthrough"
+  featured: true
+  parametric: false
+  feature-parametric-order: 1000
