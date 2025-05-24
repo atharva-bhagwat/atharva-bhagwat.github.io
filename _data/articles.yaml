@@ -27,3 +27,17 @@
   featured: true
   parametric: false
   feature-parametric-order: 1000
+
+- title: "SQL Noir: The Stolen Sound"
+  authors:
+    - Atharva Bhagwat
+  description: "Case #002 walkthrough"
+  month: "May"
+  year: 2025
+  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-2
+  image: /images/featured/sqlnoir-case2.png
+  feature-title: "SQL Noir: The Stolen Sound"
+  feature-description: "Case #002 walkthrough"
+  featured: true
+  parametric: false
+  feature-parametric-order: 1000
