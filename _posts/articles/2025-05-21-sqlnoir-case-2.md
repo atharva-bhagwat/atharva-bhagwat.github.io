@@ -24,8 +24,9 @@ There are 3 tables:
   - id: **PRIMARY KEY**
 - interviews:
   - suspect_id: **FORIEGN KEY** referencing `id` in `suspects`
-
-<img src='/assets/images/articles/sqlnoir_case1/schema.png' alt='case1_schema' width="25">
+  -
+<!-- markdownlint-disable-next-line MD033 -->
+<img src='/assets/images/articles/sqlnoir_case2/schema.png' alt='case2_schema' width="25">
 
 ## Investigation
 

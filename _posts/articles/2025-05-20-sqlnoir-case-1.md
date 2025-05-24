@@ -26,6 +26,7 @@ There are 3 tables:
 - interviews:
   - suspect_id: **FORIEGN KEY** referencing `id` in `suspects`
 
+<!-- markdownlint-disable-next-line MD033 -->
 <img src="/assets/images/articles/sqlnoir_case1/schema.png" alt="case1_schema" width="25">
 
 ## Investigation
@@ -33,9 +34,7 @@ There are 3 tables:
 We start by looking through all the crime scenes that happened at the **Blue Note Lounge**.
 
 ```sql
-
 select * from crime_scene where location = 'Blue Note Lounge';
-
 ```
 
 We get this description of the crime:
@@ -49,22 +48,20 @@ New **clue**:
 We now have enough information on the suspect, so we look in the suspects table where the attire is trench coat and there is a scar on the left cheek.
 
 ```sql
-
 select * from suspects where attire = 'trench coat' and scar = 'left cheek';
-
 ```
 
 There are two suspects *Frankie Lombardi* and *Vincent Malone* who match the description.
 
 We can now look at the interviews for these two suspects to see who our culprit is. This can be done in many ways, we simply use a `JOIN` on suspects and interviews tables as they share a common key, filtered using conditions on attire and scar.
 
-```sql
-
-select suspect_id, transcript, name from interviews 
-join suspects on suspects.id = interviews.suspect_id 
-where attire = 'trench coat' and scar = 'left cheek';
-
-```
+<!-- markdownlint-disable-next-line MD033 -->
+<pre>
+  <!-- markdownlint-disable-next-line MD033 -->
+  <code class="language-sql">
+  select suspect_id, transcript, name from interviews join suspects on suspects.id = interviews.suspect_id where attire = 'trench coat' and scar = 'left cheek';
+  </code>
+</pre>
 
 > "I wasn’t going to steal it, but I did." ~ Vincent Malone
 
