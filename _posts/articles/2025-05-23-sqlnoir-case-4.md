@@ -77,7 +77,8 @@ New **clues**:
 We look into all the surveillance records for hotel checkins at The Grand Regency for room 707 on October 30, 1987.
 
 ```sql
-select surveillance_records.id, surveillance_records.hotel_checkin_id, surveillance_records.note from surveillance_records 
+select surveillance_records.id, surveillance_records.hotel_checkin_id, 
+surveillance_records.note from surveillance_records 
 join hotel_checkins on surveillance_records.hotel_checkin_id = hotel_checkins.id
 where hotel_checkins.hotel_name = 'The Grand Regency' and 
 hotel_checkins.room_number = 707 and
