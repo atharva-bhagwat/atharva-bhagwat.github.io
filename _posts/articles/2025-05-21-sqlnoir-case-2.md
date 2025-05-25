@@ -57,7 +57,7 @@ New **clues**:
 - Suspect was wearing a **red bandana**
 - Suspect had a **gold watch**
 
-We have enough information on the suspect, so we look in the **suspects** table where the bandana color is red and accessory is a gold watch.
+We have enough information on the suspect, so we look in the `suspects` table where the bandana color is red and accessory is a gold watch.
 
 ```sql
 select * from suspects 
