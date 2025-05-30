@@ -70,7 +70,7 @@
   parametric: false
   feature-parametric-order: 1000
 
-  - title: "SQL Noir: The Silicon Sabotage"
+- title: "SQL Noir: The Silicon Sabotage"
   authors:
     - Atharva Bhagwat
   description: "Case #005 walkthrough"
@@ -84,7 +84,7 @@
   parametric: false
   feature-parametric-order: 1000
 
-  - title: "SQL Noir: The Vanishing Diamond"
+- title: "SQL Noir: The Vanishing Diamond"
   authors:
     - Atharva Bhagwat
   description: "Case #006 walkthrough"
