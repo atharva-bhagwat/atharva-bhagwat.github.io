@@ -68,6 +68,7 @@ crime_scene.location like '%Coconut Grove%';
 ```
 
 > I overheard a booking at The Grand Regency.
+
 > I noticed someone at the front desk discussing Room 707 for a reservation made yesterday.
 
 New **clues**:
@@ -107,6 +108,7 @@ select * from phone_records where caller_id in (11, 58) or recipient_id in (11, 
 ```
 
 > "Why did you kill him, bro? You should have left the carpenter do it himself!"
+
 > "I will do it. Only if you give me that nice Lambo of yours."
 
 New **clues**:

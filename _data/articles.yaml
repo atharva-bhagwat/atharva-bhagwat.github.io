@@ -69,3 +69,31 @@
   featured: true
   parametric: false
   feature-parametric-order: 1000
+
+  - title: "SQL Noir: The Silicon Sabotage"
+  authors:
+    - Atharva Bhagwat
+  description: "Case #005 walkthrough"
+  month: "May"
+  year: 2025
+  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-5
+  image: /images/featured/sqlnoir-case5.png
+  feature-title: "SQL Noir: The Silicon Sabotage"
+  feature-description: "Case #005 walkthrough"
+  featured: true
+  parametric: false
+  feature-parametric-order: 1000
+
+  - title: "SQL Noir: The Vanishing Diamond"
+  authors:
+    - Atharva Bhagwat
+  description: "Case #006 walkthrough"
+  month: "May"
+  year: 2025
+  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-6
+  image: /images/featured/sqlnoir-case6.png
+  feature-title: "SQL Noir: The Vanishing Diamond"
+  feature-description: "Case #006 walkthrough"
+  featured: true
+  parametric: false
+  feature-parametric-order: 1000
