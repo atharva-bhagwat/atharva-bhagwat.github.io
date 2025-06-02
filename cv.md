@@ -58,6 +58,15 @@ I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
 
+## Posters
+
+{% assign selectedBoolForBibtex = false %}
+
+{% assign journal = site.data.publications | where: 'type', "poster" %}
+{% for pub in journal %}
+{% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
+{% endfor %}
+
 ## Articles
 
 {% for article in site.data.articles %}
