@@ -67,3 +67,48 @@
   type: poster
   # pdf: papers/25-aging-poster.pdf
   # url: https://meetings.cshl.edu/posters/symp25/symp2025_AbstractBook.pdf
+
+- id: lung-rare-cells
+  title: "Single cell profiling of human airway identifies tuft-ionocyte progenitor cells displaying cytokine-dependent differentiation bias in vitro"
+  authors:
+    - Viral S. Shah
+    - Avinash Waghray
+    - Brian Lin
+    - Atharva Bhagwat
+    - Isha Monga
+    - Michal Slyper
+    - Bruno Giotti
+    - Sunghyun Kim
+    - Dawei Sun
+    - Ke Xu
+    - Eric Park
+    - Mohamad Bairakdar
+    - Jiajie Xu
+    - Julia Waldman
+    - Danielle Dionne
+    - Lan T. Nguyen
+    - Wendy Lou
+    - Peiwen Cai
+    - Christoph Muus
+    - Jiawei Sun
+    - Manalee V. Surve
+    - Lujia Cha Cha Yang
+    - Orit Rozenblatt-Rosen
+    - Toni M. Delorey
+    - Srinivas Vinod Saladi
+    - Aviv Regev
+    - Jayaraj Rajagopal
+    - Alexander M. Tsankov
+  equal-contribution:
+    - Viral S. Shah
+    - Avinash Waghray
+    - Brian Lin
+    - Atharva Bhagwat
+    - Isha Monga
+    - Michal Slyper
+    - Bruno Giotti
+  venue: Nature Communications
+  year: 2025
+  type: journal
+  pdf: papers/25-lung-rare-cells.pdf
+  url: https://www.nature.com/articles/s41467-025-60441-w
