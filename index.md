@@ -9,7 +9,7 @@ title: Home
    <img id="intro-image" src="/images/portrait.jpg"></div>
   <div id="intro-title-text-wrapper">
    <h1 id="intro-title">Atharva Bhagwat</h1>
-   <div id="intro-subtitle">Associate Computational Researcher at Tsankov Lab</div>
+   <div id="intro-subtitle">Computational Researcher at <a href="https://www.tsankovlab.org/" target='_blank'>Tsankov Lab</a></div>
    <div id="intro-title-socials">
     {% for link in site.data.social-links %}
      {% if link.on-homepage == true %}
