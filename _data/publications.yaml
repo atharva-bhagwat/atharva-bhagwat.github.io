@@ -111,4 +111,33 @@
   year: 2025
   type: poster
   # pdf: papers/25-aging-poster.pdf
-  # url: https://meetings.cshl.edu/posters/symp25/symp2025_AbstractBook.pdf
+  url: https://meetings.cshl.edu/posters/symp25/symp2025_AbstractBook.pdf
+
+- id: aging_poster
+  title: "Dissecting the cellular mechanisms of lung parenchyma aging"
+  authors:
+    - Ke Xu
+    - Grace S. Kim
+    - Atharva Bhagwat
+    - Jamshid Abdul-Ghafar
+    - Giang Pham
+    - Jing Zhang
+    - Mohamad D. Dairakdar
+    - Sepideh E. Meimand
+    - Alter Klausner
+    - Yĳia Chen
+    - Thinh T. Nguyen
+    - Bruno Giotti
+    - So-Jin Kim
+    - Rachel Brody
+    - Dan Puleston
+    - Patty J. Lee
+    - Alexander M. Tsankov
+  equal-contribution:
+    - Ke Xu
+    - Grace S. Kim
+    - Atharva Bhagwat
+  venue: "The Festival of Genomics and BioData 2025, Boston"
+  year: 2025
+  type: poster
+  # pdf: papers/25-aging-poster.pdf
