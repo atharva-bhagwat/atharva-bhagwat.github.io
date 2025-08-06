@@ -51,3 +51,11 @@
 .copy-link:hover::after {
     opacity: 1;
 }
+
+.footlink a {
+    font-size: 5px;
+    color: white;
+    font-weight: lighter;
+    font-style: italic;
+    text-decoration: underline;
+}

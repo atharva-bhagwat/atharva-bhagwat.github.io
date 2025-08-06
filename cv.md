@@ -67,13 +67,6 @@ I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
 
-## Articles
-
-{% for article in site.data.articles %}
-{% unless article.feature-only %}
-{% include cv/article.html article=article %}
-{% endunless %} {% endfor %}
-
 ## Awards
 
 {% for award in site.data.awards %}
@@ -89,3 +82,11 @@ I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></
 {:/}
 
 [cv]: {{ site.url }}/cv.pdf "My CV."
+
+<!-- ## Articles -->
+{% comment %}
+{% for article in site.data.articles %}
+{% unless article.feature-only %}
+{% include cv/article.html article=article %}
+{% endunless %} {% endfor %}
+{% endcomment %}

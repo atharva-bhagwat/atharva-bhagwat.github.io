@@ -5,7 +5,7 @@
 		{% if link.id != 'home' and link.id != 'email' %}target="_blank"{% endif %}
 		{% if link.id == 'email' %}
 		  class="copy-link" 
-		  data-tooltip="Copy" 
+		  data-tooltip="Copy email"
 		  onclick="copyText(this, '{{ link.description }}')"
 		{% endif %}
 	  >
@@ -18,7 +18,7 @@
 		{% if link.id != 'home' and link.id != 'email' %}target="_blank"{% endif %}
 		{% if link.id == 'email' %}
 		  class="copy-link" 
-		  data-tooltip="Copy" 
+		  data-tooltip="Copy email"
 		  onclick="copyText(this, '{{ link.description }}')"
 		{% endif %}
 	  >
