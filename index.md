@@ -44,6 +44,8 @@ Before academia, I was as a Machine Learning Engineer where I worked on anomaly 
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
 
+<hr class="l-middle home-hr">
+
 <h2 class="feature-title">Articles</h2>
 
 <div class="cover-wrapper cover-wrapper-3-col l-page">
