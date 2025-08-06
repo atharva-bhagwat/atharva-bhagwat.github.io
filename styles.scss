@@ -52,10 +52,17 @@
     opacity: 1;
 }
 
-.footlink a {
-    font-size: 5px;
+.footlink {
+    font-size: 7px;
     color: white;
     font-weight: lighter;
     font-style: italic;
     text-decoration: underline;
+}
+.footlink a {
+    font-size: inherit;
+    color: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    text-decoration: inherit;
 }
