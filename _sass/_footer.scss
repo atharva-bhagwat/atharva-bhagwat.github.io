@@ -12,12 +12,12 @@ footer {
 
 #footer-left {
 //   grid-column: text-start / 7;
-    grid-column: page auto;
+    grid-column: 1;
 }
 
 #footer-right {
 //   grid-column: 7 / text-end;
-    grid-column: page auto;
+    grid-column: 2;
 }
 
 .footer-icon {
