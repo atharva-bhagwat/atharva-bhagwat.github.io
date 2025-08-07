@@ -5,6 +5,7 @@ $cv-icon-aspect-ratio: 1.33;
 }
 
 #intro-wrapper {
+	grid-column: page;
 	margin-top: 3rem;
 }
 
@@ -38,11 +39,11 @@ $cv-icon-aspect-ratio: 1.33;
 	font-weight: 600;
 	margin-bottom: 0rem;
 	margin-top: 0rem;
-	font-size: 2.25rem;
+	font-size: 2.5rem;
 }
 
 #intro-subtitle {
-	font-size: 1.4rem;
+	font-size: 1.57rem;
 	color: $silver;
 }
 
