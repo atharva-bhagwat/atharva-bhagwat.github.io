@@ -6,8 +6,8 @@ footer {
 	margin-top: 2em;
 }
 
-#footer-left {
-    grid-column: text-start / 8;
+#footer-left > time {
+    color: $footer-text;
 }
 
 #footer-left {
@@ -15,7 +15,7 @@ footer {
 }
 
 #footer-right {
-  grid-column: middle / page-end;
+  grid-column: 8 / text-end;
 }
 
 .footer-icon {
