@@ -93,8 +93,8 @@
 }
 
 .cv-left-date {
-	grid-column: kicker !important;
-	// grid-column: 1 / kicker-start !important;
+	// grid-column: kicker !important;
+	grid-column: 1 / kicker-start !important;
 	text-align: right;
 	font-size: 0.7rem;
 	display: flex;
