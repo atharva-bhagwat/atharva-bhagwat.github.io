@@ -11,11 +11,11 @@ footer {
 }
 
 #footer-left {
-  grid-column: page-start / middle-end;
+  grid-column: text-start / 5;
 }
 
 #footer-right {
-  grid-column: 8 / text-end;
+  grid-column: 5 / text-end;
 }
 
 .footer-icon {

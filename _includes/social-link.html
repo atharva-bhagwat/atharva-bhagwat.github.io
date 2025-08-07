@@ -1,6 +1,6 @@
 <a class="social-link" href="{{ link.url }}"
     {% if link.id == 'email' %}
-        href="#" class="copy-link social-link" data-tooltip="Copy" onclick="copyText(this, '{{ link.description }}')"
+        href="#" class="copy-link social-link" data-tooltip="Copy email" onclick="copyText(this, '{{ link.description }}')"
     {% else %}
         target="_blank"
     {% endif %}>
