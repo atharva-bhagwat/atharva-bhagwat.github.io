@@ -19,7 +19,7 @@ title: Home
    </div>
   </div>
  </div>
- <!-- <hr class="l-middle home-hr"> -->
+
  <div id="everything-else" class="l-middle">
   <a href="{{ site.url }}/cv"><div><i class="fa fa-portrait icon icon-right-space"></i>CV</div></a>
   <a href="{{ site.url }}/projects"><div><i class="fa fa-shapes icon icon-right-space"></i>Projects</div></a>
@@ -34,7 +34,7 @@ Before academia, I was as a Machine Learning Engineer where I worked on anomaly 
  </div>
 </div>
 
-<hr class="l-middle home-hr">
+<hr class="l-page home-hr">
 
 <h2 class="feature-title">Publications</h2>
 
@@ -44,7 +44,7 @@ Before academia, I was as a Machine Learning Engineer where I worked on anomaly 
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
 
-<hr class="l-middle home-hr">
+<hr class="l-page home-hr">
 
 <h2 class="feature-title">Articles</h2>
 
