@@ -33,15 +33,15 @@ title: Home
         {% endfor %}
     </div>
     </div>
-    </div>
-  </div>
- </div>
+</div>
+</div>
 
- <div id="everything-else" class="l-middle">
-  <a href="{{ site.url }}/cv"><div><i class="fa fa-portrait icon icon-right-space"></i>Articles</div></a>
+ <!-- <div id="everything-else" class="l-middle">
+  <a href="{{ site.url }}/cv"><div><i class="fa fa-pencil icon icon-right-space"></i>Articles</div></a>
   <!-- <a href="{{ site.url }}/projects"><div><i class="fa fa-shapes icon icon-right-space"></i>Projects</div></a> -->
   <a href="{{ site.url }}/everything-else"><div><i class="fa fa-list-ul icon icon-right-space"></i>Everything Else</div></a>
- </div>
+ </div> -->
+
  <div>
 Hi! I'm currently exploring how cellular senescence impacts lung tissue using 10x Genomics Xenium spatial transcriptomics data, with the goal of uncovering key biological pathways that drive these processes.
  </div>
