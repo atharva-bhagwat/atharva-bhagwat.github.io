@@ -37,11 +37,11 @@ title: Home
 </div>
 
  <div>
-Hi! I'm currently exploring how cellular senescence impacts lung tissue using 10x Genomics Xenium spatial transcriptomics data, with the goal of uncovering key biological pathways that drive these processes.
+I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></b> impacts lung tissue using <b><span class="cv-ai">10x Genomics Xenium spatial transcriptomics data</span></b>, with the goal of uncovering key biological pathways that drive these processes.
  </div>
  <div style="height: 1rem"></div>
  <div>
-Before academia, I was as a Machine Learning Engineer where I worked on anomaly detection and automation in textile industries.
+Before academia, I was as a Machine Learning Engineer working on anomaly detection and automation in textile industry.
  </div>
 </div>
 
