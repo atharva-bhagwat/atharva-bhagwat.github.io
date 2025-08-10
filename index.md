@@ -36,24 +36,24 @@ title: Home
 </div>
 </div>
 
+<p style="font-size: 1.2rem">
  <div>
 I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></b> impacts lung tissue using <b><span class="cv-ai">10x Genomics Xenium spatial transcriptomics data</span></b>, with the goal of uncovering key biological pathways that drive these processes.
  </div>
- <div style="height: 1rem"></div>
+ <div style="height: 0.75rem"></div>
  <div>
 Before academia, I was as a Machine Learning Engineer working on anomaly detection and automation in textile industry.
  </div>
 </div>
+</p>
 
 <hr class="l-page home-hr">
 
 ## Education
 
-{::nomarkdown}
 {% for degree in site.data.education %}
 {% include cv/degree.html degree=degree %}
 {% endfor %}
-{:/}
 
 ## Work Experience
 
@@ -87,10 +87,8 @@ Before academia, I was as a Machine Learning Engineer working on anomaly detecti
 
 ## Mentoring
 
-{::nomarkdown}
 {% for mentee in site.data.mentoring %}
 {% include cv/mentee.html mentee=mentee %}
 {% endfor %}
-{:/}
 
 [cv]: {{ site.url }}/cv.pdf "My CV."
