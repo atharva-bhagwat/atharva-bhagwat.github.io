@@ -47,6 +47,17 @@ $cv-icon-aspect-ratio: 1.33;
 	color: $silver;
 }
 
+#intro-subtitle-a {
+  color: $silver;
+  text-decoration: none;
+}
+
+#intro-subtitle-a:hover {
+	color: $dark-blue;
+	text-decoration: underline;
+	text-decoration-color: $light-silver;
+} 
+
 #intro-title-socials {
 	margin-top: 0.25rem;
 	display: flex;
