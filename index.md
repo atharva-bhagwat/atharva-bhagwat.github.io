@@ -10,18 +10,35 @@ title: Home
   <div id="intro-title-text-wrapper">
    <h1 id="intro-title">Atharva Bhagwat</h1>
    <div id="intro-subtitle">Computational Researcher at <a href="https://www.tsankovlab.org/" target='_blank'>Tsankov Lab</a>, Mount Sinai</div>
-   <div id="intro-title-socials">
+   <!-- <div id="intro-title-socials">
     {% for link in site.data.social-links %}
      {% if link.on-homepage == true %}
       {% include social-link.html link=link %}
      {% endif %}
     {% endfor %}
-   </div>
+   </div> -->
+   <div class="cv-image-links-wrapper">
+    <div class="cv-image-links">
+        {% for link in site.data.social-links %}
+        {% if link.cv-group == 1 %}
+            {% include cv-social-link.html link=link %}
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="cv-image-links">
+        {% for link in site.data.social-links %}
+        {% if link.cv-group == 2 %}
+            {% include cv-social-link.html link=link %}
+        {% endif %}
+        {% endfor %}
+    </div>
+    </div>
+    </div>
   </div>
  </div>
 
  <div id="everything-else" class="l-middle">
-  <a href="{{ site.url }}/cv"><div><i class="fa fa-portrait icon icon-right-space"></i>CV</div></a>
+  <a href="{{ site.url }}/cv"><div><i class="fa fa-portrait icon icon-right-space"></i>Articles</div></a>
   <!-- <a href="{{ site.url }}/projects"><div><i class="fa fa-shapes icon icon-right-space"></i>Projects</div></a> -->
   <a href="{{ site.url }}/everything-else"><div><i class="fa fa-list-ul icon icon-right-space"></i>Everything Else</div></a>
  </div>
@@ -36,23 +53,50 @@ Before academia, I was as a Machine Learning Engineer where I worked on anomaly 
 
 <hr class="l-page home-hr">
 
-<h2 class="feature-title">Publications</h2>
+## Education
+
+{::nomarkdown}
+{% for degree in site.data.education %}
+{% include cv/degree.html degree=degree %}
+{% endfor %}
+{:/}
+
+## Work Experience
+
+{% for experience in site.data.experiences %}
+{% include cv/experience.html experience=experience %}
+{% endfor %}
+
+## Publications
 
 {% assign selectedBoolForBibtex = false %}
+
 {% assign journal = site.data.publications | where: 'type', "journal" %}
 {% for pub in journal %}
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
 
-<hr class="l-page home-hr">
+## Posters
 
-<h2 class="feature-title">Articles</h2>
+{% assign selectedBoolForBibtex = false %}
 
-<div class="cover-wrapper cover-wrapper-3-col l-page">
- {% assign sortedArticles = site.data.articles | where: "featured", true %}
-{% for feature in sortedArticles %}
-{% include feature.html feature=feature %}
+{% assign journal = site.data.publications | where: 'type', "poster" %}
+{% for pub in journal %}
+{% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
-</div>
 
-[cv]: {{ site.url }}/cv
+## Awards
+
+{% for award in site.data.awards %}
+{% include cv/award.html award=award %}
+{% endfor %}
+
+## Mentoring
+
+{::nomarkdown}
+{% for mentee in site.data.mentoring %}
+{% include cv/mentee.html mentee=mentee %}
+{% endfor %}
+{:/}
+
+[cv]: {{ site.url }}/cv.pdf "My CV."
