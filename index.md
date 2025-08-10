@@ -36,7 +36,7 @@ title: Home
 </div>
 </div>
 
-<div style="font-size: 0.2rem">
+<div style="font-size: 0.875rem">
  <div>
 I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></b> impacts lung tissue using <b><span class="cv-ai">10x Genomics Xenium spatial transcriptomics data</span></b>, with the goal of uncovering key biological pathways that drive these processes.
  </div>
