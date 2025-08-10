@@ -38,7 +38,7 @@ title: Home
     </div>
 
     <div id="everything-else" class="l-middle">
-        <a href="{{ site.url }}/cv"><div><i class="fa fa-newspaper icon icon-right-space"></i>Articles</div></a>
+        <a href="{{ site.url }}/articles"><div><i class="fa fa-newspaper icon icon-right-space"></i>Articles</div></a>
         <!-- <a href="{{ site.url }}/projects"><div><i class="fa fa-shapes icon icon-right-space"></i>Projects</div></a> -->
         <a href="{{ site.url }}/everything-else"><div><i class="fa fa-ellipsis-h icon icon-right-space"></i>Everything else</div></a>
     </div>
