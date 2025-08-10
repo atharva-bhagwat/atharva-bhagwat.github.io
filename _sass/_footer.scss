@@ -11,13 +11,11 @@ footer {
 }
 
 #footer-left {
-//   grid-column: text-start / 7;
-    grid-column: 2 / text-end;
+  grid-column: text-start / 6;
 }
 
 #footer-right {
-//   grid-column: 7 / text-end;
-    grid-column: 7 / 10;
+  grid-column: 6 / text-end;
 }
 
 .footer-icon {
