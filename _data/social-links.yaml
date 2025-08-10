@@ -6,7 +6,7 @@
   on-homepage: true
   cv-group: 1
 
-  - id: cv
+- id: cv
   description: CV (PDF)
   color: "#ba2818"
   class: "far fa-file-pdf icon"
@@ -37,7 +37,6 @@
   url: "http://www.linkedin.com/in/atharva-bhagwat"
   on-homepage: true
   cv-group: 2
-
 # - id: home
 #   description: "atharva-bhagwat.github.io"
 #   color: "#515151"
