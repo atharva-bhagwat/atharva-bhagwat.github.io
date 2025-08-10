@@ -36,7 +36,7 @@ title: Home
 </div>
 </div>
 
-<div style="font-size: 0.875rem">
+<div style="font-size: 1rem">
  <div>
 I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></b> impacts lung tissue using <b><span class="cv-ai">10x Genomics Xenium spatial transcriptomics data</span></b>, with the goal of uncovering key biological pathways that drive these processes.
  </div>
@@ -45,6 +45,12 @@ I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></
 Before academia, I was as a Machine Learning Engineer working on anomaly detection and automation in textile industry.
  </div>
 </div>
+</div>
+
+<div id="everything-else" class="l-middle">
+<a href="{{ site.url }}/cv"><div><i class="fa fa-pencil icon icon-right-space"></i>Articles</div></a>
+<!-- <a href="{{ site.url }}/projects"><div><i class="fa fa-shapes icon icon-right-space"></i>Projects</div></a> -->
+<a href="{{ site.url }}/everything-else"><div><i class="fa icon"></i>🎉</div></a>
 </div>
 
 <hr class="l-page home-hr">
@@ -59,33 +65,41 @@ Before academia, I was as a Machine Learning Engineer working on anomaly detecti
 
 ## Work Experience
 
+{::nomarkdown}
 {% for experience in site.data.experiences %}
 {% include cv/experience.html experience=experience %}
 {% endfor %}
+{:/}
 
 ## Publications
 
+{::nomarkdown}
 {% assign selectedBoolForBibtex = false %}
 
 {% assign journal = site.data.publications | where: 'type', "journal" %}
 {% for pub in journal %}
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
+{:/}
 
 ## Posters
 
+{::nomarkdown}
 {% assign selectedBoolForBibtex = false %}
 
 {% assign journal = site.data.publications | where: 'type', "poster" %}
 {% for pub in journal %}
 {% include cv/publication.html pub=pub selectedBoolForBibtex=selectedBoolForBibtex %}
 {% endfor %}
+{:/}
 
 ## Awards
 
+{::nomarkdown}
 {% for award in site.data.awards %}
 {% include cv/award.html award=award %}
 {% endfor %}
+{:/}
 
 ## Mentoring
 
