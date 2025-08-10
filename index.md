@@ -36,15 +36,15 @@ title: Home
 </div>
 </div>
 
-<p style="font-size: 0.2rem">
+<div style="font-size: 0.2rem">
  <div>
 I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></b> impacts lung tissue using <b><span class="cv-ai">10x Genomics Xenium spatial transcriptomics data</span></b>, with the goal of uncovering key biological pathways that drive these processes.
  </div>
- <!-- <div style="height: 0.75rem"></div> -->
+ <div style="height: 0.2rem"></div>
  <div>
 Before academia, I was as a Machine Learning Engineer working on anomaly detection and automation in textile industry.
  </div>
-</p>
+</div>
 </div>
 
 <hr class="l-page home-hr">
