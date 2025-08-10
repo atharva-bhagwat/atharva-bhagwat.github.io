@@ -44,16 +44,18 @@ I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></
  <div>
 Before academia, I was as a Machine Learning Engineer working on anomaly detection and automation in textile industry.
  </div>
-</div>
 </p>
+</div>
 
 <hr class="l-page home-hr">
 
 ## Education
 
+{::nomarkdown}
 {% for degree in site.data.education %}
 {% include cv/degree.html degree=degree %}
 {% endfor %}
+{:/}
 
 ## Work Experience
 
@@ -87,8 +89,10 @@ Before academia, I was as a Machine Learning Engineer working on anomaly detecti
 
 ## Mentoring
 
+{::nomarkdown}
 {% for mentee in site.data.mentoring %}
 {% include cv/mentee.html mentee=mentee %}
 {% endfor %}
+{:/}
 
 [cv]: {{ site.url }}/cv.pdf "My CV."
