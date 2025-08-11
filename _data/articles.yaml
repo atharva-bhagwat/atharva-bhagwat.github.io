@@ -21,6 +21,7 @@
   month: "May"
   year: 2025
   url: https://atharva-bhagwat.github.io/articles/relation-networks
+  image: /images/featured/xenium_overview.png
   feature-title: "Relation Networks"
   feature-description: ""
   featured: true
@@ -34,6 +35,7 @@
   month: "May"
   year: 2025
   url: https://atharva-bhagwat.github.io/articles/school-shootings
+  image: /images/featured/xenium_overview.png
   feature-title: "School Shootings in the US"
   feature-description: ""
   featured: true

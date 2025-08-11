@@ -8,7 +8,5 @@ permalink: articles/
     {% assign sortedArticles = site.data.articles | where: "featured", true %}
     {% for feature in sortedArticles %}
     {% include feature.html feature=feature %}
-    {% for award in site.data.awards %}
-    {% include cv/award.html award=award %}
     {% endfor %}
 </div>
