@@ -11,13 +11,6 @@ title: Home
         <div id="intro-title-text-wrapper">
             <h1 id="intro-title">Atharva Bhagwat</h1>
             <div id="intro-subtitle">Computational Researcher at <a id='intro-subtitle-a' href="https://www.tsankovlab.org/" target='_blank'>Tsankov Lab</a>, Mount Sinai</div>
-<!-- <div id="intro-title-socials">
-{% for link in site.data.social-links %}
-{% if link.on-homepage == true %}
-{% include social-link.html link=link %}
-{% endif %}
-{% endfor %}
-</div> -->
             <div class="cv-image-links-wrapper">
                 <div class="cv-image-links">
                     {% for link in site.data.social-links %}
@@ -39,7 +32,6 @@ title: Home
 
     <div id="everything-else" class="l-middle">
         <a href="{{ site.url }}/articles"><div><i class="fa fa-newspaper icon icon-right-space"></i>Articles</div></a>
-        <!-- <a href="{{ site.url }}/projects"><div><i class="fa fa-shapes icon icon-right-space"></i>Projects</div></a> -->
         <a href="{{ site.url }}/everything-else"><div><i class="fa fa-ellipsis-h icon icon-right-space"></i>Everything else</div></a>
     </div>
 
