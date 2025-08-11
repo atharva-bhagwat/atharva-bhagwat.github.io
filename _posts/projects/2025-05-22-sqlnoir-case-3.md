@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Case #003: The Miami Marina Murder"
-categories: articles
-permalink: articles/sqlnoir-case-3
+categories: projects
+permalink: projects/sqlnoir-case-3
 author: Atharva Bhagwat
 ---
 <!-- markdownlint-disable MD032 MD033 -->

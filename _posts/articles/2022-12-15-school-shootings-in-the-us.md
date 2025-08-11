@@ -1,8 +1,8 @@
 ---
 layout: post
 title: School Shootings in the US
-categories: projects
-permalink: projects/school-shootings
+categories: articles
+permalink: articles/school-shootings
 author: Atharva Bhagwat
 ---
 

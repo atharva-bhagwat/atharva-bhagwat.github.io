@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Case #005: The Silicon Sabotage"
-categories: articles
-permalink: articles/sqlnoir-case-5
+categories: projects
+permalink: projects/sqlnoir-case-5
 author: Atharva Bhagwat
 ---
 <!-- markdownlint-disable MD032 MD033 -->

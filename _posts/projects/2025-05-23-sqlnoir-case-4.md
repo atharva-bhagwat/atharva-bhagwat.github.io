@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Case #004: The Midnight Masquerade Murder"
-categories: articles
-permalink: articles/sqlnoir-case-4
+categories: projects
+permalink: projects/sqlnoir-case-4
 author: Atharva Bhagwat
 ---
 <!-- markdownlint-disable MD032 MD033 -->

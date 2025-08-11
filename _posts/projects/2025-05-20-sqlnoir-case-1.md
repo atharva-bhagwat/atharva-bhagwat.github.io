@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Case #001: The Vanishing Briefcase"
-categories: articles
-permalink: articles/sqlnoir-case-1
+categories: projects
+permalink: projects/sqlnoir-case-1
 author: Atharva Bhagwat
 ---
 <!-- markdownlint-disable MD032 MD033 -->

@@ -14,86 +14,30 @@
   parametric: false
   feature-parametric-order: 1000
 
-- title: "SQL Noir: The Vanishing Briefcase"
+- title: "Relation Networks"
   authors:
     - Atharva Bhagwat
-  description: "Case #001 walkthrough"
+  description: ""
   month: "May"
   year: 2025
-  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-1
-  image: /images/featured/sqlnoir-case1.png
-  feature-title: "SQL Noir: The Vanishing Briefcase"
-  feature-description: "Case #001 walkthrough"
+  url: https://atharva-bhagwat.github.io/articles/relation-networks
+  # image: /images/featured/sqlnoir-case1.png
+  feature-title: "Relation Networks"
+  feature-description: ""
   featured: true
   parametric: false
   feature-parametric-order: 1000
 
-- title: "SQL Noir: The Stolen Sound"
+- title: "School Shootings in the US"
   authors:
     - Atharva Bhagwat
-  description: "Case #002 walkthrough"
+  description: ""
   month: "May"
   year: 2025
-  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-2
-  image: /images/featured/sqlnoir-case2.png
-  feature-title: "SQL Noir: The Stolen Sound"
-  feature-description: "Case #002 walkthrough"
-  featured: true
-  parametric: false
-  feature-parametric-order: 1000
-
-- title: "SQL Noir: The Miami Marina Murder"
-  authors:
-    - Atharva Bhagwat
-  description: "Case #003 walkthrough"
-  month: "May"
-  year: 2025
-  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-3
-  image: /images/featured/sqlnoir-case3.png
-  feature-title: "SQL Noir: The Miami Marina Murder"
-  feature-description: "Case #003 walkthrough"
-  featured: true
-  parametric: false
-  feature-parametric-order: 1000
-
-- title: "SQL Noir: The Midnight Masquerade Murder"
-  authors:
-    - Atharva Bhagwat
-  description: "Case #004 walkthrough"
-  month: "May"
-  year: 2025
-  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-4
-  image: /images/featured/sqlnoir-case4.png
-  feature-title: "SQL Noir: The Midnight Masquerade Murder"
-  feature-description: "Case #004 walkthrough"
-  featured: true
-  parametric: false
-  feature-parametric-order: 1000
-
-- title: "SQL Noir: The Silicon Sabotage"
-  authors:
-    - Atharva Bhagwat
-  description: "Case #005 walkthrough"
-  month: "May"
-  year: 2025
-  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-5
-  image: /images/featured/sqlnoir-case5.png
-  feature-title: "SQL Noir: The Silicon Sabotage"
-  feature-description: "Case #005 walkthrough"
-  featured: true
-  parametric: false
-  feature-parametric-order: 1000
-
-- title: "SQL Noir: The Vanishing Diamond"
-  authors:
-    - Atharva Bhagwat
-  description: "Case #006 walkthrough"
-  month: "May"
-  year: 2025
-  url: https://atharva-bhagwat.github.io/articles/sqlnoir-case-6
-  image: /images/featured/sqlnoir-case6.png
-  feature-title: "SQL Noir: The Vanishing Diamond"
-  feature-description: "Case #006 walkthrough"
+  url: https://atharva-bhagwat.github.io/articles/school-shootings
+  # image: /images/featured/sqlnoir-case1.png
+  feature-title: "School Shootings in the US"
+  feature-description: ""
   featured: true
   parametric: false
   feature-parametric-order: 1000

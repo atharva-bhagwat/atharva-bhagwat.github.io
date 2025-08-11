@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Case #002: The Stolen Sound"
-categories: articles
-permalink: articles/sqlnoir-case-2
+categories: projects
+permalink: projects/sqlnoir-case-2
 author: Atharva Bhagwat
 ---
 <!-- markdownlint-disable MD032 MD033 -->

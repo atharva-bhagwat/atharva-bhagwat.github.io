@@ -4,4 +4,11 @@ title: Articles
 permalink: articles/
 ---
 
-!!! 🚧 Work in progress 🚧 !!!
+<div class="cover-wrapper cover-wrapper-3-col l-page">
+    {% assign sortedArticles = site.data.articles | where: "featured", true %}
+    {% for feature in sortedArticles %}
+    {% include feature.html feature=feature %}
+    {% for award in site.data.awards %}
+    {% include cv/award.html award=award %}
+    {% endfor %}
+</div>

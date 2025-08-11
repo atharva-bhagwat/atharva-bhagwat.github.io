@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Separating Perception and Reasoning via Relation Networks
-categories: projects
-permalink: projects/relation-networks
+categories: articles
+permalink: articles/relation-networks
 author: Atharva Bhagwat
 ---
 
