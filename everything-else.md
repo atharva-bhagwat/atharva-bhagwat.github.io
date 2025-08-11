@@ -3,9 +3,7 @@ layout: page
 title: Everything Else
 permalink: everything-else/
 ---
-
 Things I do for fun:
-
 <ul>
     <li><a href="{{ site.url }}/projects/sqlnoir-case-6">SQLNoir #006: The Vanishing Diamond</a> <small style="color: #c0c0c0">2025</small></li>
     <li><a href="{{ site.url }}/projects/sqlnoir-case-5">SQLNoir #005: The Silicon Sabotage</a> <small style="color: #c0c0c0">2025</small></li>
