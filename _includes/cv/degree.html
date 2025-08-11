@@ -57,6 +57,12 @@
     </a>
   {% endif %}
 
+  {% if degree.slides-pdf %}
+    <a href="{{ degree.slides-pdf }}">
+        <i class="fas fa-file-pdf" aria-hidden="true"></i> Slides
+    </a>
+  {% endif %}
+
   {% if degree.thesis-video %}
     <a href="{{ degree.thesis-video }}">
       <i class="fas fa-video" aria-hidden="true"></i> Thesis Recording

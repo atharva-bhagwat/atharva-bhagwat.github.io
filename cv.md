@@ -82,11 +82,3 @@ I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></
 {:/}
 
 [cv]: {{ site.url }}/cv.pdf "My CV."
-
-<!-- ## Articles -->
-{% comment %}
-{% for article in site.data.articles %}
-{% unless article.feature-only %}
-{% include cv/article.html article=article %}
-{% endunless %} {% endfor %}
-{% endcomment %}

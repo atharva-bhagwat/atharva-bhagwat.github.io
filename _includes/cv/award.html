@@ -2,3 +2,10 @@
 <div>{{ award.name }}</div>
 <div class="cv-description">{{ award.description }}</div>
 <div class="cv-spacer-small"></div>
+<div class="pub-misc">
+    {% if award.slides-pdf %}
+    <a href="{{ award.slides-pdf }}">
+        <i class="fas fa-file-pdf" aria-hidden="true"></i> Slides
+    </a>
+    {% endif %}
+</div>
