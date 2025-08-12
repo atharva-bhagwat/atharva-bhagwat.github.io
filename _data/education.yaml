@@ -14,7 +14,8 @@
   years-extra: "May 2020"
   thesis: "Video Summarization"
   thesis-pdf: ../papers/atharva_bhagwat_be_thesis.pdf
-  slide-pdf: "../slides/Video Summarization PPT.pdf"
+  slides-pdf: "../slides/Video Summarization PPT.pdf"
+  seminar-pdf: "../papers/atharva_bhagwat_be_seminar.pdf"
   institution-url: https://www.pict.edu
   advisor: "Asst. Prof. A. Chandorkar"
   description:
