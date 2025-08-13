@@ -66,3 +66,19 @@
     font-style: inherit;
     text-decoration: inherit;
 }
+
+.swatch {
+	width: 100%;
+	overflow: hidden;
+}
+
+.swatch-col {
+	width: 25%;
+	float: left;
+}
+
+.box {
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+}
