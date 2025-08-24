@@ -6,8 +6,8 @@ permalink: projects/qrcontact
 author: Atharva Bhagwat
 ---
 
-As a fun side project, I built a small [web app](http://atharvabhagwat.pythonanywhere.com/) using the pyqrcode and vobject libraries. The idea was simple: make it easier to share contact information with just a QR code.
-The app generates a QR code with your details, which can be scanned and saved as a contact instantly! No typing required! Privacy was my main focus, so none of your information is stored anywhere.
+As a fun side project, I built a small [web app](http://atharvabhagwat.pythonanywhere.com/) using the `pyqrcode` and `vobject` libraries. The idea was simple: make it easier to share contact information with just a QR code.
+The app generates a QR code with your details, which can be scanned and saved as a contact instantly - no typing required! Privacy was my main focus, so none of your information is stored anywhere.
 
 If you notice any issues or have feature suggestions, feel free to open an [issue on github](https://github.com/atharva-bhagwat/qrcontact/issues).
 
