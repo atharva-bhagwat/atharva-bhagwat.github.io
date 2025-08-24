@@ -16,6 +16,4 @@ If you notice any issues or have feature suggestions, feel free to open an [issu
 - Use [this](https://www.icloud.com/shortcuts/9f8e2d64c5804d8abbee808aae8c2853) shortcut to access the QR code with one click!
 - Create an album named `Contact` with the QR code in it.
 
----
-
 [Here](https://github.com/atharva-bhagwat/qrcontact) is the link to the code.
