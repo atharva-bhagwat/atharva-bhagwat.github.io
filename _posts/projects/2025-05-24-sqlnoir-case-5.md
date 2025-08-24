@@ -39,7 +39,7 @@ There are 7 tables:
   - sender_employee_id: **FOREIGN KEY** referencing `id` in `employee_records`
   - recipient_employee_id: **FOREIGN KEY** referencing `id` in `employee_records`
 
-<img src='/assets/images/articles/sqlnoir_case4/schema.png' alt='case4_schema'>
+<img src='/assets/images/articles/sqlnoir_case5/schema.png' alt='case4_schema'>
 
 ## Investigation
 
