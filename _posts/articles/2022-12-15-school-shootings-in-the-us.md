@@ -189,6 +189,10 @@ Looking into the possibility of psychological reasons, we analysed two features 
 
 These incidents are rising at an alarming rate and have happened in every part of the country. From our analysis, we infer that,there is no single reason which cause school shootings and we believe there cannot be any one single solution that is going to address this problem.
 
+<hr class="l-page home-hr">
+
+**Team:** Atharva Bhagwat, Danna Alamer, Karthik Udhayakumar, Shreeraj Pawar
+
 <script>
   plot1();
   const plot2_legend = {Injuries: '#fed976', Deaths: '#b10026'};

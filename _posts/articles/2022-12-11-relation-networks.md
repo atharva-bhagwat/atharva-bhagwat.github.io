@@ -173,3 +173,14 @@ Sample test outputs:
 
 **Team:** Atharva Bhagwat, Harini Appansrinivasan, Abdulqadir Zakir
 [Here](https://github.com/atharva-bhagwat/CSGY-6613) is the link to the repository.
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
