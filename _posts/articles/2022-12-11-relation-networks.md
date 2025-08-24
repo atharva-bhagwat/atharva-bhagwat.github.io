@@ -165,13 +165,14 @@ After training the model for 50 epochs, the best final metrics are as follows:
 
 Sample test outputs:
 
-<img src='/assets/images/articles/relation_network/test_0.png' alt='test_0'>
+<img src='/assets/images/articles/relation_network/test_0.jpg' alt='test_0'>
 
-<img src='/assets/images/articles/relation_network/test_45.png' alt='test_45'>
+<img src='/assets/images/articles/relation_network/test_45.jpg' alt='test_45'>
 
 <hr class="l-page home-hr">
 
 **Team:** Atharva Bhagwat, Harini Appansrinivasan, Abdulqadir Zakir
+
 [Here](https://github.com/atharva-bhagwat/CSGY-6613) is the link to the repository.
 
 <script>
