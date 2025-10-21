@@ -165,9 +165,9 @@ After training the model for 50 epochs, the best final metrics are as follows:
 
 Sample test outputs:
 
-<img src='/assets/images/articles/relation_network/test_0.jpg' alt='test_0' height='150' width='150'>
+<img src='/assets/images/articles/relation_network/test_0.jpg' alt='test_0' width='150'>
 
-<img src='/assets/images/articles/relation_network/test_45.jpg' alt='test_45' height='150' width='150'>
+<img src='/assets/images/articles/relation_network/test_45.jpg' alt='test_45' width='150'>
 
 <hr class="l-page home-hr">
 
