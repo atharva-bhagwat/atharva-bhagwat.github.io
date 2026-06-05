@@ -10,7 +10,7 @@ title: Home
         </div>
         <div id="intro-title-text-wrapper">
             <h1 id="intro-title">Atharva Bhagwat</h1>
-            <div id="intro-subtitle">Computational Researcher at <a id='intro-subtitle-a' href="https://www.tsankovlab.org/" target='_blank'>Tsankov Lab</a>, Mount Sinai</div>
+            <div id="intro-subtitle">PhD Student at <a id='intro-subtitle-a' href="https://www.cellbiology.pitt.edu/cmsb" target='_blank'>University of Pittsburgh</a></div>
             <div class="cv-image-links-wrapper">
                 <div class="cv-image-links">
                     {% for link in site.data.social-links %}
