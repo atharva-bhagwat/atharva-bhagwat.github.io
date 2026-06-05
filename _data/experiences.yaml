@@ -1,7 +1,15 @@
 - institution: "Tsankov Lab at Mount Sinai"
   location: "New York"
   position: Associate Computational Researcher
-  year: "Jan. 2023 — Present"
+  year: "June 2023 — June 2026"
+  description: ""
+  institution-url: https://www.tsankovlab.org
+  type: work
+
+- institution: "Tsankov Lab at Mount Sinai"
+  location: "New York"
+  position: Associate Computational Researcher Intern
+  year: "Jan. 2023 — May 2023"
   description: ""
   institution-url: https://www.tsankovlab.org
   type: work
