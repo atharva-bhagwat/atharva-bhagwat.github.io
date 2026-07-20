@@ -15,9 +15,3 @@ Puzzles are fun. Solving them with code is even better. This page contains my wa
     <li><a href="{{ site.url }}/projects/sqlnoir-case-5">Case #005: The Silicon Sabotage</a> <small style="color: #c0c0c0">2025</small></li>
     <li><a href="{{ site.url }}/projects/sqlnoir-case-6">Case #006: The Vanishing Diamond</a> <small style="color: #c0c0c0">2025</small></li>
 </ul>
-
-## My love for food
-
-<ul>
-    <li><a href="{{ site.url }}/projects/espresso">Espresso</a> <small style="color: #c0c0c0">2026</small></li>
-</ul>
