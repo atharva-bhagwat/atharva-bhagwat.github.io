@@ -10,7 +10,7 @@ title: Home
         </div>
         <div id="intro-title-text-wrapper">
             <h1 id="intro-title">Atharva Bhagwat</h1>
-            <div id="intro-subtitle">PhD Student, <a id='intro-subtitle-a' href="https://www.cellbiology.pitt.edu/cmsb" target='_blank'>CMSB Program, University of Pittsburgh</a></div>
+            <div id="intro-subtitle">PhD Student, <a id='intro-subtitle-a' href="https://www.cellbiology.pitt.edu/cmsb" target='_blank'>CMSB Program at University of Pittsburgh</a></div>
             <div class="cv-image-links-wrapper">
                 <div class="cv-image-links">
                     {% for link in site.data.social-links %}
@@ -37,7 +37,10 @@ title: Home
 
     <div style="font-size: 1rem">
         <div>
-        I am a PhD student in the Cell Molecular and Systems Biology (CMSB) Program at the University of Pittsburgh with interests in computational biology, genomics, and machine learning. Previously, I was a Research Assistant in the Tsankov Lab at the Icahn School of Medicine at Mount Sinai, where I studied lung aging and cellular senescence using 10x Genomics Xenium spatial transcriptomics. Before transitioning to academic research, I worked as a Machine Learning Engineer, developing anomaly detection and automation solutions for the textile industry.
+        I am a PhD student in the <b><span class="cv-vis">Cell Molecular and Systems Biology (CMSB) Program at the University of Pittsburgh</span></b> with interests in computational biology, genomics, and machine learning. Previously, I was a Research Assistant in the <b><span class="cv-ai">Tsankov Lab at the Icahn School of Medicine at Mount Sinai</span></b>, where I studied lung aging and cellular senescence using 10x Genomics Xenium spatial transcriptomics.
+        </div>
+        <div>
+        Before transitioning to academic research, I worked as a Machine Learning Engineer, developing anomaly detection and automation solutions for the textile industry.
         </div>
     </div>
 </div>
