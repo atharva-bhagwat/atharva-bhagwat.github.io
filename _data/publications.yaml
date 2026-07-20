@@ -1,3 +1,37 @@
+- id: luad
+  title: "Cellular hallmarks and aging clock of the human lung parenchyma"
+  authors:
+    - Ke Xu
+    - Grace S. Kim
+    - Atharva Bhagwat
+    - Sepideh E. Meimand
+    - Vignesh V. Venkat
+    - Giang Pham
+    - Jing Zhang
+    - Jamshid Abdul-Ghafar
+    - Mohamad D. Bairakdar
+    - Komal Dolasia
+    - Isha R. Sahasrabudhe
+    - Alter Klausner
+    - Yijia Chen
+    - Thinh T. Nguyen
+    - Bruno Giotti
+    - Rachel Brody
+    - So-Jin Kim
+    - Jaymin J. Kathiriya
+    - Daniel J. Puleston
+    - Patty J. Lee
+    - Alexander M. Tsankov
+  equal-contribution:
+    - Ke Xu
+    - Grace S. Kim
+    - Atharva Bhagwat
+  venue: Nature Communications
+  year: 2026
+  type: journal
+  pdf: papers/25-luad-tp53.pdf
+  url: https://www.nature.com/articles/s41467-026-75427-5
+
 - id: luad-tp53
   title: "A cellular and spatial atlas of TP53-associated tissue remodeling defines a multicellular tumor ecosystem in lung adenocarcinoma"
   authors:
@@ -132,23 +166,27 @@
   url: https://aacrjournals.org/cancerdiscovery/article/14/11/2262/749213/Single-Cell-View-of-Tumor-Microenvironment
 
 - id: aging_poster
-  title: "Dissecting the cellular mechanisms of lung parenchyma aging"
+  title: "Cellular hallmarks and aging clock of the human lung parenchyma"
   authors:
     - Ke Xu
     - Grace S. Kim
     - Atharva Bhagwat
-    - Jamshid Abdul-Ghafar
+    - Sepideh E. Meimand
+    - Vignesh V. Venkat
     - Giang Pham
     - Jing Zhang
-    - Mohamad D. Dairakdar
-    - Sepideh E. Meimand
+    - Jamshid Abdul-Ghafar
+    - Mohamad D. Bairakdar
+    - Komal Dolasia
+    - Isha R. Sahasrabudhe
     - Alter Klausner
-    - Yĳia Chen
+    - Yijia Chen
     - Thinh T. Nguyen
     - Bruno Giotti
-    - So-Jin Kim
     - Rachel Brody
-    - Dan Puleston
+    - So-Jin Kim
+    - Jaymin J. Kathiriya
+    - Daniel J. Puleston
     - Patty J. Lee
     - Alexander M. Tsankov
   equal-contribution:
