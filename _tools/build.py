@@ -8,10 +8,26 @@ from qbuild import answer_hash, esc
 import content_a
 import content_b
 import content_hpc
+import content_ex
 
 import sys
 SITE = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(".")
 STAGES = content_a.STAGES_A + content_b.STAGES_B
+
+
+def with_exercises(stage_html):
+    n = int(re.search(r'data-stage="(\d+)"', stage_html).group(1))
+    items = content_ex.BY_STAGE.get(n)
+    if not items:
+        return stage_html
+    block = '<div class="q-practice">' + content_ex.INTRO + "".join(items) + "</div>"
+    marker = '<div class="q-puzzles">'
+    assert stage_html.count(marker) == 1
+    return stage_html.replace(marker, block + marker)
+
+
+STAGES = [with_exercises(s) for s in STAGES]
+N_EXERCISES = len(content_ex.EXERCISES)
 
 
 
@@ -49,6 +65,7 @@ def hero():
         '<div class="q-bar">'
         '<span class="q-bar-stars"><span class="q-glyph" aria-hidden="true">&#9733;</span><span id="q-bar-count">0 / 24</span></span>'
         '<span class="q-bar-rank" id="q-bar-rank">Trailhead</span>'
+        '<span class="q-bar-ex" id="q-bar-ex" title="Practice exercises ticked as done"></span>'
         '<span class="q-bar-links"><a href="#trail">Trail</a><button type="button" class="q-reset">Reset stars</button></span>'
         '</div>'
         '<section class="q-hero" id="trail">'
@@ -56,8 +73,8 @@ def hero():
         'You will install the tools, learn pandas on a tiny table, build a project folder, then audit and plot a real dataset of more than four thousand protein variants. '
         'No biology is needed: every column is explained when you meet it.</p>'
         '<ul class="q-rules">'
-        '<li><strong>Run it yourself.</strong>Each stage ends with a puzzle. Do the work on your own machine and type the answer you get.</li>'
-        '<li><strong>Earn two stars a stage.</strong>The first star unlocks a harder second one. Twenty-four in all, about ten hours in total.</li>'
+        '<li><strong>Run it yourself.</strong>Each stage has hands-on practice, where you write functions and small analyses, and ends with a puzzle. Run everything on your own machine and type the answer you get.</li>'
+        '<li><strong>Earn two stars a stage.</strong>The first star unlocks a harder second one. Twenty-four in all. Allow about fifteen hours with the practice exercises.</li>'
         '<li><strong>Nothing leaves your browser.</strong>Progress is saved in this browser only. Nothing is uploaded and there is no account.</li>'
         '</ul>'
         '<div class="q-nb" aria-label="Your progress, shown as a DataFrame">'

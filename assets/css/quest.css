@@ -258,6 +258,23 @@
 .q-help { margin-top: 0.9rem; }
 .q-help .qcode { margin: 0.6rem 0 0; }
 
+/* ------------------------------ practice exercises ----------------- */
+.q-practice { margin-top: 2.4rem; max-width: 52rem; }
+.q-practice > h3 { margin-top: 0; }
+.q-ex { margin: 1.4rem 0; padding: 0.9rem 1.2rem 1rem; border: 1.5px solid var(--line); border-left: 5px solid var(--sky); border-radius: 0 8px 8px 0; background: var(--paper); }
+.q-ex.is-done { border-left-color: var(--bamboo); background: var(--bamboo-soft); }
+.q-ex-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.q-ex-head h4 { font-size: 1.02rem; }
+.q-ex-done { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.q-ex-done input { accent-color: var(--bamboo-d); width: 1.05rem; height: 1.05rem; }
+.q-ex.is-done .q-ex-done { color: var(--bamboo-d); font-weight: 600; }
+.q-ex-task { margin-top: 0.3rem; }
+.q-ex-task > :first-child { margin-top: 0.3rem; }
+.q-ex .qcode { margin: 0.7rem 0; }
+.q-ex .q-details { margin: 0.6rem 0 0; }
+.q-bar-ex { color: var(--muted); white-space: nowrap; }
+@media (max-width: 768px) { .q-bar-ex { display: none; } }
+
 /* ------------------------------ certificate ------------------------ */
 .q-cert-wrap { margin-top: 4rem; padding-top: 2.2rem; border-top: 2px solid var(--ink); }
 .q-cert-wrap[hidden] { display: none; }

@@ -13,14 +13,14 @@
     [15, "Peak bagger"], [20, "Summit seeker"], [24, "Summit"]
   ];
 
-  var memory = { solved: {}, answers: {}, name: "" };   // fallback if localStorage is unavailable
+  var memory = { solved: {}, answers: {}, ex: {}, name: "" };   // fallback if localStorage is unavailable
   var root, A;
 
   /* ------------------------------------------------------------- storage */
   function load() {
     try {
       var raw = window.localStorage.getItem(STORE_KEY);
-      if (raw) { var d = JSON.parse(raw); if (d && d.solved) { d.answers = d.answers || {}; return d; } }
+      if (raw) { var d = JSON.parse(raw); if (d && d.solved) { d.answers = d.answers || {}; d.ex = d.ex || {}; return d; } }
     } catch (e) { /* private mode etc. */ }
     return memory;
   }
@@ -28,7 +28,7 @@
     memory = state;
     try { window.localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
   }
-  var state = { solved: {}, answers: {}, name: "" };
+  var state = { solved: {}, answers: {}, ex: {}, name: "" };
 
   /* ------------------------------------------------------------- hashing */
   function fnv(s) {
@@ -195,6 +195,13 @@
       if (got && justSolved && justSolved.qid === key) td.classList.add("is-just-solved");
     });
 
+    var exBox = document.getElementById("q-bar-ex");
+    if (exBox) {
+      var total = root.querySelectorAll(".q-ex").length, done = 0;
+      for (var k in state.ex) if (state.ex[k]) done++;
+      exBox.textContent = total ? "Practice " + done + " / " + total : "";
+    }
+
     var cert = document.getElementById("q-cert-wrap");
     if (cert) cert.hidden = !state.solved.s11p1;
     var stars = document.getElementById("q-cert-stars");
@@ -216,6 +223,21 @@
       var input = box.querySelector("input[type=text]");
       if (input) input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); check(box); } });
       if (state.solved[qid]) solved(box, qid, true);
+    });
+  }
+
+  function initExercises() {
+    root.querySelectorAll(".q-ex").forEach(function (box) {
+      var id = box.getAttribute("data-ex");
+      var cb = box.querySelector(".q-ex-check");
+      cb.checked = !!state.ex[id];
+      box.classList.toggle("is-done", cb.checked);
+      cb.addEventListener("change", function () {
+        state.ex[id] = cb.checked;
+        box.classList.toggle("is-done", cb.checked);
+        save(state);
+        refresh(null);
+      });
     });
   }
 
@@ -287,7 +309,7 @@
     root.querySelectorAll(".q-reset").forEach(function (b) {
       b.addEventListener("click", function () {
         if (window.confirm("Clear all your stars on this browser? This cannot be undone.")) {
-          save({ solved: {}, answers: {}, name: "" });
+          save({ solved: {}, answers: {}, ex: {}, name: "" });
           window.location.reload();
         }
       });
@@ -302,6 +324,7 @@
     initCopy();
     initOS();
     initPuzzles();
+    initExercises();
     initCertificate();
     initReset();
     refresh(null);
