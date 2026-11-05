@@ -5,17 +5,21 @@ EXERCISES = []   # dicts, used by the test harness
 BY_STAGE = {}    # stage number -> list of html
 
 
-def ex(stage, eid, title, task, starter, tests, solution):
+STRETCH = {"e2b", "e4c", "e5c", "e7b", "e8b", "e8c", "e10a", "e10b", "e10c", "e11b", "e6a", "e6b"}
+
+
+def ex(stage, eid, title, task, starter, tests, solution, stretch=False, lang="python"):
+    stretch = stretch or eid in STRETCH
     EXERCISES.append(dict(stage=stage, id=eid, title=title, starter=starter.strip("\n"),
-                          tests=tests.strip("\n"), solution=solution.strip("\n")))
+                          tests=(tests or "").strip("\n"), solution=solution.strip("\n"), manual=tests is None))
     html = (
         f'<div class="q-ex" data-ex="{eid}">'
-        f'<div class="q-ex-head"><h4>Your turn: {title}</h4>'
+        f'<div class="q-ex-head"><h4>Your turn: {title}{" <span class=\"q-badge is-stretch\">Stretch</span>" if stretch else ""}</h4>'
         f'<label class="q-ex-done"><input type="checkbox" class="q-ex-check"> Done</label></div>'
         f'<div class="q-ex-task">{task}</div>'
-        + code(starter, "python", "starter: copy into a cell and complete it")
-        + code(tests + '\nprint("all checks passed")', "python", "check: run this after your code")
-        + details("Show a solution (try for ten minutes first)", code(solution, "python", "one solution"), "q-ex-sol")
+        + code(starter, lang, "starter: copy into a cell and complete it" if lang == "python" else "your commands")
+        + (code(tests + '\nprint("all checks passed")', "python", "check: run this after your code") if tests is not None else "")
+        + details("Show a solution (try for ten minutes first)", code(solution, lang, "one solution"), "q-ex-sol")
         + '</div>'
     )
     BY_STAGE.setdefault(stage, []).append(html)
@@ -25,7 +29,7 @@ INTRO = (
     '<h3>Practice: your turn</h3>'
     '<p>Reading code teaches you what code looks like; writing it teaches you to code. '
     'Do these in your notebook. Each has a starter, a <strong>check cell</strong> that stays silent when you are right and raises an error when you are not '
-    '(read it, that is your Stage 2 skill at work), and a hidden solution. Tick <em>Done</em> when the check prints <code>all checks passed</code>.</p>'
+    '(read it: that is your Stage 2 skill at work), and a hidden solution. Tick <em>Done</em> when the check prints <code>all checks passed</code>.</p>'
 )
 
 # ===================================================================== stage 1
@@ -221,10 +225,36 @@ ex(11, "e11a", "sweep as a function",
    's = sweep(df, [1, 3, 5])\nassert list(s.columns) == ["min_expts", "n_variants", "mean_score"]\nassert len(s) == 3\nassert s["n_variants"].is_monotonic_decreasing',
    'def sweep(df, ks):\n    """Mean missense score in the phosphatase domain for each min_expts."""\n    rows = []\n    for k in ks:\n        r = summarise(df, min_expts=k)\n        rows.append({"min_expts": k, "n_variants": int(r["count"]), "mean_score": r["mean"]})\n    return pd.DataFrame(rows)')
 
-ex(11, "e11b", "your own report script",
+ex(13, "e11b", "your own report script",
    "Create <code>src/report.py</code>: a script, not a notebook, that loads the two CSVs from <code>data/raw</code> (build the paths from <code>Path(__file__)</code> so it works from anywhere), "
    "parses and labels regions with your module, then prints exactly: a line <code>rows: N</code>, a line <code>missense: N</code>, and the mean missense score per region (rounded to 3 places). "
    "Run it from the terminal with <code>python src/report.py</code>. The check cell below runs it for you.",
    '"""Print a short report about the variant table."""\n# TODO: imports, paths from __file__, load, parse, label, print three things',
    'import subprocess, sys\nout = subprocess.run([sys.executable, str(ROOT / "src" / "report.py")], capture_output=True, text=True)\nassert out.returncode == 0, out.stderr\nassert "rows:" in out.stdout and "missense:" in out.stdout\nassert "phosphatase_domain" in out.stdout',
    'from pathlib import Path\n\nimport pandas as pd\n\nfrom vampseq_tools import label_regions, parse_hgvs\n\nROOT = Path(__file__).resolve().parent.parent\ndf = pd.read_csv(ROOT / "data" / "raw" / "pten-variant-abundance.csv")\nregions = pd.read_csv(ROOT / "data" / "raw" / "pten-region-annotations.csv")\ndf = label_regions(parse_hgvs(df), regions)\nmiss = df[df["record_type"] == "missense"]\n\nprint("rows:", len(df))\nprint("missense:", len(miss))\nprint(miss.groupby("region")["score"].mean().round(3).to_string())')
+
+
+# ===================================================================== stage 0 (terminal)
+ex(0, "e0a", "terminal drill",
+   "Open your terminal and, using only the commands from the table, do this in order: (1) print where you are; (2) make a folder called <code>quest-drill</code>; (3) step into it; "
+   "(4) make two folders inside it called <code>data</code> and <code>results</code>; (5) list what is there (you should see both); (6) step back out to where you started and print where you are. "
+   "There is no check cell: the check is that <code>ls</code> showed <code>data</code> and <code>results</code> and that the last <code>pwd</code> matches the first.",
+   'pwd\n# your commands here',
+   None,
+   'pwd\nmkdir quest-drill\ncd quest-drill\nmkdir data results\nls\ncd ..\npwd',
+   lang="bash")
+
+# ===================================================================== stage 12 (Project 0)
+ex(12, "e12a", "gc_content from scratch",
+   "Before using <code>gc_fraction</code>, write the idea yourself. Write <code>gc_content(seq)</code> that takes a string of DNA and returns the <strong>fraction</strong> of its letters that are <code>G</code> or <code>C</code>. "
+   "Use a loop (or <code>str.count</code>), and add a docstring. Return <code>0</code> for an empty string instead of dividing by zero.",
+   'def gc_content(seq):\n    pass   # TODO',
+   'assert gc_content("GGCC") == 1.0\nassert gc_content("ATAT") == 0.0\nassert gc_content("ATGC") == 0.5\nassert gc_content("") == 0\nassert abs(gc_content("ATGACCGAATGGCTGTAATGCCGTAACGAT") - 14 / 30) < 1e-9',
+   'def gc_content(seq):\n    """Fraction of letters in seq that are G or C."""\n    if len(seq) == 0:\n        return 0\n    gc = 0\n    for letter in seq.upper():\n        if letter in "GC":\n            gc += 1\n    return gc / len(seq)')
+
+ex(12, "e12b", "records to a table, then a question",
+   "Using the <code>records</code> list from this stage, make a DataFrame <code>seqs</code>, then a second DataFrame <code>rich</code> holding only the genes with GC fraction <strong>above 0.5</strong>, sorted from highest to lowest GC. "
+   "Finally, in one sentence in a text cell, say which gene is the most GC-rich and why a very GC-rich sequence might be harder to work with in the lab.",
+   'seqs = None\nrich = None   # TODO',
+   'assert list(rich["id"]) == ["geneB", "geneD"]\nassert rich["gc"].is_monotonic_decreasing',
+   'seqs = pd.DataFrame(records)\nrich = seqs[seqs["gc"] > 0.5].sort_values("gc", ascending=False)')

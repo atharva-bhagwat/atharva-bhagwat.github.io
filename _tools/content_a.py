@@ -8,11 +8,33 @@ STAGES_A = []
 # Stage 0
 # =====================================================================
 STAGES_A.append(stage(
-    0, "Basecamp", "set up your tools", 40,
+    0, "Basecamp", "set up your tools", 60,
     "By the end you will have an isolated Python environment, an editor that understands it, and proof that both talk to each other.",
     [
+        p("You have been writing code in Colab, where everything is ready-made. That is the best way to learn, but it has limits: "
+          "sessions reset and your files disappear, you cannot easily run a script on a schedule, big datasets do not fit, and you cannot rebuild exactly the same setup next year. "
+          "Your own computer fixes all of those, and it needs a little setup, once."),
         p("Most beginner pain is not about Python at all. It is about <em>which</em> Python is running, and where. "
           "So we fix that first, once, properly."),
+        h3("Terminal first aid"),
+        p("The <strong>terminal</strong> is a window where you type commands instead of clicking. It looks unfriendly but it only does what you tell it, and it never breaks anything you did not ask it to. "
+          "Open it now: <strong>Terminal</strong> on macOS (press <kbd>Cmd</kbd>+<kbd>Space</kbd>, type Terminal), <strong>PowerShell</strong> on Windows (Start menu, type PowerShell). "
+          "Each line you type ends with <kbd>Enter</kbd>."),
+        p("A terminal is always \"standing\" in one folder, called the <strong>working directory</strong>. These five commands cover 90 percent of what you will ever need:"),
+        table(["Command", "What it does"], [
+            ["<code>pwd</code>", "Print where you are standing now (on Windows PowerShell: also <code>pwd</code>)."],
+            ["<code>ls</code>", "List what is in this folder (Windows PowerShell understands <code>ls</code> too)."],
+            ["<code>cd folder_name</code>", "Step into a folder. <code>cd ..</code> steps back out to the parent folder."],
+            ["<code>mkdir new_folder</code>", "Make a new folder."],
+            ["<code>python script.py</code>", "Run a Python file (once Python is installed, below)."],
+        ]),
+        ul([
+            "Press <kbd>Tab</kbd> after typing the first letters of a name and the terminal completes it. It saves typing and typos.",
+            "Press <kbd>&uarr;</kbd> to bring back the previous command. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> to stop something that is running.",
+            "Copy a command, right-click or <kbd>Cmd</kbd>/<kbd>Ctrl</kbd>+<kbd>V</kbd> to paste, then Enter. A command that prints nothing usually worked.",
+            "An error message is not a disaster: read the last line, exactly as in Stage 2.",
+        ]),
+        p("Do the <strong>terminal drill</strong> in the practice section at the end of this stage before you start the install steps."),
         h3("1. Install VS Code"),
         p('Download it from <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> and run the installer. '
           "VS Code is a text editor that grows into an IDE when you add extensions. It will be where you write scripts, run notebooks, "
@@ -129,12 +151,11 @@ STAGES_A.append(stage(
         p("A <strong>Jupyter notebook</strong> (<code>.ipynb</code>) mixes code, results and notes in one document. It is made of <strong>cells</strong>. "
           "Code cells run Python and show what they produce underneath. Markdown cells hold text, headings and reminders to future you."),
         callout("tip", "Keyboard shortcuts worth learning today",
-                ul(["<kbd>Shift</kbd>+<kbd>Enter</kbd>: run the cell and move to the next one.",
-                    "<kbd>Esc</kbd>, then <kbd>A</kbd> or <kbd>B</kbd>: insert a cell above or below.",
-                    "<kbd>Esc</kbd>, then <kbd>M</kbd> or <kbd>Y</kbd>: turn a cell into Markdown or code.",
-                    "<kbd>Esc</kbd>, then <kbd>D</kbd> <kbd>D</kbd>: delete the cell."])),
-        p("Create <code>notebooks/01_python_basics.ipynb</code> in your project (make the <code>notebooks</code> folder if it does not exist), "
-          "select the <code>pandas-quest</code> kernel, and follow along cell by cell."),
+                ul(["<kbd>Shift</kbd>+<kbd>Enter</kbd>: run the cell and move to the next one (both Colab and VS Code).",
+                    "Colab: <kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>M</kbd> then <kbd>A</kbd> or <kbd>B</kbd> inserts a cell above or below; then <kbd>M</kbd> or <kbd>Y</kbd> makes it Markdown or code; then <kbd>D</kbd> deletes it.",
+                    "VS Code (and classic Jupyter): <kbd>Esc</kbd> first, then the same letters without <kbd>Ctrl</kbd>+<kbd>M</kbd>."])),
+        p("Open the notebook with the button above, choose <strong>File, Save a copy in Drive</strong> so your edits are yours, and run it cell by cell. "
+          "Colab runs Python on a Google computer, so there is nothing to install. The code on this page is also in the notebook, with blanks (<code>____</code>) for you to fill in."),
         h3("The kernel is a running program with a memory"),
         p("Behind the notebook is a <strong>kernel</strong>: a Python process that executes your cells and remembers every variable you have created. "
           "The notebook shows the code; the kernel holds the state. They can disagree. Try it:"),
@@ -144,7 +165,8 @@ STAGES_A.append(stage(
           "The page says 100; the kernel still thinks 10."),
         callout("why", "The notebook rule",
                 p("A notebook is only trustworthy if it works from the top, in order, in a fresh kernel. "
-                  "Get in the habit of using <strong>Restart</strong> then <strong>Run All</strong> (toolbar buttons) before you believe any result, and before you share a notebook.")),
+                  "Get in the habit of <strong>restarting and running everything</strong> before you believe any result, and before you share a notebook. "
+                  "In Colab: <strong>Runtime, Restart session and run all</strong>. In VS Code: the <strong>Restart</strong> and <strong>Run All</strong> toolbar buttons.")),
         h3("Printing, and what shows up on its own"),
         p("The last expression in a cell is displayed automatically. <code>print()</code> is for everything else: checking an assumption, "
           "logging progress inside a loop, leaving yourself a trail of what happened. F-strings make labels painless:"),
@@ -173,7 +195,7 @@ STAGES_A.append(stage(
         p("Python reads close to English: <em>for each name in names, print it</em>. Indentation (four spaces) is how Python knows what is inside the loop or the <code>if</code>, "
           "so it is part of the grammar, not decoration."),
         p("Here is the list you will use for the puzzles. Every entry follows the pattern <code>p.</code> + three-letter <em>reference</em> + <em>position</em> + three-letter <em>alternate</em>. "
-          "(<code>Ter</code> means the sequence stops there; the same three letters twice means nothing changed.)"),
+          "(<code>Ter</code> means the protein stops there; the same three letters twice means the amino acid is unchanged, although the DNA underneath was edited.)"),
         code(f"variants = {VARIANTS}", "python", "cell", test="s1_list"),
     ],
     [
@@ -229,7 +251,7 @@ STAGES_A.append(stage(
             ["<code>IndexError</code>", "You asked for item 10 of a list with 5 items.", "<code>len(...)</code> before indexing."],
             ["<code>AttributeError</code>", "That object has no such method or attribute.", "Typo, or it is a different type than you think."],
             ["<code>FileNotFoundError</code>", "The path points to nothing.", "Print the current folder with <code>from pathlib import Path; Path.cwd()</code>."],
-            ["<code>ModuleNotFoundError</code>", "The library is not installed in <em>this</em> environment.", "Wrong kernel or interpreter. Stage 0, step 6."],
+            ["<code>ModuleNotFoundError</code>", "The library is not installed in <em>this</em> environment.", "Colab: install it with <code>%pip install name</code>. On your own computer: wrong kernel or interpreter (Stage 0, step 6)."],
         ]),
         h3("A routine that works"),
         ol([
@@ -261,17 +283,17 @@ STAGES_A.append(stage(
                     ["The first line", "The last line", "The longest line"]),
                    ("<code>KeyError: 'Score'</code> after <code>df[\"Score\"]</code>. The file's header is <code>variant,score,se</code>. What is the fix?",
                     ["Reinstall pandas", "Use <code>df[\"score\"]</code>. Column names are case-sensitive.", "Restart the computer"]),
-                   ("Your notebook is in <code>notebooks/</code>, the file is at <code>data/raw/toy.csv</code>, and <code>pd.read_csv(\"data/raw/toy.csv\")</code> gives <code>FileNotFoundError</code>. Most likely cause?",
-                    ["The CSV is corrupted", "pandas cannot read CSV files", "The notebook runs from <code>notebooks/</code>, so that relative path points to <code>notebooks/data/raw/toy.csv</code>"]),
+                   ("You uploaded <code>toy.csv</code> in Colab's Files panel (it lands in <code>/content/toy.csv</code>), and <code>pd.read_csv(\"data/raw/toy.csv\")</code> gives <code>FileNotFoundError</code>. Most likely cause?",
+                    ["The CSV is corrupted", "pandas cannot read CSV files", "The path is relative to the current folder, and there is no <code>data/raw/</code> folder there, only <code>toy.csv</code> itself"]),
                    ("<code>total = 0</code>, then <code>for s in [\"1.5\", \"2.5\"]: total = total + s</code> gives <code>TypeError: unsupported operand type(s) for +: 'int' and 'str'</code>. What is <code>s</code>?",
                     ["A string, so int + str fails", "A number", "None"]),
                ],
                hint="Question 2: the error names the key it could not find. Compare it, character by character, with the real column name."),
         puzzle("s2p2", 2,
-               p("This script has three separate bugs. Copy it into a new file <code>broken.py</code>, run it with <code>python broken.py</code>, and fix what the errors tell you, one at a time. "
+               p("This code has three separate bugs. Paste it into a new cell and run it, then fix what the errors tell you, one at a time. "
                  "When it finally runs, it prints a mean score. What is that mean, to 3 decimal places?")
                + code('scores = [3.45, 1.55, 2.18, 2.59, 3.82]\n\ntotal = 0\nfor s in scores\n    total = total + s\n\nmean = total / len(score)\nprint("mean score: " + mean)',
-                      "python", "broken.py"),
+                      "python", "paste into a cell"),
                kind="number", placeholder="3 decimal places",
                hint="Expect three different errors, in this order: <code>SyntaxError</code> (a missing character at the end of a line), then <code>NameError</code> (one name is misspelled), then <code>TypeError</code> (you cannot add a string and a float; try an f-string).",
                solution='scores = [3.45, 1.55, 2.18, 2.59, 3.82]\n\ntotal = 0\nfor s in scores:\n    total = total + s\n\nmean = total / len(scores)\nprint(f"mean score: {mean:.3f}")', test="s2p2"),
@@ -291,7 +313,7 @@ STAGES_A.append(stage(
         p("Our first table is a tiny made-up experiment. No biology needed: each <em>row</em> is one named item measured once, and four columns "
           "(<code>bin1_count</code> to <code>bin4_count</code>) say how many reads fell into each of four buckets, from the lowest signal (bin 1) to the highest (bin 4). "
           ),
-        p("Make a new notebook, <code>notebooks/02_pandas_one.ipynb</code>, and read the CSV straight from its web address (the file is hosted on this site):"),
+        p("In the Colab notebook (button above), read the CSV straight from its web address. The file is hosted on this site, so there is nothing to upload:"),
         code(f'import pandas as pd\n\nURL = "{TOY_URL}"\ndf = pd.read_csv(URL)\ndf',
              "python", "cell", test="s3_load"),
         h3("Look before you touch"),
@@ -427,7 +449,7 @@ STAGES_A.append(stage(
             "<strong>Keep functions small and single-purpose.</strong> If the docstring needs the word \"and\" three times, split it.",
             "<strong>Show an example</strong> in the docstring or the next cell. Examples are the documentation people actually read.",
         ]),
-        p("The next stage moves this function out of the notebook into its own file so every notebook can import it."),
+        p("Later, in Part 2, you will move this function out of the notebook into its own file so that every notebook and script can import it."),
     ],
     [
         puzzle("s5p1", 1,

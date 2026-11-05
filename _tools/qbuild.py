@@ -115,9 +115,22 @@ def tree(text):
 
 # ------------------------------------------------------------------ puzzles
 def puzzle(qid, part, question, kind="text", placeholder="", hint="", solution=None, solution_lang="python",
-           choices=None, unit=None, test=None):
-    """kind: text | number | choices | paste"""
-    star_label = "First star" if part == 1 else "Second star"
+           choices=None, unit=None, test=None, spec=None, minwords=40, model=None):
+    """kind: text | number | choices | paste | reflect.
+
+    spec (optional) makes the puzzle self-contained: {"kind": "int"|"num"|"text"|"choices", "h":..., "value":..., "dp":..., "hs":[...]}.
+    Puzzles without spec are looked up in quest-answers.js.
+    """
+    star_label = {1: "First star", 2: "Second star", 3: "Third star"}.get(part, "Star")
+    attrs = ""
+    if spec:
+        attrs += f' data-kind="{spec["kind"]}"'
+        if "h" in spec: attrs += f' data-h="{spec["h"]}"'
+        if "value" in spec: attrs += f' data-value="{spec["value"]}"'
+        if "dp" in spec: attrs += f' data-dp="{spec["dp"]}"'
+        if "hs" in spec: attrs += f' data-hs="{",".join(spec["hs"])}"'
+    if kind == "reflect":
+        attrs += f' data-kind="reflect" data-minwords="{minwords}"'
     if kind == "choices":
         qs = []
         for qi, (qtext, opts) in enumerate(choices):
@@ -128,6 +141,13 @@ def puzzle(qid, part, question, kind="text", placeholder="", hint="", solution=N
             qs.append(f'<fieldset class="q-choice-set"><legend>{qtext}</legend>{radios}</fieldset>')
         control = '<div class="q-choices">' + "".join(qs) + "</div>" + \
             '<div class="q-answer is-choices"><button type="button" class="q-check">Check answers</button></div>'
+    elif kind == "reflect":
+        control = (
+            f'<div class="q-answer is-paste"><label class="q-prompt" for="in-{qid}">your conclusion</label>'
+            f'<textarea id="in-{qid}" rows="7" spellcheck="true" autocomplete="off" placeholder="{esc(placeholder)}"></textarea>'
+            f'<button type="button" class="q-check">Submit my conclusion</button></div>'
+            f'<div class="q-model" hidden>{model or ""}</div>'
+        )
     elif kind == "paste":
         control = (
             f'<div class="q-answer is-paste"><label class="q-prompt" for="in-{qid}">paste output</label>'
@@ -151,11 +171,11 @@ def puzzle(qid, part, question, kind="text", placeholder="", hint="", solution=N
             COLLECTED_CODE.append((test, solution.strip("\n")))
         parts.append(code(solution, solution_lang, "one way to get it"))
     if parts:
-        helper = details("Stuck? Nudge and solution", "".join(parts), "q-help")
-    hidden = ' hidden' if part == 2 else ''
-    cls = "q-puzzle is-part2" if part == 2 else "q-puzzle"
+        helper = details("Stuck? Nudge and solution" if kind != "reflect" else "Stuck? How to start", "".join(parts), "q-help")
+    hidden = " hidden" if part >= 2 else ""
+    cls = "q-puzzle is-part2" if part >= 2 else "q-puzzle"
     return (
-        f'<div class="{cls}" data-qid="{qid}" data-part="{part}"{hidden}>'
+        f'<div class="{cls}" data-qid="{qid}" data-part="{part}"{attrs}{hidden}>'
         f'<div class="q-puzzle-head"><span class="q-star" aria-hidden="true">&#9733;</span>'
         f'<h4>{star_label}</h4></div>'
         f'<div class="q-puzzle-body">{question}</div>'

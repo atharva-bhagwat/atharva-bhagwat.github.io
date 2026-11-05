@@ -7,10 +7,10 @@
 
   var STORE_KEY = "mscbio2025.v1";
   var OS_KEY = "mscbio2025.os";
-  var TOTAL_STARS = 24;
+  var TOTAL_STARS = 24;   // recalculated from the page in start()
   var RANKS = [
-    [0, "Trailhead"], [3, "Camper"], [6, "Hiker"], [10, "Ridge walker"],
-    [15, "Peak bagger"], [20, "Summit seeker"], [24, "Summit"]
+    [0, "Trailhead"], [0.1, "Camper"], [0.22, "Hiker"], [0.38, "Ridge walker"],
+    [0.58, "Peak bagger"], [0.8, "Summit seeker"], [1, "Summit"]
   ];
 
   var memory = { solved: {}, answers: {}, ex: {}, name: "" };   // fallback if localStorage is unavailable
@@ -92,11 +92,30 @@
     f.textContent = text || "";
   }
 
+  function datasetSpec(box) {
+    var d = box.dataset;
+    if (!d.kind) return null;
+    var spec = { kind: d.kind };
+    if (d.h) spec.h = d.h;
+    if (d.value !== undefined) spec.value = parseFloat(d.value);
+    if (d.dp !== undefined) spec.dp = parseInt(d.dp, 10);
+    if (d.hs) spec.hs = d.hs.split(",");
+    return spec;
+  }
+
+  function wordCount(t) { var m = String(t).trim().match(/\S+/g); return m ? m.length : 0; }
+
   function check(box) {
-    var qid = box.getAttribute("data-qid"), spec = A.checks[qid];
+    var qid = box.getAttribute("data-qid"), spec = A.checks[qid] || datasetSpec(box);
     if (!spec) { setFeedback(box, "bad", "This puzzle has no answer registered. Check quest-answers.js."); return; }
     if (spec.missing) { setFeedback(box, "bad", "The answer key for this puzzle has not been generated yet. See the setup notes for the site owner."); return; }
     var val = readAnswer(box, spec);
+
+    if (spec.kind === "reflect") {
+      var need = parseInt(box.getAttribute("data-minwords") || "40", 10), have = wordCount(val);
+      if (have < need) { setFeedback(box, "bad", "Write a little more: " + have + " of at least " + need + " words. Use your own numbers and say what you think they mean."); return; }
+      return solved(box, qid, false, String(val));
+    }
 
     if (spec.kind === "choices") {
       if (val.some(function (v) { return !v; })) { setFeedback(box, "bad", "Answer all the questions first."); return; }
@@ -130,30 +149,31 @@
   }
   function rankFor(n) {
     var name = RANKS[0][1];
-    RANKS.forEach(function (r) { if (n >= r[0]) name = r[1]; });
+    RANKS.forEach(function (r) { if (n / TOTAL_STARS >= r[0] - 1e-9) name = r[1]; });
     return name;
   }
 
   function solved(box, qid, quiet, typed) {
     var first = !state.solved[qid];
     state.solved[qid] = true;
-    if (typed !== undefined) state.answers[qid] = String(typed).slice(0, 600);
+    if (typed !== undefined) state.answers[qid] = String(typed).slice(0, 3000);
     save(state);
     box.classList.add("is-solved");
     if (!quiet && first) box.classList.add("is-just-solved");
     var part = box.getAttribute("data-part");
     var stage = box.closest(".q-stage").getAttribute("data-stage");
-    var p2 = box.parentNode.querySelector(".q-puzzle.is-part2");
+    var next = box.parentNode.querySelector('.q-puzzle[data-part="' + (parseInt(part, 10) + 1) + '"]');
     if (!quiet) {
-      var msg = part === "1"
-        ? "Star earned. Part 2 is unlocked just below."
-        : "Star earned. Stage " + stage + " complete.";
+      var msg = next
+        ? "Star earned. The next part is unlocked just below."
+        : "Star earned. This stage is complete.";
       if (stage === "11" && part === "1") msg = "Star earned. Your certificate is at the bottom of the page.";
       setFeedback(box, "ok", msg);
     } else {
       setFeedback(box, "ok", "Solved.");
     }
-    if (part === "1" && p2) p2.hidden = false;
+    if (next) next.hidden = false;
+    box.querySelectorAll(".q-model").forEach(function (m) { m.hidden = false; });
     var sf = box.querySelector("input[type=text], textarea");
     if (sf) {
       if (!sf.value && state.answers[qid]) sf.value = state.answers[qid];
@@ -321,6 +341,7 @@
     A = window.QUEST_ANSWERS;
     if (!root || !A) return;
     state = load();
+    TOTAL_STARS = root.querySelectorAll(".q-puzzle").length || TOTAL_STARS;
     initCopy();
     initOS();
     initPuzzles();

@@ -275,6 +275,39 @@
 .q-bar-ex { color: var(--muted); white-space: nowrap; }
 @media (max-width: 768px) { .q-bar-ex { display: none; } }
 
+/* ------------------------------ parts, tracks, Colab --------------- */
+.q-part { margin-top: 4.5rem; padding: 1.4rem 1.6rem 1.5rem; background: var(--ink); color: #e8ece6; border-radius: 8px; }
+.q-part h2 { color: #fff; font-size: 1.6rem; }
+.q-part p { max-width: 44rem; margin: 0.5rem 0 0; color: #cfd7d1; }
+.q-part .q-part-kicker { display: block; color: #e8b84a; font-size: 0.9rem; margin-bottom: 0.2rem; }
+.q-part + .q-stage { margin-top: 2.2rem; border-top: 0; padding-top: 0; }
+
+.q-badge { display: inline-block; margin-left: 0.5rem; padding: 0.05rem 0.5rem; font-size: 0.78rem; font-weight: 600; border-radius: 99px; vertical-align: 0.1em; }
+.q-badge.is-core { background: var(--bamboo-soft); color: var(--bamboo-d); }
+.q-badge.is-optional { background: var(--bone-2); color: var(--muted); }
+.q-badge.is-stretch { background: var(--star-soft); color: var(--star-d); font-size: 0.72rem; }
+
+.q-colab-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem; margin: 1rem 0 0.2rem; max-width: 44rem; }
+.quest a.q-colab { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1rem; font-weight: 650; color: var(--ink); background: #ffe28a; border: 2px solid var(--ink); border-radius: 6px; text-decoration: none; }
+.quest a.q-colab:hover { background: var(--ink); color: #fff; }
+.q-colab-note { color: var(--muted); font-size: 0.9rem; }
+
+.q-tracks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin: 0 0 2rem; padding: 0; list-style: none; }
+.q-tracks li { margin: 0; padding: 0.7rem 1rem 0.8rem; border: 1.5px solid var(--line); border-radius: 8px; font-size: 0.95rem; }
+.q-tracks strong { display: block; color: var(--ink); margin-bottom: 0.15rem; }
+.quest .q-tracks { max-width: none; padding-left: 0; }
+
+.q-df td.q-df-none { color: #c4c9c0; }
+
+.q-model { margin-top: 1rem; padding: 0.8rem 1rem; background: var(--paper); border: 1.5px dashed var(--bamboo); border-radius: 6px; font-size: 0.95rem; }
+.q-model[hidden] { display: none; }
+.q-model h4 { margin-bottom: 0.3rem; }
+.q-model ul { margin: 0.4rem 0; list-style: none; padding-left: 0; }
+.q-model li::before { content: "\2610\00a0"; color: var(--bamboo-d); }
+.q-puzzle.is-solved .q-answer textarea { font-family: inherit; font-weight: 400; font-size: 0.92rem; }
+
+@media (max-width: 768px) { .q-tracks { grid-template-columns: 1fr; } }
+
 /* ------------------------------ certificate ------------------------ */
 .q-cert-wrap { margin-top: 4rem; padding-top: 2.2rem; border-top: 2px solid var(--ink); }
 .q-cert-wrap[hidden] { display: none; }

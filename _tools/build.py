@@ -9,10 +9,11 @@ import content_a
 import content_b
 import content_hpc
 import content_ex
+import content_p0
 
 import sys
 SITE = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(".")
-STAGES = content_a.STAGES_A + content_b.STAGES_B
+ALL = content_a.STAGES_A + content_b.STAGES_B + content_p0.STAGES_P0
 
 
 def with_exercises(stage_html):
@@ -26,61 +27,111 @@ def with_exercises(stage_html):
     return stage_html.replace(marker, block + marker)
 
 
-STAGES = [with_exercises(s) for s in STAGES]
+BY_KEY = {int(re.search(r'data-stage="(\d+)"', h).group(1)): with_exercises(h) for h in ALL}
+
+# Order of the guide. Keys are the internal stage ids (they never change, so saved progress and answers stay valid).
+PART1 = [12, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11]
+PART2 = [0, 6, 13]
+ORDER = PART1 + PART2
+DISPLAY = {key: i for i, key in enumerate(ORDER)}
+
+COLAB_TOKENS = {0: "COLAB_NB0_ID", 1: "COLAB_NB1_ID", 2: "COLAB_NB2_ID", 3: "COLAB_NB3_ID", 4: "COLAB_NB4_ID", 5: "COLAB_NB5_ID"}
+# stage key -> (colab token key, track, minutes, number of stars)
+META = {
+    12: (0, "core", 60, 2), 1: (1, "core", 40, 2), 2: (1, "core", 30, 2), 3: (2, "core", 40, 2),
+    4: (2, "core", 45, 2), 5: (2, "core", 40, 2), 7: (3, "core", 45, 3), 8: (3, "core", 40, 3),
+    9: (4, "core", 45, 2), 10: (4, "optional", 60, 2), 11: (5, "core", 40, 3),
+    0: (None, "levelup", 60, 2), 6: (None, "levelup", 50, 2), 13: (None, "levelup", 40, 0),
+}
+COLAB_TEXT = {
+    0: "Notebook 0: Project 0", 1: "Notebook 1: Python, kernels and errors", 2: "Notebook 2: pandas and functions",
+    3: "Notebook 3: the PTEN data", 4: "Notebook 4: plots", 5: "Notebook 5: sensitivity and conclusions",
+}
+BADGE = {"core": ("is-core", "Core"), "optional": ("is-optional", "Optional"), "levelup": ("is-optional", "Level up")}
+
+
+def finish_stage(key):
+    h = BY_KEY[key]
+    nb, track, minutes, stars = META[key]
+    cls, label = BADGE[track]
+    h = re.sub(r'<span class="q-time">About \d+ minutes\.</span>', f'<span class="q-time">About {minutes} minutes.</span>', h)
+    h = h.replace('<span class="q-stage-num">Stage ' + str(key) + '</span>',
+                  '<span class="q-stage-num">Stage ' + str(key) + f'<span class="q-badge {cls}">{label}</span></span>', 1)
+    if stars == 3:
+        h = h.replace('<span class="q-s" data-part="2">&#9733;</span>', '<span class="q-s" data-part="2">&#9733;</span><span class="q-s" data-part="3">&#9733;</span>', 1)
+    elif stars == 0:
+        h = re.sub(r'<div class="q-stage-stars".*?</div>', '', h, count=1, flags=re.S)
+    if nb is not None:
+        url = "https://colab.research.google.com/drive/" + COLAB_TOKENS[nb]
+        row = (f'<p class="q-colab-row"><a class="q-colab" href="{url}" target="_blank" rel="noopener">Open in Colab: {COLAB_TEXT[nb]}</a>'
+               f'<span class="q-colab-note">Free Google account needed. Use File, Save a copy in Drive.</span></p>')
+        h = h.replace('<div class="q-prose">', row + '<div class="q-prose">', 1)
+    return h
+
+
+def renumber(html):
+    """Prose says 'Stage 7' using internal ids. Show the display numbers instead."""
+    return re.sub(r"Stage (\d+)", lambda m: "Stage " + str(DISPLAY.get(int(m.group(1)), int(m.group(1)))), html)
+
+
+def part_header(kicker, title, text):
+    return f'<div class="q-part"><span class="q-part-kicker">{kicker}</span><h2>{title}</h2><p>{text}</p></div>'
+
+
 N_EXERCISES = len(content_ex.EXERCISES)
 
 
 
 # ------------------------------------------------------------------ hero
-STAGE_INFO = [
-    (0, "Basecamp", "set up your tools"),
-    (1, "Notebook Ridge", "cells, kernels and Python basics"),
-    (2, "Traceback Gorge", "errors are directions"),
-    (3, "Table Flats", "your first DataFrame"),
-    (4, "Score Falls", "new columns, groups, pivots"),
-    (5, "Function Forge", "write it once, reuse it"),
-    (6, "Project Lodge", "project layout and downloads"),
-    (7, "Audit Pass", "trust, but verify"),
-    (8, "Region Rapids", "group, merge, summarise"),
-    (9, "Histogram Meadow", "plots for distributions"),
-    (10, "Heatmap Heights", "plots for patterns"),
-    (11, "The Summit", "robustness and reproducibility"),
-]
+STAGE_NAMES = {
+    12: "Project 0", 1: "Notebook Ridge", 2: "Traceback Gorge", 3: "Table Flats", 4: "Score Falls", 5: "Function Forge",
+    7: "Audit Pass", 8: "Region Rapids", 9: "Histogram Meadow", 10: "Heatmap Heights", 11: "The Summit",
+    0: "Basecamp", 6: "Project Lodge", 13: "Ship It",
+}
 
 
 def hero():
     rows = []
-    for n, place, sub in STAGE_INFO:
+    for key in ORDER:
+        stars = META[key][3]
+        cells = []
+        for part in (1, 2, 3):
+            if part <= stars:
+                cells.append(f'<td data-cell="s{key}p{part}"><span class="q-nan">NaN</span></td>')
+            else:
+                cells.append('<td class="q-df-none">&ndash;</td>')
         rows.append(
-            f'<tr><th scope="row">{n}</th>'
-            f'<td class="q-df-name"><a href="#stage-{n}">{esc(place)}</a></td>'
-            f'<td data-cell="s{n}p1"><span class="q-nan">NaN</span></td>'
-            f'<td data-cell="s{n}p2"><span class="q-nan">NaN</span></td></tr>'
+            f'<tr><th scope="row">{DISPLAY[key]}</th>'
+            f'<td class="q-df-name"><a href="#stage-{key}">{esc(STAGE_NAMES[key])}</a></td>' + "".join(cells) + '</tr>'
         )
     table = (
-        '<table class="q-df"><thead><tr><th></th><th class="q-df-name">stage</th><th>star1</th><th>star2</th></tr></thead>'
+        '<table class="q-df"><thead><tr><th></th><th class="q-df-name">stage</th><th>star1</th><th>star2</th><th>star3</th></tr></thead>'
         f'<tbody>{"".join(rows)}</tbody></table>'
     )
     return (
         '<div class="q-bar">'
-        '<span class="q-bar-stars"><span class="q-glyph" aria-hidden="true">&#9733;</span><span id="q-bar-count">0 / 24</span></span>'
+        '<span class="q-bar-stars"><span class="q-glyph" aria-hidden="true">&#9733;</span><span id="q-bar-count">0 / 0</span></span>'
         '<span class="q-bar-rank" id="q-bar-rank">Trailhead</span>'
         '<span class="q-bar-ex" id="q-bar-ex" title="Practice exercises ticked as done"></span>'
         '<span class="q-bar-links"><a href="#trail">Trail</a><button type="button" class="q-reset">Reset stars</button></span>'
         '</div>'
         '<section class="q-hero" id="trail">'
-        '<p class="q-lede">Twelve stages take you from an empty laptop to publication-style figures. '
-        'You will install the tools, learn pandas on a tiny table, build a project folder, then audit and plot a real dataset of more than four thousand protein variants. '
-        'No biology is needed: every column is explained when you meet it.</p>'
+        '<p class="q-lede">You will learn to analyse real data with Python. Start in your browser: press a button, run code, and see results straight away. '
+        'Along the way you will build intuition for how data, code and biology fit together, and only then set up your own computer and learn the habits that make analyses reliable. '
+        'No coding, no terminal and no biology background assumed.</p>'
+        '<ul class="q-tracks">'
+        '<li><strong>Part 1: Core track, about 7 hours, in Colab</strong>Nothing to install. Project 0, notebooks and kernels, debugging, pandas, functions, a real dataset, plots, and a written conclusion.</li>'
+        '<li><strong>Part 2 and extras, about 5 more hours</strong>Your own computer: terminal, Miniconda, VS Code, project folders, scripts, then HPC. Plus stages and exercises marked Optional or Stretch.</li>'
+        '</ul>'
         '<ul class="q-rules">'
-        '<li><strong>Run it yourself.</strong>Each stage has hands-on practice, where you write functions and small analyses, and ends with a puzzle. Run everything on your own machine and type the answer you get.</li>'
-        '<li><strong>Earn two stars a stage.</strong>The first star unlocks a harder second one. Twenty-four in all. Allow about fifteen hours with the practice exercises.</li>'
+        '<li><strong>Run it yourself.</strong>Every stage has hands-on practice where you write code, and ends with a puzzle. Type the answer you get to earn a star.</li>'
+        '<li><strong>Think, not just calculate.</strong>Some stars ask you to interpret results or write a short conclusion, because that is the real skill.</li>'
         '<li><strong>Nothing leaves your browser.</strong>Progress is saved in this browser only. Nothing is uploaded and there is no account.</li>'
         '</ul>'
         '<div class="q-nb" aria-label="Your progress, shown as a DataFrame">'
         '<div class="q-nb-row q-nb-in"><div class="q-nb-label">In [1]:</div><div class="q-nb-code">trail</div></div>'
         '<div class="q-nb-row q-nb-out"><div class="q-nb-label">Out[1]:</div><div class="q-nb-body">' + table + '</div></div>'
-        '<div class="q-nb-row q-nb-in"><div class="q-nb-label">In [2]:</div><div class="q-nb-code">trail[["star1", "star2"]].notna().sum().sum()</div></div>'
+        '<div class="q-nb-row q-nb-in"><div class="q-nb-label">In [2]:</div><div class="q-nb-code">trail[["star1", "star2", "star3"]].notna().sum().sum()</div></div>'
         '<div class="q-nb-row q-nb-out"><div class="q-nb-label">Out[2]:</div><div class="q-nb-result" id="q-total">0</div></div>'
         '</div>'
         '</section>'
@@ -229,13 +280,16 @@ def post():
         '<script src="/assets/js/quest-answers.js" defer></script>\n'
         '<script src="/assets/js/quest.js" defer></script>\n'
         + hero() + "\n"
-        + "\n".join(STAGES) + "\n"
+        + part_header("Part 1", "Learn by running code", "Everything here runs in Colab, in your browser. Press the button, run the cells, fill in the blanks, see what happens.") + "\n"
+        + "\n".join(finish_stage(k) for k in PART1) + "\n"
+        + part_header("Part 2", "Take it to your own computer", "Once you have seen what notebooks can do, the limits become obvious. Now set up a proper workspace, learn the terminal, organise a project, and scale up on the cluster.") + "\n"
+        + "\n".join(finish_stage(k) for k in PART2) + "\n"
         + content_hpc.HPC + "\n"
         + certificate() + "\n"
         + credits() + "\n"
         '</div>\n'
     )
-    return FRONT + "{% raw %}\n" + body + "{% endraw %}\n"
+    return FRONT + "{% raw %}\n" + renumber(body) + "{% endraw %}\n"
 
 
 if __name__ == "__main__":

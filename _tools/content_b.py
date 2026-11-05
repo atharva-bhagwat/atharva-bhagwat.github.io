@@ -1,4 +1,6 @@
 from qbuild import *
+from qbuild import answer_hash
+from modsrc import MODULE_V1, MODULE_ADD_PARSE, MODULE_ADD_REGION, MODULE_FULL
 
 STAGES_B = []
 
@@ -6,24 +8,6 @@ STAGES_B = []
 # =====================================================================
 # Stage 6
 # =====================================================================
-MODULE_V1 = r'''
-"""Reusable helpers for the variant-abundance analysis."""
-
-BINS = ["bin1_count", "bin2_count", "bin3_count", "bin4_count"]
-
-
-def add_scores(df, weights=(1, 2, 3, 4), min_reads=0):
-    """Add total_reads and a weighted-average bin score.
-
-    score = sum(weight_i * count_i) / total_reads. Rows with fewer than
-    `min_reads` total reads get score = NaN. Returns a new DataFrame.
-    """
-    out = df.copy()
-    out["total_reads"] = out[BINS].sum(axis=1)
-    out["score"] = (out[BINS] * list(weights)).sum(axis=1) / out["total_reads"]
-    out.loc[out["total_reads"] < min_reads, "score"] = float("nan")
-    return out
-'''
 
 DOWNLOAD = r'''
 """Download the data files into data/raw/. Safe to re-run."""
@@ -70,6 +54,7 @@ STAGES_B.append(stage(
     6, "Project Lodge", "a tidy home and a trustworthy download", 50,
     "You will lay out a project folder, download real data with a script, prove the file is intact, and move your function into a module any notebook can import.",
     [
+        p("In Part 1 you worked in Colab notebooks, where files live in a temporary session. Real projects live in folders on a disk, so now you will give yours a proper home."),
         p("Analyses that survive are organised. Not fancy, just predictable. When someone (including you in six months) opens the folder, they should know where the raw data is, what is code, and what is output."),
         tree('''pandas-quest/
 ├── README.md              what this is and how to run it
@@ -91,9 +76,9 @@ STAGES_B.append(stage(
         h3("2. Get the data"),
         p("Three files power the rest of the guide. You can click to download them by hand, but the script below is better because it is a record of where each file came from."),
         table(["File", "What it is"], [
-            ['<a href="/assets/data/toy_vampseq_bin_counts.csv" download>toy_vampseq_bin_counts.csv</a>', "Invented table of read counts, used in Stages 3 to 5."],
+            ['<a href="/assets/data/toy_vampseq_bin_counts.csv" download>toy_vampseq_bin_counts.csv</a>', "Invented table of read counts, used in the pandas stages (3 to 5)."],
             ['<a href="/assets/data/pten-variant-abundance.csv" download>pten-variant-abundance.csv</a>', "The real table: one row per protein variant, used from Stage 7."],
-            ['<a href="/assets/data/pten-region-annotations.csv" download>pten-region-annotations.csv</a>', "Three named stretches of the sequence, used in Stages 8 to 10."],
+            ['<a href="/assets/data/pten-region-annotations.csv" download>pten-region-annotations.csv</a>', "Three named stretches of the sequence, used in the region and plotting stages."],
         ]),
         p("Save this as <code>download_data.py</code> in the project root and run <code>python download_data.py</code>."),
         code(DOWNLOAD, "python", "download_data.py", test="s6_download_syntax"),
@@ -106,8 +91,8 @@ STAGES_B.append(stage(
         code('import hashlib\nfrom pathlib import Path\n\npath = Path("data/raw/pten-variant-abundance.csv")\nprint(hashlib.sha256(path.read_bytes()).hexdigest())',
              "python", "any cell or script", test="s6_hash_syntax"),
         h3("4. Move your function into <code>src/</code>"),
-        p("Create <code>src/vampseq_tools.py</code> and paste in the function from Stage 5, with the <code>BINS</code> list it needs:"),
-        code(MODULE_V1, "python", "src/vampseq_tools.py", test="s6_module"),
+        p("Create <code>src/vampseq_tools.py</code> and paste in the three functions you wrote in Part 1: <code>add_scores</code> (Stage 5), <code>parse_hgvs</code> (Stage 7) and <code>label_regions</code> (Stage 8). The file looks like this:"),
+        code(MODULE_FULL, "python", "src/vampseq_tools.py", test="s6_module"),
         p("Now any notebook can import it. Put this in the first cell of each notebook:"),
         code('''import sys
 from pathlib import Path
@@ -121,7 +106,7 @@ RAW = ROOT / "data" / "raw"
 %autoreload 2
 
 import pandas as pd
-from vampseq_tools import add_scores''', "python", "first cell of every notebook"),
+from vampseq_tools import add_scores, parse_hgvs, label_regions''', "python", "first cell of every notebook"),
         ul([
             "<strong>Why the <code>sys.path</code> line?</strong> Python only imports from certain folders. This adds yours.",
             "<strong>Why <code>%autoreload 2</code>?</strong> The kernel remembers imported code (Stage 1!). Without autoreload, editing <code>vampseq_tools.py</code> changes nothing until you restart the kernel. With it, edits are picked up on the next run.",
@@ -176,71 +161,82 @@ data/raw (never edited), data/derived, notebooks/, src/, results/figures/
 # =====================================================================
 # Stage 7
 # =====================================================================
-MODULE_ADD_PARSE = r'''
-def parse_hgvs(df, column="hgvs_pro"):
-    """Split names like 'p.Asn12Ile' into ref, position and alt columns.
 
-    ref = 'Asn', position = 12 (nullable integer), alt = 'Ile'.
-    Synonymous names like 'p.Asn12=' get alt = '='. Anything that does not
-    match (for example the wild-type row '_wt') gets missing values.
-    """
-    pattern = r"^p\.(?P<ref>[A-Za-z]{3})(?P<position>\d+)(?P<alt>[A-Za-z]{3}|=)$"
-    parts = df[column].str.extract(pattern)
-    out = df.copy()
-    out["ref"] = parts["ref"]
-    out["position"] = pd.to_numeric(parts["position"]).astype("Int64")
-    out["alt"] = parts["alt"]
-    return out
-'''
+S7_ANS = {i: answer_hash(f"s7p3-{i}", l) for i, l in enumerate("cab")}
 
 STAGES_B.append(stage(
-    7, "Audit Pass", "trust, but verify", 55,
-    "You have been handed a table with thousands of rows. Before you plot anything, you will find out what is in it, what is missing, and whether the labels mean what they say.",
+    7, "Audit Pass", "trust, but verify", 60,
+    "You have been handed a table with thousands of rows. Before you plot anything you will learn what it measures, find out what is in it and what is missing, and check that the labels mean what they say.",
     [
-        p("Real data arrives with quirks. The habit that separates careful analysts from unlucky ones is a <strong>data audit</strong>: a short, boring, systematic look at the table before any conclusions. "
-          "Make <code>notebooks/03_data_audit.ipynb</code>, paste in the first-cell block from Stage 6, then load the real table:"),
-        code('df = pd.read_csv(RAW / "pten-variant-abundance.csv")\ndf.head()', "python", "cell", test="s7_load"),
+        p("Open notebook 3 with the Colab button above. Real data arrives with quirks, so the habit that separates careful analysts from unlucky ones is a <strong>data audit</strong>: "
+          "a short, boring, systematic look at the table before any conclusions."),
+        h3("What this dataset is about"),
+        p("<strong>PTEN</strong> is a human protein that acts as a brake on cell growth signalling. It is an enzyme (a phosphatase) that removes a phosphate group from a signalling lipid, which dampens a pathway that tells cells to grow. "
+          "When PTEN is damaged, the brake weakens, and changes in the PTEN gene are linked to several cancers and to inherited conditions. "
+          "Geneticists keep finding single-letter changes in the gene. Many swap one amino acid in the protein for another (a <strong>missense</strong> variant), and for most of them nobody knows whether the change matters."),
+        p("A <strong>multiplexed assay of variant effect</strong> attacks that gap by making thousands of variants at once and measuring each one. "
+          "This table comes from an experiment that measured <strong>abundance</strong>: how much of each PTEN variant ends up in the cell. "
+          "Each variant is tagged with a fluorescent marker and put into cells. Cells are then sorted into four bins from dim to bright and sequenced, "
+          "so each variant gets a count of reads per bin. That is exactly the shape of the toy table from Stage 3, only with about four thousand variants. "
+          "A change that makes the protein unstable gets cleared away by the cell, so its cells look dim and its reads pile up in the low bins."),
+        callout("why", "Abundance is not activity, and activity is not disease",
+                p("A variant can be abundant but inactive, or scarce and still partly working. Abundance data tells you which changes destabilise the protein, "
+                  "which is one useful ingredient when judging whether a variant is harmful. It does not tell you the final answer.")),
+        h3("Two scores, one idea"),
+        p("Be careful: the toy table and this table both have a column called <code>score</code>, but they are <strong>not the same measurement</strong>."),
+        table(["", "Toy table (Stage 4)", "PTEN table (this stage)"], [
+            ["How it was made", "You computed it: a weighted average of the four bins, weights 1 to 4.", "Published by the researchers, from their own analysis of the sorted-cell data."],
+            ["Typical range", "1 to 4. Higher means brighter cells.", "Roughly 0 to 1 (a few outside). It has been rescaled."],
+            ["Anchors", "None. 4 means all reads in the brightest bin.", "The reference protein is set to 1. Broken, cut-short proteins sit near 0."],
+        ]),
+        p("They share an idea: summarise <em>where along the dim-to-bright spectrum a variant's cells land</em> as one number. But the procedures and scales differ, "
+          "so never compare raw numbers across the two tables. Compare patterns <em>within</em> a table, measured against that table's own reference points. You will check this yourself in a moment."),
+        h3("Load it"),
+        code('import pandas as pd\n\nBASE = "https://atharva-bhagwat.github.io/assets/data/"\ndf = pd.read_csv(BASE + "pten-variant-abundance.csv")\ndf.head()', "python", "cell", test="s7_load"),
         p("What the columns hold, in plain terms (<code>score</code> is the one that matters most):"),
         table(["Column", "Meaning"], [
-            ["<code>hgvs_pro</code>", "Variant name such as <code>p.Asn12Ile</code>: reference letters, position, new letters. This is the identity of a row."],
-            ["<code>score</code>", "The measured abundance, already normalised: about 1 means \"like the unchanged reference\", about 0 means \"like a broken one\"."],
+            ["<code>hgvs_pro</code>", "Variant name such as <code>p.Asn12Ile</code>: reference amino acid, position, new amino acid. This is the identity of a row."],
+            ["<code>score</code>", "The measured abundance, already normalised: about 1 means \"like the unchanged reference\", about 0 means \"like a broken protein\"."],
             ["<code>sd</code>, <code>se</code>, <code>lower_ci</code>, <code>upper_ci</code>", "Spread and uncertainty of that measurement."],
             ["<code>expts</code>", "How many experiments contributed to the score."],
-            ["<code>record_type</code>", "<code>missense</code> (one letter swapped), <code>synonymous</code> (no real change), <code>nonsense</code> (stops early), <code>wild_type</code> (the reference itself)."],
+            ["<code>record_type</code>", "<code>missense</code> (one amino acid swapped), <code>synonymous</code> (the DNA changed but the amino acid did not), <code>nonsense</code> (a stop signal, so the protein is cut short), <code>wild_type</code> (the reference itself)."],
             ["<code>abundance_class</code>, <code>abundance_class_label</code>", "A binned version of the score, as a number and as a text label."],
-            ["<code>accession</code>, <code>snv</code>", "Database identifier, and a flag for whether one DNA change can produce it."],
+            ["<code>accession</code>, <code>snv</code>", "Database identifier, and a flag for whether one DNA change can produce the variant."],
         ]),
+        callout("note", "Why look at synonymous and nonsense variants first?",
+                p("They are your reference points. Nonsense variants cut the protein short, so they should look broken (scores near 0). "
+                  "Synonymous variants keep the amino acid sequence, so they are expected to look like the reference (near 1). "
+                  "\"Expected\" is the important word: a silent DNA change can occasionally matter for other reasons, which is why you check rather than assume.")),
+        code('df.groupby("record_type")["score"].median()', "python", "cell: do the anchors look right?", test="s7_anchor"),
         h3("The audit checklist"),
         code('df.shape                                    # rows, columns\ndf.dtypes                                   # anything numeric stored as text?\ndf.isna().sum()                             # missing values per column\ndf["hgvs_pro"].is_unique                    # one row per variant?\ndf.duplicated(subset="hgvs_pro").sum()      # how many repeats\ndf["record_type"].value_counts()            # counts per type\ndf["abundance_class_label"].value_counts(dropna=False)\npd.crosstab(df["abundance_class"], df["abundance_class_label"])   # do number and label agree?\ndf[["score", "sd", "se", "expts"]].describe()',
              "python", "cell", test="s7_audit"),
-        callout("tip", "Compare with the source",
+        callout("tip", "Compare with what you were told",
                 p("If a collaborator tells you how many rows and how many of each record type to expect, check that your table agrees. "
                   "If a number differs, that is not a nuisance, it is a finding. Write down why.")),
-        h3("Turn text into columns"),
-        p("The variant name packs three facts into one string. To summarise by position later, you need them as separate columns. "
-          "A <strong>regular expression</strong> (regex) describes a text pattern; <code>.str.extract</code> pulls out the parts:"),
-        code('pattern = r"^p\\.(?P<ref>[A-Za-z]{3})(?P<position>\\d+)(?P<alt>[A-Za-z]{3}|=)$"\nparts = df["hgvs_pro"].str.extract(pattern)\nparts.head()',
-             "python", "cell", test="s7_extract"),
-        table(["Piece", "Means"], [
-            ["<code>^</code> and <code>$</code>", "start and end of the text, so partial matches do not sneak through"],
-            ["<code>p\\.</code>", "a literal <code>p</code> and a literal dot (the backslash cancels the dot's special meaning)"],
-            ["<code>[A-Za-z]{3}</code>", "exactly three letters"],
-            ["<code>\\d+</code>", "one or more digits"],
-            ["<code>(?P&lt;name&gt;...)</code>", "capture this piece into a column called <em>name</em>"],
-            ["<code>...|=</code>", "or an equals sign (the synonymous notation)"],
-        ]),
-        p('Build your pattern interactively at <a href="https://regex101.com/" target="_blank" rel="noopener">regex101.com</a>: paste a few variant names and watch the pieces highlight.'),
-        code('df["ref"] = parts["ref"]\ndf["position"] = pd.to_numeric(parts["position"]).astype("Int64")   # nullable integer\ndf["alt"] = parts["alt"]\n\ndf[df["position"].isna()]       # which rows did not match, and why?',
-             "python", "cell", test="s7_assign"),
-        p("The <code>Int64</code> (capital I) type is a nullable integer, so rows without a position can hold a proper missing value instead of forcing every number to a decimal. "
-          "Rows that did not match the pattern (the wild-type reference row, for instance) simply get blanks. That is your cue to look at them, not to ignore them."),
-        p("Last, test that the labels agree with the contents. If they do not, you have a problem worth knowing about now:"),
+        h3("Turn names into columns, one small step at a time"),
+        p("A variant name packs three facts into one string. To summarise by position later, you need them as separate columns. You already know the first tool: slicing."),
+        code('name = "p.Asn12Ile"\nname[2:5], name[-3:]      # reference and new amino acid', "python", "cell", test="s7_slice1"),
+        p("The same slicing works on a whole column through <code>.str</code>:"),
+        code('df["ref"] = df["hgvs_pro"].str[2:5]\ndf["alt"] = df["hgvs_pro"].str[-3:]\ndf[["hgvs_pro", "ref", "alt"]].sample(5, random_state=1)',
+             "python", "cell", test="s7_slice2"),
+        callout("trap", "A method that works on most rows is the dangerous kind",
+                p("Look at a synonymous name such as <code>p.Asn12=</code>. The last three characters are <code>12=</code>, not an amino acid. Check the odd ones on purpose:")
+                + code('df[df["hgvs_pro"].str.endswith("=")][["hgvs_pro", "alt"]].head(3)', "python", "cell", test="s7_oddballs")),
+        p("Fix them with a filter you already know, and then pull out the position, which is the digits in the middle. "
+          "The <code>\\d+</code> below is a tiny <strong>regular expression</strong>, a pattern language for text: <code>\\d</code> means a digit and <code>+</code> means one or more."),
+        code('df.loc[df["hgvs_pro"].str.endswith("="), "alt"] = "="\n\ndf["position"] = pd.to_numeric(df["hgvs_pro"].str.extract(r"(\\d+)")[0]).astype("Int64")\ndf[df["position"].isna()]       # which rows have no position, and is that expected?',
+             "python", "cell", test="s7_pos"),
+        p("The <code>Int64</code> type (capital I) is a whole number that can also be missing. The rows without a position, such as the wild-type reference row, are your cue to look at them, not ignore them."),
+        p("Last, test that the labels agree with the contents. If they do not, you have found a problem worth knowing about now:"),
         code('assert (df.loc[df["record_type"] == "nonsense", "alt"] == "Ter").all()\nassert (df.loc[df["record_type"] == "synonymous", "alt"] == "=").all()\nassert df.loc[df["record_type"] == "missense", "alt"].notna().all()\nprint("labels and names agree")',
              "python", "cell", test="s7_asserts"),
-        h3("Put the parser in your module"),
-        p("You will need this in every notebook from now on, so add it to <code>src/vampseq_tools.py</code> (it needs <code>import pandas as pd</code> at the top of that file):"),
-        code(MODULE_ADD_PARSE, "python", "add to src/vampseq_tools.py", test="s7_module"),
-        p("Then in notebooks: <code>from vampseq_tools import parse_hgvs</code> and <code>df = parse_hgvs(df)</code>."),
+        h3("Package the steps as a function"),
+        p("You will use this parsing in every later notebook, so wrap the steps in a function (in Part 2 it moves into a file you can import). "
+          "This version uses one longer pattern with named parts that does the three extractions at once. It is optional reading: "
+          'paste it into <a href="https://regex101.com/" target="_blank" rel="noopener">regex101.com</a> with a few variant names to see each piece light up.'),
+        code(MODULE_ADD_PARSE, "python", "function: parse_hgvs", test="s7_module"),
+        p("Then in a notebook: <code>df = parse_hgvs(df)</code>. The notebooks for the next stages include this function in their first cell."),
     ],
     [
         puzzle("s7p1", 1,
@@ -251,41 +247,36 @@ STAGES_B.append(stage(
         puzzle("s7p2", 2,
                p("After parsing <code>hgvs_pro</code>, how many <strong>distinct positions</strong> appear in the table? Ignore rows where no position could be read."),
                kind="number", placeholder="a whole number",
-               hint="<code>df[\"position\"].nunique()</code> already skips missing values. Without a parsed <code>position</code> column, try <code>str.extract(r\"(\\d+)\")</code> on <code>hgvs_pro</code>.",
-               solution='df = parse_hgvs(df)\nprint(df["position"].nunique())', test="s7p2"),
+               hint="<code>df[\"position\"].nunique()</code> already skips missing values.",
+               solution='print(df["position"].nunique())', test="s7p2"),
+        puzzle("s7p3", 3,
+               p("Interpretation time. Pick the best answer for each."),
+               kind="choices",
+               choices=[
+                   ("A learner says: \"a PTEN variant with score 0.9 is <em>lower</em> than a toy variant scoring 3.4, so the PTEN variant is worse.\" What is wrong?",
+                    ["Nothing; 0.9 is lower than 3.4.", "PTEN scores are wrong because they are below 1.", "The two scores come from different procedures and scales, so raw numbers cannot be compared across tables. Compare against each table's own reference points."]),
+                   ("Why do analysts look at nonsense and synonymous variants before anything else?",
+                    ["They give reference points: nonsense should look broken and synonymous should look like the reference, so a surprise means something may be wrong.", "They are the most common variants.", "They are the only variants with scores."]),
+                   ("A missense variant has a very low abundance score. What can you conclude?",
+                    ["It causes disease.", "The protein with this change is probably present at lower levels in the cell. Whether it affects function or health needs other evidence.", "It has no effect on PTEN."]),
+               ],
+               spec={"kind": "choices", "hs": [S7_ANS[i] for i in range(3)]},
+               hint="Question 1: ask what \"score\" means in each table. Question 3: abundance and activity are different things."),
     ],
 ))
 
 # =====================================================================
 # Stage 8
 # =====================================================================
-MODULE_ADD_REGION = r'''
-def label_regions(df, regions, position_column="position"):
-    """Add a 'region' column from a table with region, start and end columns.
-
-    Positions outside every region are labelled 'other'; rows without a
-    position are labelled 'no_position'.
-    """
-    def find(position):
-        if pd.isna(position):
-            return "no_position"
-        for r in regions.itertuples():
-            if r.start <= position <= r.end:
-                return r.region
-        return "other"
-
-    out = df.copy()
-    out["region"] = out[position_column].map(find)
-    return out
-'''
 
 STAGES_B.append(stage(
     8, "Region Rapids", "group, merge and summarise", 50,
     "You will attach a second table to the first, summarise by position and by region, and learn why every summary needs a count next to it.",
     [
         p("Stage 7 gave you one row per variant. Questions usually live at a coarser level: <em>per position</em>, <em>per region</em>, <em>per category</em>. "
-          "The second table lists named stretches of the sequence with start and end positions:"),
-        code('regions = pd.read_csv(RAW / "pten-region-annotations.csv")\nregions',
+          "PTEN has two folded parts, a <strong>phosphatase domain</strong> (the enzyme part) and a <strong>C2 domain</strong> (which helps the protein attach to membranes), followed by a floppy <strong>tail</strong> with no fixed shape. "
+          "A second table lists those stretches of the sequence with start and end positions:"),
+        code('regions = pd.read_csv(BASE + "pten-region-annotations.csv")\nregions',
              "python", "cell", test="s8_regions"),
         h3("Label each row with its region"),
         p("Write a small function that answers \"which region contains this position?\" for one position, then apply it to the whole column with <code>.map</code>:"),
@@ -294,8 +285,8 @@ STAGES_B.append(stage(
         callout("trap", "The missing-value guard is not optional",
                 p("Remove the <code>pd.isna</code> check and the function dies with <code>TypeError: boolean value of NA is ambiguous</code> on the first row without a position. "
                   "Missing values do not behave like numbers; they need an explicit decision.")),
-        p("That logic is reusable, so it joins your module, next to <code>parse_hgvs</code>:"),
-        code(MODULE_ADD_REGION, "python", "add to src/vampseq_tools.py", test="s8_module"),
+        p("That logic is reusable, so package it as a function too, next to <code>parse_hgvs</code>:"),
+        code(MODULE_ADD_REGION, "python", "function: label_regions", test="s8_module"),
         h3("Focus the question"),
         p("Different record types answer different questions. For \"how do single-letter changes affect abundance?\" keep only <code>missense</code> rows and give that table a name:"),
         code('miss = df[df["record_type"] == "missense"]\nlen(miss)', "python", "cell", test="s8_miss"),
@@ -317,6 +308,13 @@ STAGES_B.append(stage(
                     "<code>inner</code>: keep only rows that match on both sides.",
                     "<code>outer</code>: keep everything from both.",
                     "<code>validate=\"many_to_one\"</code> makes pandas raise an error if your assumption about keys is wrong."])),
+        h3("Read the table like a scientist"),
+        p("Numbers become findings only when you ask what they mean. Before you answer the last puzzle of this stage, look at your <code>by_region</code> table and ask three questions:"),
+        ol([
+            "<strong>How big is each group?</strong> A median from 12 variants and one from 1,500 are not equally trustworthy.",
+            "<strong>Does the pattern make biological sense?</strong> Folded domains need an exact shape, so changing their amino acids often destabilises them. A floppy tail has no shape to lose.",
+            "<strong>What can abundance not tell you?</strong> A region can tolerate changes in abundance and still be essential for function.",
+        ]),
     ],
     [
         puzzle("s8p1", 1,
@@ -332,6 +330,19 @@ STAGES_B.append(stage(
                kind="text", placeholder="region_name",
                hint="The <code>by_region</code> table above has the medians. Ignore the rows named <code>other</code> and <code>no_position</code>, then look at the smallest median.",
                solution='by_region = miss.groupby("region")["score"].median()\nprint(by_region.drop(["other", "no_position"], errors="ignore").idxmin())', test="s8p2"),
+        puzzle("s8p3", 3,
+               p("<strong>Write your interpretation</strong> (about four sentences). Using your own <code>by_region</code> table, say: which region looks most and which least tolerant of changes, "
+                 "whether that makes biological sense for a folded domain versus a floppy tail, and how the <strong>number of variants in each region</strong> affects how much you trust the comparison."),
+               kind="reflect", minwords=45, placeholder="The ... has the lowest median (value, n = ...), while the ...",
+               hint="Start from the numbers: name the regions, quote a median and an n for each. Then give one biological reason and one reason to be cautious.",
+               model='<h4>A model answer (use your own numbers)</h4>'
+                     '<p>\"The ___ has the lowest median missense score (___, n = ___) and the ___ the highest (___, n = ___). '
+                     'That fits the idea that folded domains must keep a precise shape, so many amino acid swaps there destabilise the protein, '
+                     'while a disordered tail has no fixed structure to lose and is more forgiving. '
+                     'The regions have very different numbers of variants, so a median from a small group is less reliable and I would not over-read a small gap. '
+                     'Also, abundance is only one property: a region that keeps the protein stable might still matter for activity.\"</p>'
+                     '<h4>Did you cover</h4><ul><li>Named the extreme regions with a number and an n?</li><li>Gave a biological reason and judged whether it fits?</li>'
+                     '<li>Said how group size changes your confidence?</li><li>Noted what abundance cannot tell you?</li></ul>'),
     ],
 ))
 
@@ -342,8 +353,8 @@ STAGES_B.append(stage(
     9, "Histogram Meadow", "plots for distributions", 60,
     "Seven plots for the question every experimentalist asks first: what does my data look like, and do my groups differ? You will learn when each one is the right choice.",
     [
-        p("Make <code>notebooks/04_distributions.ipynb</code>, paste the first-cell block from Stage 6, then load, parse and label the table (your module does the work):"),
-        code('from vampseq_tools import parse_hgvs, label_regions\n\ndf = pd.read_csv(RAW / "pten-variant-abundance.csv")\nregions = pd.read_csv(RAW / "pten-region-annotations.csv")\ndf = label_regions(parse_hgvs(df), regions)\n\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nsns.set_theme(style="whitegrid", context="notebook", palette="colorblind")\nTYPES = ["synonymous", "missense", "nonsense"]\ndata = df[df["record_type"].isin(TYPES)]',
+        p("Open notebook 4 in Colab (button above). Its first cells reload the data and define the helper functions from earlier stages, so it works in a fresh session. The setup looks like this:"),
+        code('import pandas as pd\nfrom pathlib import Path\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nBASE = "https://atharva-bhagwat.github.io/assets/data/"\ndf = pd.read_csv(BASE + "pten-variant-abundance.csv")\nregions = pd.read_csv(BASE + "pten-region-annotations.csv")\ndf = label_regions(parse_hgvs(df), regions)    # the two helpers from Stages 6 and 7\n\nsns.set_theme(style="whitegrid", context="notebook", palette="colorblind")\nTYPES = ["synonymous", "missense", "nonsense"]\ndata = df[df["record_type"].isin(TYPES)]\n\nFIGS = Path("figures")          # in Colab: the Files panel (folder icon) shows it\nFIGS.mkdir(exist_ok=True)',
              "python", "first cells", test="s9_setup"),
         h3("Two libraries, one mental model"),
         p('<a href="https://matplotlib.org/stable/index.html" target="_blank" rel="noopener">matplotlib</a> is the foundation: a <strong>figure</strong> is the canvas and an <strong>axes</strong> is one chart on it. '
@@ -380,7 +391,7 @@ STAGES_B.append(stage(
         code('fig, ax = plt.subplots(figsize=(6, 4))\nsns.countplot(data=data, x="record_type", order=TYPES, ax=ax)\nax.set(xlabel="", ylabel="number of variants", title="Count plot")',
              "python", "7. count plot", test="s9_count"),
         h3("Assemble a multi-panel figure and save it"),
-        code('fig, axes = plt.subplots(1, 3, figsize=(14, 4))\n\nsns.histplot(data=data[data["record_type"] == "missense"], x="score", bins=40, ax=axes[0])\nsns.ecdfplot(data=data, x="score", hue="record_type", hue_order=TYPES, ax=axes[1])\nsns.boxplot(data=data, x="record_type", y="score", order=TYPES, ax=axes[2])\n\nfor ax, letter in zip(axes, "abc"):\n    ax.set_title(letter, loc="left", fontweight="bold")\naxes[0].set(xlabel="abundance score", ylabel="number of variants")\naxes[1].set(xlabel="abundance score", ylabel="cumulative fraction")\naxes[2].set(xlabel="", ylabel="abundance score")\n\nfig.tight_layout()\n\nFIGS = ROOT / "results" / "figures"\nFIGS.mkdir(parents=True, exist_ok=True)\nfig.savefig(FIGS / "score_distributions.png", dpi=300, bbox_inches="tight")\nfig.savefig(FIGS / "score_distributions.pdf", bbox_inches="tight")',
+        code('fig, axes = plt.subplots(1, 3, figsize=(14, 4))\n\nsns.histplot(data=data[data["record_type"] == "missense"], x="score", bins=40, ax=axes[0])\nsns.ecdfplot(data=data, x="score", hue="record_type", hue_order=TYPES, ax=axes[1])\nsns.boxplot(data=data, x="record_type", y="score", order=TYPES, ax=axes[2])\n\nfor ax, letter in zip(axes, "abc"):\n    ax.set_title(letter, loc="left", fontweight="bold")\naxes[0].set(xlabel="abundance score", ylabel="number of variants")\naxes[1].set(xlabel="abundance score", ylabel="cumulative fraction")\naxes[2].set(xlabel="", ylabel="abundance score")\n\nfig.tight_layout()\n\nfig.savefig(FIGS / "score_distributions.png", dpi=300, bbox_inches="tight")\nfig.savefig(FIGS / "score_distributions.pdf", bbox_inches="tight")',
              "python", "a three-panel figure", test="s9_panel"),
         ul([
             "<strong>PNG</strong> at 300 dpi for slides and documents; <strong>PDF</strong> or <strong>SVG</strong> (vector, infinitely sharp) for papers and posters.",
@@ -413,7 +424,7 @@ STAGES_B.append(stage(
     10, "Heatmap Heights", "plots for relationships and patterns", 65,
     "Scatter plots, density views, error bars, a track along the sequence, and the heatmap that shows thousands of values at once.",
     [
-        p("Make <code>notebooks/05_patterns.ipynb</code> with the same setup cells as Stage 9, plus <code>miss = df[df[\"record_type\"] == \"missense\"]</code>. "
+        p("Open notebook 4 again (this stage is its second half) and add <code>miss = df[df[\"record_type\"] == \"missense\"]</code> if your session was reset. "
           "Distributions answered \"what does it look like?\". These plots answer \"what goes with what?\" and \"where along the protein?\"."),
         h3("Two variables"),
         code('fig, ax = plt.subplots(figsize=(6, 4.5))\nsns.scatterplot(data=miss, x="se", y="score", s=8, alpha=0.4, ax=ax)\nax.set(xlabel="standard error", ylabel="abundance score", title="Do noisier measurements score differently?")',
@@ -513,7 +524,7 @@ print("wrote", FIGS / "score_distributions.png")
 
 STAGES_B.append(stage(
     11, "The Summit", "does your conclusion survive a different rule?", 60,
-    "A result is only as solid as the choices behind it. You will change one rule, measure how much the answer moves, and package everything so anyone can re-run it.",
+    "A result is only as solid as the choices behind it. You will change one rule, measure how much the answer moves, and write down what you conclude.",
     [
         p("Every analysis contains judgement calls: which rows to keep, how to score, where to cut. "
           "A trustworthy analysis shows how much the answer <em>depends</em> on them. Take one call you have already made implicitly: "
@@ -529,8 +540,46 @@ STAGES_B.append(stage(
         p("If the mean barely moves while the count falls, the conclusion is robust to this rule. If it swings, say so in your write-up. Either answer is a result."),
         callout("why", "This is the heart of reproducible research",
                 p("Readers should be able to change the dial themselves. A function with a documented parameter lets them. A hand-edited spreadsheet does not.")),
-        h3("Make it re-runnable end to end"),
-        ol([
+        h3("Write the conclusion"),
+        p("A number is not a conclusion. A conclusion says what you found, how sure you are, and what could change it. "
+          "Look at your sweep: how many variants does each rule keep, and how far does the mean move?"),
+    ],
+    [
+        puzzle("s11p1", 1,
+               p("Keep only rows whose <code>expts</code> is <strong>at least 3</strong>, across the whole table (every record type). How many rows remain?"),
+               kind="number", placeholder="a whole number",
+               hint="<code>(df[\"expts\"] &gt;= 3).sum()</code> or <code>len(df[df[\"expts\"] &gt;= 3])</code>. Rows with a missing <code>expts</code> fail the comparison and are not counted.",
+               solution='print((df["expts"] >= 3).sum())', test="s11p1"),
+        puzzle("s11p2", 2,
+               p("Use <code>summarise</code> for the <code>phosphatase_domain</code>. Compute the mean missense score <strong>with</strong> the rule <code>min_expts=3</code> minus the mean <strong>without</strong> it. "
+                 "Give the difference (after minus before) to 3 decimal places; keep the sign."),
+               kind="number", placeholder="e.g. -0.012",
+               hint="<code>summarise(df, min_expts=3)[\"mean\"] - summarise(df)[\"mean\"]</code>. A tiny difference is good news for the robustness of the earlier answer.",
+               solution='after = summarise(df, min_expts=3)["mean"]\nbefore = summarise(df)["mean"]\nprint(round(after - before, 3))', test="s11p2"),
+        puzzle("s11p3", 3,
+               p("<strong>Write a short conclusion</strong> (four to six sentences) about the phosphatase domain, as you would in a lab meeting. "
+                 "Include the mean with and without the rule, how many variants each rule keeps, whether you think the conclusion is robust to this choice, and one other analysis choice that could change it."),
+               kind="reflect", minwords=55, placeholder="Using all variants, the mean missense score in the phosphatase domain is ... After requiring at least 3 experiments ...",
+               hint="Use the sentence frame: finding with numbers, then how it changed, then your confidence, then a caveat or next check.",
+               model='<h4>A model answer (use your own numbers)</h4>'
+                     '<p>\"Across all ___ missense variants in the phosphatase domain the mean score is ___. Requiring at least 3 experiments keeps ___ variants and moves the mean to ___ (a change of ___). '
+                     'Because the shift is [small / large] compared with the spread between variants, I consider the domain-level conclusion [robust / sensitive] to this rule. '
+                     'The sweep shows the estimate [stabilises / keeps changing] as the threshold rises, but fewer variants means a noisier mean. '
+                     'Other choices could matter too, such as excluding variants with large standard errors, or using the median instead of the mean, so I would check those next before making any strong claim.\"</p>'
+                     '<h4>Did you cover</h4><ul><li>Both means and both counts?</li><li>A judgement about robustness, with a reason?</li>'
+                     '<li>The cost of keeping fewer variants?</li><li>A different choice that could change the result?</li></ul>'),
+    ],
+))
+
+# =====================================================================
+# Stage 13 (Part 2): ship it
+# =====================================================================
+STAGES_B.append(stage(
+    13, "Ship It", "from notebook to script", 40,
+    "Make your analysis re-runnable end to end, so that someone else (or you in a year) can rebuild every figure with one command.",
+    [
+        p("In Part 1 you explored in notebooks. Final results should not depend on cells you clicked in some order. Here is the checklist that turns exploration into something reproducible."),
+                ol([
             "<strong>Restart and Run All</strong> every notebook. Fix anything that fails or depends on a cell you ran once and forgot.",
             "Move final plotting code into a script so figures regenerate with one command. Save this as <code>src/make_figures.py</code>:",
         ]),
@@ -550,18 +599,7 @@ STAGES_B.append(stage(
             "Put your project on GitHub so your future lab can see it.",
             "Pick a question of your own about this dataset and answer it with a figure, a paragraph, and a function.",
         ]),
+
     ],
-    [
-        puzzle("s11p1", 1,
-               p("Keep only rows whose <code>expts</code> is <strong>at least 3</strong>, across the whole table (every record type). How many rows remain?"),
-               kind="number", placeholder="a whole number",
-               hint="<code>(df[\"expts\"] &gt;= 3).sum()</code> or <code>len(df[df[\"expts\"] &gt;= 3])</code>. Rows with a missing <code>expts</code> fail the comparison and are not counted.",
-               solution='print((df["expts"] >= 3).sum())', test="s11p1"),
-        puzzle("s11p2", 2,
-               p("Use <code>summarise</code> for the <code>phosphatase_domain</code>. Compute the mean missense score <strong>with</strong> the rule <code>min_expts=3</code> minus the mean <strong>without</strong> it. "
-                 "Give the difference (after minus before) to 3 decimal places; keep the sign."),
-               kind="number", placeholder="e.g. -0.012",
-               hint="<code>summarise(df, min_expts=3)[\"mean\"] - summarise(df)[\"mean\"]</code>. A tiny difference is good news for the robustness of the earlier answer.",
-               solution='after = summarise(df, min_expts=3)["mean"]\nbefore = summarise(df)["mean"]\nprint(round(after - before, 3))', test="s11p2"),
-    ],
+    [],
 ))
