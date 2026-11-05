@@ -1,0 +1,4 @@
+region,start,end,source,annotation
+phosphatase_domain,14,185,UniProt P60484,Phosphatase tensin-type domain
+c2_domain,190,350,UniProt P60484,C2 tensin-type domain
+disordered_tail,352,403,UniProt P60484,Disordered region

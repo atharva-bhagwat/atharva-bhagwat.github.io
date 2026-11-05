@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <link href="https://fonts.googleapis.com/css?family=Gaegu:300,700" rel="stylesheet">
+
+  <!-- Enable responsiveness on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Share card -->
+  <meta property="og:url" content="https://atharva-bhagwat.github.io/" />
+  <meta property="og:title" content="Atharva Bhagwat" />
+  <meta property="og:description" content="Atharva Bhagawt is an Associate Computational Researcher at Tsankov Lab, Mount Sinai working on lung senescence." />
+  <meta property="og:image" content="http://atharva-bhagwat.github.io/images/share.png" />
+
+  <title>
+    
+    Atharva Bhagwat - School Shootings in the US
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=xQdLjRyXLj">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=xQdLjRyXLj">
+  <link rel="manifest" href="/icons/site.webmanifest?v=xQdLjRyXLj">
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=xQdLjRyXLj" color="#313131">
+  <link rel="shortcut icon" href="/icons/favicon.ico?v=xQdLjRyXLj">
+  <meta name="msapplication-TileColor" content="#313131">
+  <meta name="msapplication-config" content="/icons/browserconfig.xml?v=xQdLjRyXLj">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Feed -->
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Atharva Bhagwat" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YMVTT71WC1"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="/assets/js/imports.js"></script>
+  <script src="/assets/js/papaparse.min.js"></script>
+  <script src="/assets/js/incident_load.js"></script>
+  <script src="/assets/js/shooter_load.js"></script>
+  <script src="/assets/js/weapon_load.js"></script>
+  <script src="/assets/js/stateab_load.js"></script>
+  <script src="/assets/js/usageo_load.js"></script>
+  <script src="/assets/js/plots.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-YMVTT71WC1');
+
+    function copyText(element, text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          element.setAttribute('data-tooltip', 'Copied!');
+          setTimeout(() => {
+            element.setAttribute('data-tooltip', 'Copy');
+          }, 1500); // Change back after 1.5 seconds
+        })
+        .catch(err => console.error('Failed to copy text: ', err));
+    }
+  </script>
+
+</head>
+
+  <body>
+    <header id="masthead">
+	<h1>
+  		<a href="/" title="Home">Atharva Bhagwat</a>
+	</h1>
+	<nav>
+		<a href="/"><div><i class="fa fa-home icon icon-right-space"></i>Home</div></a>
+		<a href="http://localhost:4000/articles"><div><i class="fa fa-newspaper icon icon-right-space"></i>Articles</div></a>
+		<a href="http://localhost:4000/everything-else"><div><i class="fa fa-ellipsis-h icon icon-right-space"></i>Everything else</div></a>
+	</nav>
+</header>
+    <main>
+      <div class="post-header">
+  <div class="post-title-group">
+    <h1 class="post-title">School Shootings in the US</h1>
+    <time datetime="December 15, 2022" class="post-date">
+      December 15, 2022
+    </time>
+  </div>
+
+  
+</div>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>United states is one of the most diverse and multi-cultural places in the world. It is home to approximately 332 million, of which more than 25% are people under 17 years of age.</p>
+
+<p>When compared to other countries, the US has a ratio of 120.5 firearms per 100 residents, up from 88 per 100 in 2011, highest among that of other countries around the world.</p>
+
+<p>With increasing number of deaths among people under 17 due to gun violence, schools are eager to find ways to better protect their students. But the steps they are taking like clear bag packs(no bag packs in some cases), risk reinforcing an unhealthy culture of surveillance without actually preventing violence. With recent legislation pushing for gun control within US, we would like to answer questions based on the K-12 school shooting database.</p>
+
+<p>Purpose of the project is to look into K-12 school shooting dataset and perform exploratory analysis using visualization techniques in answering potential questions that lawmakers will be interested in, and provide a factual report of these incidents and make this information easily available and understandable.</p>
+
+<p>Getting a better grasp of school shootings, as challenging as it might be, is a clear priority for preventing harm and disruption for kids, staff, and families.</p>
+
+<p>We would like to start with the number of K-12 schools in the US where school shooting has occurred, by year, with respect to number of victims, analyse patterns across seasons, quarters, and geographical locations.</p>
+
+<h2 id="about-the-data">About the Data</h2>
+
+<p><strong>Source:</strong> <a href="https://k12ssdb.org/all-shootings">K-12 School Shooting Database</a>. Riedman, David (2022).</p>
+
+<p><strong>Description:</strong></p>
+
+<p>K-12 School Shooting Database is an open source database launched and managed by David Riedman in 2018.</p>
+
+<p>The data consists of all incidents from 1970 to 2022 and is consistently updated. The dataset is divided in to 4 tables: Incident, Shooter, Victim, and Weapon.</p>
+
+<p>We are using subsets of the incident, weapon, and shooter data tables to generate visualization and answer our questions.</p>
+
+<p>Subset of indicent table has 2171 entries and 19 columns. All tables have features with missing values, this will be handled during the data analysis phase.</p>
+
+<h2 id="incident-table">Incident Table</h2>
+
+<p>The table contains 2171 incidents from year 1970 to 2022.</p>
+
+<p>Out of all the features in the incident table, analysis focuses on:</p>
+
+<ul>
+  <li>Measures like <code class="language-html highlighter-rouge">victims killed</code>, <code class="language-html highlighter-rouge">wounded</code>, and <code class="language-html highlighter-rouge">total number of victims</code></li>
+  <li>Time series data like <code class="language-html highlighter-rouge">date</code> and <code class="language-html highlighter-rouge">quarter</code></li>
+  <li>Geographical information like <code class="language-html highlighter-rouge">state</code></li>
+</ul>
+
+<h2 id="weapon-table">Weapon Table</h2>
+
+<p>The original data containted a lot of empty values in the <code class="language-html highlighter-rouge">Weapon_Type</code> column. We filled this with label <code class="language-html highlighter-rouge">unknown</code>.</p>
+
+<h2 id="shooter-table">Shooter Table</h2>
+
+<p>The <code class="language-html highlighter-rouge">Age</code> column in this table consists of <code class="language-html highlighter-rouge">string</code> data, like: Adult and <code class="language-html highlighter-rouge">integer</code> data like, 17. While data cleaning, these values were grouped into the following bins:</p>
+
+<ul>
+  <li>0-12</li>
+  <li>13-17</li>
+  <li>18-21</li>
+  <li>22-30</li>
+  <li>31-50</li>
+  <li>50+</li>
+</ul>
+
+<p>The missing values in the gender column were set to <code class="language-html highlighter-rouge">unknown</code>.</p>
+
+<h2 id="more-frequent">More Frequent</h2>
+
+<p>In the last decade, school schootings have become a frequent occuring and have been in the news regularly. This motivated us to begin our exploratory data analysis with a time series of the number of incidents in last 50 years in the US to understand how much things have changed. We used the incident table which has shooting incident records from 1970 till now.</p>
+
+<div id="incident_over_time">
+</div>
+
+<p>We notice a rising trend in the number of shootings over the years which is almost 1200% increase in five decades. Where in during the 70s the yearly shooting occurrence was as low as 20, to the current time where it is almost 260 yearly. We notice a jump in the number of incidents after 2015 where it has increased almost 4 times.</p>
+
+<h2 id="and-deadlier">…and Deadlier</h2>
+
+<div id="injuried_death_ratio_legend">
+</div>
+
+<div id="injuried_death_ratio">
+</div>
+
+<p>We focus on the incidents in the 21st century and look at how the number of injuries and deaths has changed over the years. We use a stacked bar chart to better show both number of injuries and deaths in a year. From the graph above we can see an overview of the injuries and deaths ratio, where injuries are more than deaths however we notice that the death to injury ratio was higher in 2012 compared to the rest of the years. Looking at the data of 2012, the Sandy Hook Elementary School incident led to over 25 deaths and is more likely to have skewed the ratio.</p>
+
+<p>Looking at the last 5 years, we see not only the number of incidents which has gone up, but also the number of deaths have increased.</p>
+
+<h2 id="is-it-the-same-for-everywhere">Is it the same for everywhere?</h2>
+
+<div id="statewise">
+</div>
+
+<p>Now lets see the state-wise spread of indicidents over the years. To visualize this we used a spike map. Here the length of the spike shows the number of total shooting incidents. As we can observe states like California, Texas, Florida have highest number of incidents followed by Illinois, Michigan, Pennsylvania, Ohio and New York.</p>
+
+<p>On paper these states can also be classified highly populated states, so one might believe thats the reason for the high incident count. California is the most populated state followed by Texas, Florida, New York. These states rank in the top 10 states in terms of population. But, when we look ar population density, these states fall down rank. New Jersey which ranks 2nd in population density has very less shooting incidents (21 incidents) as compared to its neighbour New York (83 incidents). So high population cannot be the sole factor for the incident counts across the states.</p>
+
+<p>Since, we cant generalize the occurences of incidents across all states, we delve further and look at the spread of incidents for each state across the timespan from 1970 to 2022. We can use a heatmap to visualize as it help compare all the states with each other using a sequential color scale.</p>
+
+<div id="heatmap_legend">
+</div>
+<div id="heatmap">
+</div>
+
+<p>As we notice, this visualization is highly similar to the cumulative incident distribution over the years we see initially. There seems to a sharp increase in number of incidents after 2015 across most of the states, denoted by a orange to dark-red shades in the right side of the visualization. Large number of white spaces in heatmap signifies that there is little to no incidents for majortiy of the states for large number of years.</p>
+
+<p>This motivates us to understand recent trends inorder to correlate with current state laws. Hence we shift our focus only to incident occurence after the year 2000. Interesting patterns arise when we inspect state-wise breakdown of data from year 2000. States like California, Texas, Illinois, Florida, Pittsburgh, Ohio has seen higher incidents when compared to rest of the country, with California topping the list five times over the last 6 years. Average number of incidents across the top 5 states over the last 22 years seems to over 7. Sadly, there has been only 15 occurences where the top 5 states didnt have a single incident for an entire year over the last 22 years. Illinois has also the highest number of incidents in the recent years, which motivates us further to focus on this group of states.</p>
+
+<p>If we look at the other end of the spectrum, States like Hawaii, Idaho, North Dakota, US Virgin Islands, West Virginia has low incident count with an average incident occurence of 3.8 per years over the last 22 years. Hence, we decide to compare on these two groups of state in our analysis further.</p>
+
+<div id="heatmap_small_legend">
+</div>
+<div id="heatmap_small">
+</div>
+
+<h2 id="what-weapons-are-the-most-common">What weapons are the most common?</h2>
+
+<div id="piechart_legend">
+</div>
+
+<p><strong>States with highest number of incidents</strong></p>
+
+<div id="piechart_high">
+</div>
+
+<p><strong>States with lowest number of incidents</strong></p>
+
+<div id="piechart_low">
+</div>
+
+<p>Taking a look at the distribution of weapons used in states with the highest and the lowest number of incidents after the year 2000 and dig deeper by looking into the state gun laws. We use a pie chart to visualize this information between the two groups of interest.</p>
+
+<p>Looking at the visualization, <em>handguns</em>, followed by <em>rifles</em> are the top 2 types of weapons used across states with the highest incidents. Interestingly, <em>rifles</em> are not involved in states with lower number of incidents.</p>
+
+<p>While there are one or two incidents where a <em>rifle</em> or <em>multiple rifles</em> were used, the number of casualties in these case is extremely high. Looking at the visualization below, we can see this in the state of Texas, while there was only one incident where <em>multiple rifles</em> were used, the number of deaths in that event contributes nearly to a <strong>quarter</strong> of the total deaths in the state. We see similiar cases in other states with higher number of incidents, like California and Florida.</p>
+
+<h3 id="victims-killed-vs-weapon-used">Victims Killed vs Weapon Used</h3>
+
+<div id="killed_vs_weapon_legend">
+</div>
+<div id="killed_vs_weapon">
+</div>
+
+<h2 id="how-old">How old?</h2>
+
+<div id="age_legend">
+</div>
+<div id="age">
+</div>
+
+<p>After looking at what weapons are used, we now look into who uses them. To get a closer look, the gender of the shooters and to which age group they belong to are visualized. We grouped the ages into six categories: 0-12, 13-17, 18-21, 22-30, 31-50, and 50+ years.</p>
+
+<p>It is highly evident that majority of the shooters were male. The age category of 13-17 cause most number of incidents followed by 18-21 age category. Even among the female gender, we observe age category of 13-17 contribute the highest to the total number of incidents.</p>
+
+<p>This raises concern for school authorities. There can be some psychological reason for that to happen. Our dataset contained two possible reasons namely Domestic Abuse or Bullying. We found these incidents to be not related to them. No domestic violence was found for 1892 incidents out of the total incidents, while 1771 indicated no bullying. So there can be some other reasons, which are not present in our dataset.</p>
+
+<h2 id="gun-laws">Gun Laws</h2>
+
+<p>To make sense of access to the weapons used, we refer to gun laws in states with the highest and lowest incidents.</p>
+
+<p>All states in top 5 except for California and Illinois have little to no restrictions on sales of weapon type, magazine size, and necessity of background checks. Texas is the only state to have <em>campus carry</em>. Campus carry is allows carrying of guns in parking lots, outdoor walkways on campus, and concealed carry in campus buildings.</p>
+
+<p>While some states with least amount of incidents have little to no restrictions, their low number of incidents can be because of extremely low population in these states. States like Hawaii, Idaho, and West Virginia have population less than 2 million, where as North Dakota has population of about 750k and the US Virgin Islands have the least population, around 110k.</p>
+
+<p>In addition to having low population, the state of Hawaii also has stricter gun laws.</p>
+
+<h2 id="do-we-see-a-pattern">Do we see a pattern?</h2>
+
+<div id="trend_legend">
+</div>
+<div id="trend">
+</div>
+
+<p>To uncover seasonality trends, we were interested into seeing what quarter of the year has the most number of incidents. For this, we use a line chart highlighting the last 5 years and plotting number of incidents over quarters.</p>
+
+<p>We observed a couple of things:</p>
+
+<ul>
+  <li>There has been a tremendous increase in number of incidents in last 5 years.</li>
+  <li>All years have higher number of incidents in Fall.</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>While most states have an age limit of 18 to purchase weapons, We observed that the shooters aged 13-17 contribute the highest. Since they can’t legally buy a weapon, one possible measure is to increase <strong>safe keeping of guns</strong> among adults. Gun safe keeping programs can also be mandated when one purchases a weapon.</p>
+
+<p>In addition to this, increasing the age limit for purchasing weapons to 21 will benefit, as the age range 18-21 has the 2nd highest amount of shooters.</p>
+
+<p>States with no laws restricting access to rifles leads to incidents with higher casualties. Restricting access to automatic rifles, in
+all states will significantly reduce the number of fatalities.</p>
+
+<p>Since there are a lot of <em>unknowns</em> in the weapon type feature of the weapons’ table, reducing this could help us uncover patterns.</p>
+
+<p>Looking into the possibility of psychological reasons, we analysed two features from the incident table, namely <em>Domestic Abuse</em> and <em>Bullied</em>. No domestice violence was found for 87% of 2171 total incidents, while 81% indicated no bullying. So there can be many other factors that can be the causes. States should focus on helping schools build a safe space for students to open up about their problems and anxieties and take necessary steps to help them.</p>
+
+<p>These incidents are rising at an alarming rate and have happened in every part of the country. From our analysis, we infer that,there is no single reason which cause school shootings and we believe there cannot be any one single solution that is going to address this problem.</p>
+
+<hr class="l-page home-hr" />
+
+<p><strong>Team:</strong> Atharva Bhagwat, Danna Alamer, Karthik Udhayakumar, Shreeraj Pawar</p>
+
+<script>
+  plot1();
+  const plot2_legend = {Injuries: '#fed976', Deaths: '#b10026'};
+  colorize(plot2_legend, 'injuried_death_ratio_legend');
+  plot2();
+  plot3();
+  plot4();
+  plot5();
+  const plot678_legend = {Unknown: 'lightgray', Handgun: '#377eb8', Other: '#4daf4a', Rifle: '#984ea3', 'Multiple Handguns': '#ff7f00', 'Multiple Rifles': '#ffff33', Shotgun: '#e41a1c'};
+  colorize(plot678_legend, 'piechart_legend');
+  colorize(plot678_legend, 'killed_vs_weapon_legend');
+  plot678();
+  const age_legend = {Unknown: "#1f77b4", Male: "#ff7f0e", Female: "#2ca02c", Transgender: "#d62728"};
+  colorize(age_legend, 'age_legend');
+  plot9();
+  const trend_legend = {2018: "#1f77b4", 2019: "#ff7f0e", 2020: "#2ca02c", 2021: "#d62728", 2022: "#9467bd"};
+  colorize(trend_legend, 'trend_legend');
+  plot10();
+</script>
+
+
+
+    </main>
+    <footer>
+	<div id="footer-left">
+		<a href="" class="copy-link" data-tooltip="Copy" onclick="copyText(this, 'atharva.bhagwat42@gmail.com')"><i class="fa-lg fa fa-envelope footer-icon" aria-hidden="true"></i></a>
+		<a href="https://github.com/atharva-bhagwat" target="_blank"><i class="fa-lg fab fa-github footer-icon" aria-hidden="true"></i></a>
+		<a href="http://www.linkedin.com/in/atharva-bhagwat" target="_blank"><i class="fa-lg fab fa-linkedin-in footer-icon" aria-hidden="true"></i></a>
+		<a href="https://scholar.google.com/citations?user=SczV-GUAAAAJ&hl=en" target="_blank"><i class="fa-lg fa fa-graduation-cap footer-icon" aria-hidden="true"></i></a>
+		<br>
+		<br>
+		<!-- &copy; <time datetime="November 4, 2026">2026</time> Fred Hohman -->
+	</div>
+	<div id="footer-right">
+		Atharva Bhagwat is a PhD student in the Cell Molecular and Systems Biology (CMSB) Program at the University of Pittsburgh.
+		<br>
+		<br>
+		<br>
+		<span class="footlink">
+		Appendix:<br>
+		Template by <a href="https://fredhohman.com" target="_blank">Fred Hohman</a>, Favicon by <a href="https://www.flaticon.com/free-icons/t-cell" target="_blank">Freepik</a>
+		</span>
+	</div>
+</footer>
+  </body>
+  
+</html>

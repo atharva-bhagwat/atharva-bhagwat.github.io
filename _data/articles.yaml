@@ -1,5 +1,19 @@
 # feature-parametric-order: 1000 = inf
 
+- title: "MSCBIO2025: The Right Way"
+  authors:
+    - Atharva Bhagwat
+  description: "Interactive guide: set up Python, learn pandas, plot real data, then scale up on HPC"
+  month: "November"
+  year: 2026
+  url: https://atharva-bhagwat.github.io/articles/mscbio2025-the-right-way
+  image: /images/featured/mscbio2025_the_right_way.png
+  feature-title: "MSCBIO2025: The Right Way"
+  feature-description: "12 stages, 24 stars: from a blank laptop to the HPC cluster"
+  featured: true
+  parametric: false
+  feature-parametric-order: 1000
+
 - title: "Overview of 10x Xenium Data Analysis"
   authors:
     - Atharva Bhagwat

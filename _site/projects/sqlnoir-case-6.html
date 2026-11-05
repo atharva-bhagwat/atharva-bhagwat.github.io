@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <link href="https://fonts.googleapis.com/css?family=Gaegu:300,700" rel="stylesheet">
+
+  <!-- Enable responsiveness on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Share card -->
+  <meta property="og:url" content="https://atharva-bhagwat.github.io/" />
+  <meta property="og:title" content="Atharva Bhagwat" />
+  <meta property="og:description" content="Atharva Bhagawt is an Associate Computational Researcher at Tsankov Lab, Mount Sinai working on lung senescence." />
+  <meta property="og:image" content="http://atharva-bhagwat.github.io/images/share.png" />
+
+  <title>
+    
+    Atharva Bhagwat - Case #006: The Vanishing Diamond
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=xQdLjRyXLj">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=xQdLjRyXLj">
+  <link rel="manifest" href="/icons/site.webmanifest?v=xQdLjRyXLj">
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=xQdLjRyXLj" color="#313131">
+  <link rel="shortcut icon" href="/icons/favicon.ico?v=xQdLjRyXLj">
+  <meta name="msapplication-TileColor" content="#313131">
+  <meta name="msapplication-config" content="/icons/browserconfig.xml?v=xQdLjRyXLj">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Feed -->
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Atharva Bhagwat" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YMVTT71WC1"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="/assets/js/imports.js"></script>
+  <script src="/assets/js/papaparse.min.js"></script>
+  <script src="/assets/js/incident_load.js"></script>
+  <script src="/assets/js/shooter_load.js"></script>
+  <script src="/assets/js/weapon_load.js"></script>
+  <script src="/assets/js/stateab_load.js"></script>
+  <script src="/assets/js/usageo_load.js"></script>
+  <script src="/assets/js/plots.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-YMVTT71WC1');
+
+    function copyText(element, text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          element.setAttribute('data-tooltip', 'Copied!');
+          setTimeout(() => {
+            element.setAttribute('data-tooltip', 'Copy');
+          }, 1500); // Change back after 1.5 seconds
+        })
+        .catch(err => console.error('Failed to copy text: ', err));
+    }
+  </script>
+
+</head>
+
+  <body>
+    <header id="masthead">
+	<h1>
+  		<a href="/" title="Home">Atharva Bhagwat</a>
+	</h1>
+	<nav>
+		<a href="/"><div><i class="fa fa-home icon icon-right-space"></i>Home</div></a>
+		<a href="http://localhost:4000/articles"><div><i class="fa fa-newspaper icon icon-right-space"></i>Articles</div></a>
+		<a href="http://localhost:4000/everything-else"><div><i class="fa fa-ellipsis-h icon icon-right-space"></i>Everything else</div></a>
+	</nav>
+</header>
+    <main>
+      <div class="post-header">
+  <div class="post-title-group">
+    <h1 class="post-title">Case #006: The Vanishing Diamond</h1>
+    <time datetime="May 25, 2025" class="post-date">
+      May 25, 2025
+    </time>
+  </div>
+
+  
+</div>
+
+<!-- markdownlint-disable MD032 MD033 -->
+
+<p>At Miami’s prestigious Fontainebleau Hotel charity gala, the famous “Heart of Atlantis” diamond necklace suddenly disappeared from its display.</p>
+
+<p>Reading the case description these are the <strong>clues</strong> we can pick up:</p>
+
+<ul>
+  <li>Location: <strong>Fontainebleau Hotel</strong></li>
+  <li>Famous “Heart of Atlantis” diamond necklace suddenly disappeared; Type of crime: <strong>theft</strong></li>
+</ul>
+
+<h2 id="going-over-the-schema">Going over the schema</h2>
+
+<p>There are 6 tables:</p>
+<ul>
+  <li>crime_scene:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+    </ul>
+  </li>
+  <li>guest:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+    </ul>
+  </li>
+  <li>attire_registry:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>guest_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">guest</code></li>
+    </ul>
+  </li>
+  <li>witness_statements:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>guest_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">guest</code></li>
+    </ul>
+  </li>
+  <li>final_interviews:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>guest_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">guest</code></li>
+    </ul>
+  </li>
+  <li>marina_rentals:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>renter_guest_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">guest</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/images/articles/sqlnoir_case6/schema.png" alt="case6_schema" /></p>
+
+<h2 id="investigation">Investigation</h2>
+
+<p>We start by looking through all the crime scenes where the <code class="language-html highlighter-rouge">location</code> has Fontainebleau Hotel.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">crime_scene</span> <span class="k">where</span> <span class="k">location</span> <span class="k">like</span> <span class="s1">'%Fontainebleau Hotel%'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>The Heart of Atlantis necklace disappeared. Many guests were questioned but only two of them gave valuable clues. One of them is a really famous actor. The other one is a woman who works as a consultant for a big company and her first name ends with “an”.</p>
+</blockquote>
+
+<p>New <strong>clues</strong>:</p>
+<ul>
+  <li>witness #1 is a famous actor</li>
+  <li>witness #2 is a woman who works as a consultant and her first name ends with ‘an’</li>
+</ul>
+
+<p>Let us look at witness statements using the witness descriptions we just got. We can do this by using a <code class="language-html highlighter-rouge">JOIN</code> on <code class="language-html highlighter-rouge">guest</code> and <code class="language-html highlighter-rouge">witness_statements</code> tables.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="n">witness_statements</span><span class="p">.</span><span class="n">guest_id</span><span class="p">,</span> <span class="n">guest</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">witness_statements</span><span class="p">.</span><span class="n">clue</span> <span class="k">from</span> <span class="n">witness_statements</span> 
+<span class="k">join</span> <span class="n">guest</span> <span class="k">on</span> <span class="n">witness_statements</span><span class="p">.</span><span class="n">guest_id</span> <span class="o">=</span> <span class="n">guest</span><span class="p">.</span><span class="n">id</span> 
+<span class="k">where</span> <span class="n">guest</span><span class="p">.</span><span class="n">occupation</span> <span class="k">like</span> <span class="s1">'%Actor%'</span> <span class="k">or</span> 
+<span class="p">(</span><span class="n">guest</span><span class="p">.</span><span class="n">occupation</span> <span class="k">like</span> <span class="s1">'%consultant%'</span> <span class="k">and</span> <span class="n">guest</span><span class="p">.</span><span class="n">name</span> <span class="k">like</span> <span class="s1">'%an %'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>I overheard someone say, “Meet me at the marina, dock 3.
+I saw someone holding an invitation ending with “-R”. He was wearing a navy suit and a white tie.</p>
+</blockquote>
+
+<p>New <strong>clues</strong>:</p>
+<ul>
+  <li>Marina dock 3 is relevant</li>
+  <li>Invitation ending with ‘-R’ wearing a navy suit and white tie</li>
+</ul>
+
+<p>Let’s look at marina rentals using the other clues as filters. We can use <code class="language-html highlighter-rouge">JOIN</code> on <code class="language-html highlighter-rouge">guest</code>, <code class="language-html highlighter-rouge">attire_registry</code>, and <code class="language-html highlighter-rouge">marina_rentals</code>.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="n">guest</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">guest</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">guest</span><span class="p">.</span><span class="n">invitation_code</span><span class="p">,</span> <span class="n">attire_registry</span><span class="p">.</span><span class="n">note</span><span class="p">,</span> 
+<span class="n">marina_rentals</span><span class="p">.</span><span class="n">dock_number</span><span class="p">,</span> <span class="n">marina_rentals</span><span class="p">.</span><span class="n">rental_date</span><span class="p">,</span> <span class="n">marina_rentals</span><span class="p">.</span><span class="n">boat_name</span> <span class="k">from</span> <span class="n">guest</span> 
+<span class="k">join</span> <span class="n">attire_registry</span> <span class="k">on</span> <span class="n">guest</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">attire_registry</span><span class="p">.</span><span class="n">guest_id</span> 
+<span class="k">join</span> <span class="n">marina_rentals</span> <span class="k">on</span> <span class="n">guest</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">marina_rentals</span><span class="p">.</span><span class="n">renter_guest_id</span>  
+<span class="k">where</span> <span class="n">attire_registry</span><span class="p">.</span><span class="n">note</span> <span class="k">like</span> <span class="s1">'%navy suit, white tie%'</span> <span class="k">and</span> 
+<span class="n">guest</span><span class="p">.</span><span class="n">invitation_code</span> <span class="k">like</span> <span class="s1">'%-R'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>We only get one entry. This has to be our guy. Let’s look at the final interview.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="n">guest</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="n">final_interviews</span><span class="p">.</span><span class="n">confession</span> <span class="k">from</span> <span class="n">guest</span> 
+<span class="k">join</span> <span class="n">final_interviews</span> <span class="k">on</span> <span class="n">guest</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">final_interviews</span><span class="p">.</span><span class="n">guest_id</span> 
+<span class="k">where</span> <span class="n">guest</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="mi">105</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>“I was the one who took the crystal. I guess I need a lawyer now?” ~ Mike Manning</p>
+</blockquote>
+
+<p>We got him. Too bad the spotlight never left the “Heart of Atlantis”.</p>
+
+<hr />
+
+<p>Thank you <a href="https://github.com/hristo2612">Chris</a> for creating <a href="https://www.sqlnoir.com/">SQL Noir</a>.</p>
+
+
+    </main>
+    <footer>
+	<div id="footer-left">
+		<a href="" class="copy-link" data-tooltip="Copy" onclick="copyText(this, 'atharva.bhagwat42@gmail.com')"><i class="fa-lg fa fa-envelope footer-icon" aria-hidden="true"></i></a>
+		<a href="https://github.com/atharva-bhagwat" target="_blank"><i class="fa-lg fab fa-github footer-icon" aria-hidden="true"></i></a>
+		<a href="http://www.linkedin.com/in/atharva-bhagwat" target="_blank"><i class="fa-lg fab fa-linkedin-in footer-icon" aria-hidden="true"></i></a>
+		<a href="https://scholar.google.com/citations?user=SczV-GUAAAAJ&hl=en" target="_blank"><i class="fa-lg fa fa-graduation-cap footer-icon" aria-hidden="true"></i></a>
+		<br>
+		<br>
+		<!-- &copy; <time datetime="November 4, 2026">2026</time> Fred Hohman -->
+	</div>
+	<div id="footer-right">
+		Atharva Bhagwat is a PhD student in the Cell Molecular and Systems Biology (CMSB) Program at the University of Pittsburgh.
+		<br>
+		<br>
+		<br>
+		<span class="footlink">
+		Appendix:<br>
+		Template by <a href="https://fredhohman.com" target="_blank">Fred Hohman</a>, Favicon by <a href="https://www.flaticon.com/free-icons/t-cell" target="_blank">Freepik</a>
+		</span>
+	</div>
+</footer>
+  </body>
+  
+</html>

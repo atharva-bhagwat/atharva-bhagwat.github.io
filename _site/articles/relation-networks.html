@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <link href="https://fonts.googleapis.com/css?family=Gaegu:300,700" rel="stylesheet">
+
+  <!-- Enable responsiveness on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Share card -->
+  <meta property="og:url" content="https://atharva-bhagwat.github.io/" />
+  <meta property="og:title" content="Atharva Bhagwat" />
+  <meta property="og:description" content="Atharva Bhagawt is an Associate Computational Researcher at Tsankov Lab, Mount Sinai working on lung senescence." />
+  <meta property="og:image" content="http://atharva-bhagwat.github.io/images/share.png" />
+
+  <title>
+    
+    Atharva Bhagwat - Separating Perception and Reasoning via Relation Networks
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=xQdLjRyXLj">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=xQdLjRyXLj">
+  <link rel="manifest" href="/icons/site.webmanifest?v=xQdLjRyXLj">
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=xQdLjRyXLj" color="#313131">
+  <link rel="shortcut icon" href="/icons/favicon.ico?v=xQdLjRyXLj">
+  <meta name="msapplication-TileColor" content="#313131">
+  <meta name="msapplication-config" content="/icons/browserconfig.xml?v=xQdLjRyXLj">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Feed -->
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Atharva Bhagwat" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YMVTT71WC1"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="/assets/js/imports.js"></script>
+  <script src="/assets/js/papaparse.min.js"></script>
+  <script src="/assets/js/incident_load.js"></script>
+  <script src="/assets/js/shooter_load.js"></script>
+  <script src="/assets/js/weapon_load.js"></script>
+  <script src="/assets/js/stateab_load.js"></script>
+  <script src="/assets/js/usageo_load.js"></script>
+  <script src="/assets/js/plots.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-YMVTT71WC1');
+
+    function copyText(element, text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          element.setAttribute('data-tooltip', 'Copied!');
+          setTimeout(() => {
+            element.setAttribute('data-tooltip', 'Copy');
+          }, 1500); // Change back after 1.5 seconds
+        })
+        .catch(err => console.error('Failed to copy text: ', err));
+    }
+  </script>
+
+</head>
+
+  <body>
+    <header id="masthead">
+	<h1>
+  		<a href="/" title="Home">Atharva Bhagwat</a>
+	</h1>
+	<nav>
+		<a href="/"><div><i class="fa fa-home icon icon-right-space"></i>Home</div></a>
+		<a href="http://localhost:4000/articles"><div><i class="fa fa-newspaper icon icon-right-space"></i>Articles</div></a>
+		<a href="http://localhost:4000/everything-else"><div><i class="fa fa-ellipsis-h icon icon-right-space"></i>Everything else</div></a>
+	</nav>
+</header>
+    <main>
+      <div class="post-header">
+  <div class="post-title-group">
+    <h1 class="post-title">Separating Perception and Reasoning via Relation Networks</h1>
+    <time datetime="December 11, 2022" class="post-date">
+      December 11, 2022
+    </time>
+  </div>
+
+  
+</div>
+
+<p>Visual Question Answering (VQA) is a multi-modal task relating text and images through captions or a questionnaire. For example, with a picture of a busy highway, there could be a question: “How many red cars are there?” or “Are there more motorbikes than cars?”. It is a very challenging task since it requires high-level understanding of both the text and the image and the relationships between them.</p>
+
+<p>In this project, we study the Relation Networks implementations of AI approaches that offer the ability to combine neural and symbolic representations to answer VQA task.</p>
+
+<h2 id="relation-network">Relation Network</h2>
+
+<p>Relation Network is a neural network that works best for relational reasoning. The design philosophy behind RNs is to constrain the functional form of a neural network so that it captures the core common properties of relational reasoning.</p>
+
+<p>The simplest form of RN composite function is:  $RN(O) = f_ϕ(Σ_{i,j}g_θ(o_i, o_j))$ where,</p>
+
+<ul>
+  <li>the input is a set of “objects” $O = {o_1, o_2, …, o_n}, o_i ∈ R^m$ is the $i^{th}$ object in an image</li>
+  <li>$f_ϕ$ and $g_θ$ are multi-layer perceptrons(MLPs) for the functions with parameters $ϕ$ and $θ$ respectively.</li>
+  <li>The role of $g_θ$ is to infer the ways in which two objects are related, or if they are even related at all and $f_ϕ$ is the classifier</li>
+</ul>
+
+<h3 id="sort-of-clevr-dataset">Sort-of-CLEVR Dataset</h3>
+
+<p>We’ll be using Sort-of-CLEVR dataset for our RN network.</p>
+
+<p>The Sort-of-CLEVR dataset contains 10000 images of size 75 <em>75</em> 3, 200 of which are used as the validation set.</p>
+
+<p>There are 20 questions for each image (10 non-relational and 10 relational).</p>
+
+<p>The non-relational questions are divided into 3 subtypes:</p>
+
+<ul>
+  <li>Query shape, ex: What is the shape of the red object?</li>
+  <li>Query horizontal position, ex: Is the red object on the left or right of the image?</li>
+  <li>Query vertical position, ex: Iss the red object on the top or bottom of the image?</li>
+</ul>
+
+<p>The relational questions are divided into 3 subtypes:</p>
+
+<ul>
+  <li>Closest to, ex: What is the shape of the object that is closest to the green object?</li>
+  <li>Furthest from, ex: What is the shape of the object that is furthest to the green object?</li>
+  <li>Count, ex: How many objects have the shape of the green object?</li>
+</ul>
+
+<p>Questions are encoded as binary strings of length 11, where the first 6 bits identify the color of the object mentioned in the question, as a one-hot vector, and the last 5 bits identify the question type and the subtype.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="syntax"><code>[index_0-5 → one-hot vector of 6 colors,
+
+index_6 → non_rel_ques,
+
+index_7 → rel_ques,
+
+index_8,9,10 → question_subtype]
+</code></pre></div></div>
+
+<p>Answers are represented as a one-hot vector of size 10.</p>
+
+<p>For non-relational questions the answers are of the form:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="syntax"><code>[index_0,1 → yes, no,
+
+index_2,3 → is rectangle?, is circle?,
+
+index_4-9 → one-hot vector of 6 colors (red, green, blue, orange, gray, yellow)]
+</code></pre></div></div>
+
+<p>For relational questions the answers are of the form:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="syntax"><code>[index_0,1 → n/a, n/a,
+
+index_2,3 → is rectangle?, is circle?,
+
+index_4-9 → count one-hot vector to denote the number of objects 0, 1, ..., 5]
+</code></pre></div></div>
+
+<h3 id="rn-model-architecture">RN Model Architecture</h3>
+
+<p><img src="/assets/images/articles/relation_network/RN_model_arch.png" alt="rn_arch" /></p>
+
+<p>Data flow through the network is as follows:-</p>
+
+<ul>
+  <li>
+    <p>Image and Question-Answer feature map:</p>
+
+    <p>1- <strong>Image Feature Maps</strong> are generated using 4 convolutional layers with 32, 64, 128, and 256 kernels with ReLU activation and batch-normalization</p>
+
+    <p>2- <strong>Questions and Answers (labels)</strong> are encoded as fixed-length binary strings</p>
+  </li>
+  <li>
+    <p>RN:</p>
+
+    <p>3- The questions and the feature maps are passed directly to the RN</p>
+
+    <p>4- <strong>Object pairs with questions</strong> (see detailed explanation below) are generated by concatenating questions to the object pairs generated from the CNN feature maps</p>
+
+    <p>5- <strong>Add coordinates position</strong> information for particle image feature</p>
+
+    <p>6- <strong>$g_θ$  function</strong>: The questions are passed directly to the RN along side the object pairs to a 4 layer MLP consisting of 2000 units per layer with ReLU activation</p>
+
+    <p>7- We apply element-wise sum for the output of  $g_θ$  to scale back to the original batch size</p>
+
+    <p>8- <strong>$f_ϕ$  function</strong>: The output is passed to a 4 layer MLP consisting of 2000, 1000, 500, and 100 units with ReLU activation</p>
+
+    <p>9- The final output linear layer in  $f_ϕ$  has a <strong>softmax</strong> activation over the 10 possible answers (answer is a a one-hot vector of size 10)</p>
+  </li>
+</ul>
+
+<p><strong>Cross entropy loss function</strong> with Adam optimizer is used to train the network.</p>
+
+<p><strong>Hyperparameters for the network:</strong></p>
+
+<ul>
+  <li>batch_size = 64</li>
+  <li>learning_rate =  $1e−4$</li>
+</ul>
+
+<h4 id="object-pairs-with-questions-for-1-image">Object pairs with questions, for 1 image</h4>
+
+<p><img src="/assets/images/articles/relation_network/obj_pairs.png" alt="obj_pairs" /></p>
+
+<p>Questions:</p>
+
+<ul>
+  <li>
+    <p>Each question one-hot vector is of size (1,11)</p>
+  </li>
+  <li>
+    <p>We add two axes and repeat the questions across one axes, making the dimension (25,1,11)</p>
+  </li>
+</ul>
+
+<p>Feature Map:</p>
+
+<ul>
+  <li>The output feature map for each image is of size (256,5,5)</li>
+</ul>
+
+<p>Object pairs with questions:</p>
+
+<ul>
+  <li>
+    <p>We reshape and add coordinates to the feature map, making the dimension (25, 258)</p>
+  </li>
+  <li>
+    <p>From this, create set 1 and set 2 data</p>
+  </li>
+  <li>
+    <p>Create set 1: add an axis at loc=0 and repeating pixels across rows: (25, 258) -&gt; (1, 25, 258) -&gt; (25,25,258)</p>
+  </li>
+  <li>
+    <p>Create set 2 by adding an axis at loc=1, adding ques of size 11 along that axis and repeating pixels across columns: (25, 258) -&gt; (25, 1, 258) -&gt; (25, 1, 269) -&gt; (25,25,269)</p>
+  </li>
+  <li>
+    <p>Finally, concatenate set 1 and set 2 along the last axes, making the dimension (25,25,527), where</p>
+
+    <p>last_dim_size=(2 for each set*(256 features + 2 coordinates)) + 11 ques = 527</p>
+  </li>
+</ul>
+
+<p>Check out the <a href="https://github.com/atharva-bhagwat/CSGY-6613/blob/main/milestone1/milestone1.ipynb">code</a> for detailed description on shapes and data transformation.</p>
+
+<h2 id="vqa-on-sort-of-clevr">VQA on Sort-of-CLEVR</h2>
+
+<ul>
+  <li>With the <a href="https://github.com/kimhc6028/relational-networks">github repository</a> as reference, we developed the model architecture, keeping the model size smaller than the one given in the paper, but changing the question embedding shape to match that in the paper (length 11).</li>
+  <li>We tried many different architectures: by changing the number of units and number of layers in both $g_\theta$ and $f_\phi$. We also tried with different hyper-parameters: learning rates like, $0.0001, 0.01, 0.1$, and optimizers like SGD, Adam.</li>
+  <li>Best model architecture:
+    <ul>
+      <li>4 conv layer block with 24 kernels each with ReLU activation and batch normalization.</li>
+      <li>$g_\theta$ consists of 4 fully connected layers with 256 units and ReLU activations.</li>
+      <li>$f_\phi$ consists of 4 fully connected layers with 256 units and ReLU activation and an output layer with 10 units with a softmax activation.</li>
+    </ul>
+  </li>
+  <li>Best hyper-parameters:
+    <ul>
+      <li>number of epochs: 50</li>
+      <li>learning rate: $0.001$</li>
+      <li>Optimizer: Adam</li>
+      <li>Batch size: 64</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="results">Results</h4>
+
+<p>After training the model for 50 epochs, the best final metrics are as follows:</p>
+
+<p><strong>Relational Data</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Train Accuracy(%)</th>
+      <th>Train Loss</th>
+      <th>Test Accuracy(%)</th>
+      <th>Test Loss</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>98.40</td>
+      <td>0.045</td>
+      <td>91.28</td>
+      <td>0.304</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Non-Relational Data</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Train Accuracy(%)</th>
+      <th>Train Loss</th>
+      <th>Test Accuracy(%)</th>
+      <th>Test Loss</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>99.98</td>
+      <td>0.001</td>
+      <td>99.97</td>
+      <td>0.001</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Sample test outputs:</p>
+
+<p><img src="/assets/images/articles/relation_network/test_0.jpg" alt="test_0" /></p>
+
+<p><img src="/assets/images/articles/relation_network/test_45.jpg" alt="test_45" /></p>
+
+<hr class="l-page home-hr" />
+
+<p><strong>Team:</strong> Atharva Bhagwat, Harini Appansrinivasan, Abdulqadir Zakir</p>
+
+<p><a href="https://github.com/atharva-bhagwat/CSGY-6613">Here</a> is the link to the repository.</p>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+<script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+
+    </main>
+    <footer>
+	<div id="footer-left">
+		<a href="" class="copy-link" data-tooltip="Copy" onclick="copyText(this, 'atharva.bhagwat42@gmail.com')"><i class="fa-lg fa fa-envelope footer-icon" aria-hidden="true"></i></a>
+		<a href="https://github.com/atharva-bhagwat" target="_blank"><i class="fa-lg fab fa-github footer-icon" aria-hidden="true"></i></a>
+		<a href="http://www.linkedin.com/in/atharva-bhagwat" target="_blank"><i class="fa-lg fab fa-linkedin-in footer-icon" aria-hidden="true"></i></a>
+		<a href="https://scholar.google.com/citations?user=SczV-GUAAAAJ&hl=en" target="_blank"><i class="fa-lg fa fa-graduation-cap footer-icon" aria-hidden="true"></i></a>
+		<br>
+		<br>
+		<!-- &copy; <time datetime="November 4, 2026">2026</time> Fred Hohman -->
+	</div>
+	<div id="footer-right">
+		Atharva Bhagwat is a PhD student in the Cell Molecular and Systems Biology (CMSB) Program at the University of Pittsburgh.
+		<br>
+		<br>
+		<br>
+		<span class="footlink">
+		Appendix:<br>
+		Template by <a href="https://fredhohman.com" target="_blank">Fred Hohman</a>, Favicon by <a href="https://www.flaticon.com/free-icons/t-cell" target="_blank">Freepik</a>
+		</span>
+	</div>
+</footer>
+  </body>
+  
+</html>

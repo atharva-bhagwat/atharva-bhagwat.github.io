@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <link href="https://fonts.googleapis.com/css?family=Gaegu:300,700" rel="stylesheet">
+
+  <!-- Enable responsiveness on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Share card -->
+  <meta property="og:url" content="https://atharva-bhagwat.github.io/" />
+  <meta property="og:title" content="Atharva Bhagwat" />
+  <meta property="og:description" content="Atharva Bhagawt is an Associate Computational Researcher at Tsankov Lab, Mount Sinai working on lung senescence." />
+  <meta property="og:image" content="http://atharva-bhagwat.github.io/images/share.png" />
+
+  <title>
+    
+    Atharva Bhagwat - Understanding 10x Xenium Data Analysis
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=xQdLjRyXLj">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=xQdLjRyXLj">
+  <link rel="manifest" href="/icons/site.webmanifest?v=xQdLjRyXLj">
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=xQdLjRyXLj" color="#313131">
+  <link rel="shortcut icon" href="/icons/favicon.ico?v=xQdLjRyXLj">
+  <meta name="msapplication-TileColor" content="#313131">
+  <meta name="msapplication-config" content="/icons/browserconfig.xml?v=xQdLjRyXLj">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Feed -->
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Atharva Bhagwat" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YMVTT71WC1"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="/assets/js/imports.js"></script>
+  <script src="/assets/js/papaparse.min.js"></script>
+  <script src="/assets/js/incident_load.js"></script>
+  <script src="/assets/js/shooter_load.js"></script>
+  <script src="/assets/js/weapon_load.js"></script>
+  <script src="/assets/js/stateab_load.js"></script>
+  <script src="/assets/js/usageo_load.js"></script>
+  <script src="/assets/js/plots.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-YMVTT71WC1');
+
+    function copyText(element, text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          element.setAttribute('data-tooltip', 'Copied!');
+          setTimeout(() => {
+            element.setAttribute('data-tooltip', 'Copy');
+          }, 1500); // Change back after 1.5 seconds
+        })
+        .catch(err => console.error('Failed to copy text: ', err));
+    }
+  </script>
+
+</head>
+
+  <body>
+    <header id="masthead">
+	<h1>
+  		<a href="/" title="Home">Atharva Bhagwat</a>
+	</h1>
+	<nav>
+		<a href="/"><div><i class="fa fa-home icon icon-right-space"></i>Home</div></a>
+		<a href="http://localhost:4000/articles"><div><i class="fa fa-newspaper icon icon-right-space"></i>Articles</div></a>
+		<a href="http://localhost:4000/everything-else"><div><i class="fa fa-ellipsis-h icon icon-right-space"></i>Everything else</div></a>
+	</nav>
+</header>
+    <main>
+      <div class="post-header">
+  <div class="post-title-group">
+    <h1 class="post-title">Understanding 10x Xenium Data Analysis</h1>
+    <time datetime="May 2, 2025" class="post-date">
+      May 2, 2025
+    </time>
+  </div>
+
+  
+</div>
+
+<h2 id="overview-of-spatial-transcriptomics-st">Overview of Spatial Transcriptomics (ST)</h2>
+
+<p>Traditional single-cell RNA sequencing (scRNA-seq) dissociates cells and profiles gene expression at single cell resolution. It is able to capture the heterogeneity within tissues and gives high resolution insight into cellular functions.</p>
+
+<p>While this type of data can be used to analyze variations in gene expression, it lacks the spatial information for cells, which adds a dimension of information. Enter ‘Spatial Transcriptomics’ (ST)! After being named the Method of the year 2020<sup>[<a href="#ref1">1</a>]</sup> ST has revolutionized our ability to understand biology by capturing the spatial information. Having spatial context allows us to look deeper into cell-cell interactions, cellular niches, and various microenvironments across conditions.</p>
+
+<p>Over the last few years, spatial transcriptomics technologies have advanced rapidly and each come with various advantages. Detailed table can be found <a href="https://divingintogeneticsandgenomics.com/post/python-visium/">here</a>.</p>
+
+<h2 id="overview-of-xenium">Overview of Xenium</h2>
+
+<p>Xenium is a single-cell resolution technology commercialized by 10x genomics in 2023. It uses RNA based transcripts and can target up to 5000 genes. It captures transcripts at subcellular level. 10x also has nuclear and cell membrane staining which are used for cell segmentation downstream, as compared to the default which only has nuclear staining and cells are detected based on cell-boundary expansion after nucleus segmentation<sup>[<a href="#ref2">2</a>]</sup>.</p>
+
+<p>A few caveots to note for xenium data are that the data generation for large number of samples for entire tissue sections is expensive. So the general practice is to build a Tissue Microarray (TMA) with 30-45 cores of 1.5mm-2mm diameter. Selecting these cores haphazardly can induce data bias as it captures a small section of the condition to be captured. So, building TMA with help of expert pathalogists is a necessary step. Ex: When it comes to studying cancer, the most interesting parts are boundaries between either tumor and immune cells or tumor and stromal cells. These regions are full of potential, allowing us to dive deeper into finding interactions and spatial structures between in such regions.</p>
+
+<h2 id="understand-10x-output-files">Understand 10x output files</h2>
+
+<p>The Xenium analyzer has numerous outputs we only need some of them to start with data analysis. Here are those files:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>File Type</th>
+      <th>File and Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Cell summary</strong></td>
+      <td><code class="language-html highlighter-rouge">cells.parquet</code>: Cell summary file in Parquet format.</td>
+    </tr>
+    <tr>
+      <td><strong>Cell-feature matrix</strong></td>
+      <td><code class="language-html highlighter-rouge">cell_feature_matrix.h5</code>: Cell-feature matrix file in HDF5 format.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Table 2: Xenium Onboard Analysis Output Files</strong><sup>[<a href="#ref3">3</a>]</sup></p>
+
+<h2 id="getting-started-with-data-analysis">Getting started with data analysis</h2>
+
+<p>I will use the <a href="https://www.10xgenomics.com/datasets/preview-data-ffpe-human-lung-cancer-with-xenium-multimodal-cell-segmentation-1-standard">Human Lung Cancer with Xenium Multimodal Cell Segmentation data</a> for showcase.</p>
+
+<p>We can get started once <code class="language-html highlighter-rouge">Xenium_V1_humanLung_Cancer_FFPE_outs.zip</code> is downloaded.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>unzip <span class="nt">-d</span> data Xenium_V1_humanLung_Cancer_FFPE_outs.zip
+</code></pre></div></div>
+
+<h3 id="installing-necessary-libraries">Installing necessary libraries</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>pip <span class="nb">install </span>anndata scanpy squidpy
+</code></pre></div></div>
+
+<h3 id="loading-the-data-as-an-anndata-object-from-raw-output-files">Loading the data as an AnnData object from raw output files</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">anndata</span> <span class="k">as</span> <span class="n">ad</span>
+<span class="kn">import</span> <span class="nn">scanpy</span> <span class="k">as</span> <span class="n">sc</span>
+<span class="kn">import</span> <span class="nn">squidpy</span> <span class="k">as</span> <span class="n">sq</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'figure.dpi'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">250</span>        <span class="c1"># increase figure dpi for better quality plots
+</span>
+<span class="c1"># load count matrix
+</span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="p">.</span><span class="n">read_10x_h5</span><span class="p">(</span><span class="s">'data/cell_feature_matrix.h5'</span><span class="p">)</span>
+
+<span class="c1"># load cells metadata
+</span><span class="n">cells</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s">'data/cells.parquet'</span><span class="p">)</span>
+<span class="n">cells</span><span class="p">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[</span><span class="s">'cell_id'</span><span class="p">]</span>
+<span class="n">cells</span><span class="p">.</span><span class="n">drop</span><span class="p">([</span><span class="s">'cell_id'</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">adata</span><span class="p">.</span><span class="n">obs</span> <span class="o">=</span> <span class="n">cells</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># set spatial info
+</span><span class="n">adata</span><span class="p">.</span><span class="n">obsm</span><span class="p">[</span><span class="s">"spatial"</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="p">.</span><span class="n">obs</span><span class="p">[[</span><span class="s">"x_centroid"</span><span class="p">,</span> <span class="s">"y_centroid"</span><span class="p">]].</span><span class="n">copy</span><span class="p">().</span><span class="n">to_numpy</span><span class="p">()</span>
+
+<span class="n">adata</span><span class="p">.</span><span class="n">write_h5ad</span><span class="p">(</span><span class="s">'objects/xenium_adata.h5ad'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="understanding-xenium-data-structure">Understanding xenium data structure</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="n">AnnData</span> <span class="nb">object</span> <span class="k">with</span> <span class="n">n_obs</span> <span class="err">×</span> <span class="n">n_vars</span> <span class="o">=</span> <span class="mi">162254</span> <span class="err">×</span> <span class="mi">377</span>
+    <span class="n">obs</span><span class="p">:</span> <span class="s">'x_centroid'</span><span class="p">,</span> <span class="s">'y_centroid'</span><span class="p">,</span> <span class="s">'transcript_counts'</span><span class="p">,</span> <span class="s">'control_probe_counts'</span><span class="p">,</span>
+    <span class="s">'control_codeword_counts'</span><span class="p">,</span> <span class="s">'unassigned_codeword_counts'</span><span class="p">,</span> <span class="s">'deprecated_codeword_counts'</span><span class="p">,</span> 
+    <span class="s">'total_counts'</span><span class="p">,</span> <span class="s">'cell_area'</span><span class="p">,</span> <span class="s">'nucleus_area'</span>
+    <span class="n">var</span><span class="p">:</span> <span class="s">'gene_ids'</span><span class="p">,</span> <span class="s">'feature_types'</span><span class="p">,</span> <span class="s">'genome'</span>
+    <span class="n">obsm</span><span class="p">:</span> <span class="s">'spatial'</span>
+</code></pre></div></div>
+
+<p><code class="language-html highlighter-rouge">adata.obs</code> stores the metadata. <code class="language-html highlighter-rouge">adata.var</code> stores information about the genes on the panel. More information on AnnData structure can be found <a href="https://anndata.readthedocs.io/en/stable/">here</a>. <code class="language-html highlighter-rouge">x_centroid</code> and <code class="language-html highlighter-rouge">y_xentroid</code> are the x and y coordinates of the cells.</p>
+
+<h4 id="qc">QC</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Shape of object before filtering: </span><span class="si">{</span><span class="n">adata</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+
+<span class="n">sc</span><span class="p">.</span><span class="n">pp</span><span class="p">.</span><span class="n">calculate_qc_metrics</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">percent_top</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">sc</span><span class="p">.</span><span class="n">pp</span><span class="p">.</span><span class="n">filter_cells</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_counts</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Shape of object after filtering: </span><span class="si">{</span><span class="n">adata</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>As part of quality control we drop cells with <code class="language-html highlighter-rouge">n_genes_by_counts</code> &lt; 10.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="n">AnnData</span> <span class="nb">object</span> <span class="k">with</span> <span class="n">n_obs</span> <span class="err">×</span> <span class="n">n_vars</span> <span class="o">=</span> <span class="mi">154472</span> <span class="err">×</span> <span class="mi">377</span>
+    <span class="n">obs</span><span class="p">:</span> <span class="s">'x_centroid'</span><span class="p">,</span> <span class="s">'y_centroid'</span><span class="p">,</span> <span class="s">'transcript_counts'</span><span class="p">,</span> <span class="s">'control_probe_counts'</span><span class="p">,</span> 
+    <span class="s">'control_codeword_counts'</span><span class="p">,</span> <span class="s">'unassigned_codeword_counts'</span><span class="p">,</span> 
+    <span class="s">'deprecated_codeword_counts'</span><span class="p">,</span> <span class="s">'total_counts'</span><span class="p">,</span> <span class="s">'cell_area'</span><span class="p">,</span> <span class="s">'nucleus_area'</span><span class="p">,</span> 
+    <span class="s">'n_genes_by_counts'</span><span class="p">,</span> <span class="s">'log1p_n_genes_by_counts'</span><span class="p">,</span> <span class="s">'log1p_total_counts'</span><span class="p">,</span> <span class="s">'n_counts'</span>
+    <span class="n">var</span><span class="p">:</span> <span class="s">'gene_ids'</span><span class="p">,</span> <span class="s">'feature_types'</span><span class="p">,</span> <span class="s">'genome'</span><span class="p">,</span> <span class="s">'n_cells_by_counts'</span><span class="p">,</span> 
+    <span class="s">'mean_counts'</span><span class="p">,</span> <span class="s">'log1p_mean_counts'</span><span class="p">,</span> <span class="s">'pct_dropout_by_counts'</span><span class="p">,</span> <span class="s">'total_counts'</span><span class="p">,</span> <span class="s">'log1p_total_counts'</span>
+    <span class="n">obsm</span><span class="p">:</span> <span class="s">'spatial'</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="n">Shape</span> <span class="n">of</span> <span class="nb">object</span> <span class="n">before</span> <span class="n">filtering</span><span class="p">:</span> <span class="p">(</span><span class="mi">162254</span><span class="p">,</span> <span class="mi">377</span><span class="p">)</span>
+<span class="n">Shape</span> <span class="n">of</span> <span class="nb">object</span> <span class="n">after</span> <span class="n">filtering</span><span class="p">:</span> <span class="p">(</span><span class="mi">154472</span><span class="p">,</span> <span class="mi">377</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Referring to <a href="https://doi.org/10.1038/s41592-025-02617-2">this</a> paper we’ll normalize <code class="language-html highlighter-rouge">target_sum=100</code> and log normalize.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c1"># Normalize total
+</span><span class="n">sc</span><span class="p">.</span><span class="n">pp</span><span class="p">.</span><span class="n">normalize_total</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">target_sum</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Log-normalize
+</span><span class="n">sc</span><span class="p">.</span><span class="n">pp</span><span class="p">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We will apply dimensionality reduction methods</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c1"># Run PCA
+</span><span class="n">sc</span><span class="p">.</span><span class="n">pp</span><span class="p">.</span><span class="n">pca</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+
+<span class="c1"># Calculate neighbors
+</span><span class="n">sc</span><span class="p">.</span><span class="n">pp</span><span class="p">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+
+<span class="c1"># Leiden clustering
+</span><span class="n">sc</span><span class="p">.</span><span class="n">tl</span><span class="p">.</span><span class="n">leiden</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+
+<span class="c1"># Computing UMAP
+</span><span class="n">sc</span><span class="p">.</span><span class="n">tl</span><span class="p">.</span><span class="n">umap</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We will plot the UMAP and color on leiden clusters using <code class="language-html highlighter-rouge">sc.pl.umap(adata, color='leiden', legend_loc='on data')</code></p>
+
+<p><em>NOTE: I have merged some leiden clusters to group similar clusters together in a new column ‘clusters’</em></p>
+
+<p><img src="/assets/images/articles/10x_xenium/clusters.png" alt="clusters" /></p>
+
+<h2 id="layers-of-spatial-data">Layers of spatial data</h2>
+
+<h3 id="neighborhood-enrichment">Neighborhood enrichment</h3>
+
+<p><em>The</em> reason for spatial data generation is having the <code class="language-html highlighter-rouge">x_centroid</code> and <code class="language-html highlighter-rouge">y_centroid</code> for each cell. This allows us to build a neighborhood graph.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="n">sq</span><span class="p">.</span><span class="n">gr</span><span class="p">.</span><span class="n">spatial_neighbors</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">coord_type</span><span class="o">=</span><span class="s">'generic'</span><span class="p">)</span> <span class="c1"># radius in µm
+</span></code></pre></div></div>
+
+<p>By default this creates an entries ‘spatial_connectivities’ and ‘spatial_distances’ in in <code class="language-html highlighter-rouge">adata.obsp</code>.</p>
+
+<p>We can now run neighborhood enrichment to see which cells group together using:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c1"># set seed=0 for reproducibility
+</span><span class="n">sq</span><span class="p">.</span><span class="n">gr</span><span class="p">.</span><span class="n">nhood_enrichment</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">cluster_key</span><span class="o">=</span><span class="s">'clusters'</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Using <code class="language-html highlighter-rouge">sq.pl.nhood_enrichment(adata, cluster_key='clusters', cmap='bwr', vmin=-10, vmax=10)</code> we can plot the neighborhood enrichment.</p>
+
+<p><img src="/assets/images/articles/10x_xenium/nhood.png" alt="nhood" /></p>
+
+<h3 id="neighborhood-and-proximity-scores">Neighborhood and Proximity scores</h3>
+
+<p>Another interesting analysis that is possible with spatial information is looking into neighborhoods at single-cell resolution. Using the method defined in Barkley et al<sup>[<a href="#ref4">4</a>]</sup>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="n">connections</span> <span class="o">=</span> <span class="n">adata</span><span class="p">.</span><span class="n">obsp</span><span class="p">[</span><span class="s">'spatial_connectivities'</span><span class="p">].</span><span class="n">tocsr</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">fetch_neighbors</span><span class="p">(</span><span class="n">connections</span><span class="p">,</span> <span class="n">cell_id</span><span class="p">):</span>
+    <span class="n">row_idx</span> <span class="o">=</span> <span class="n">adata</span><span class="p">.</span><span class="n">obs_names</span><span class="p">.</span><span class="n">get_loc</span><span class="p">(</span><span class="s">'cell_name'</span><span class="p">)</span>
+    <span class="n">neighbor_idx</span> <span class="o">=</span> <span class="n">connections</span><span class="p">[</span><span class="n">row_idx</span><span class="p">].</span><span class="n">indices</span>
+    <span class="k">return</span> <span class="n">adata</span><span class="p">.</span><span class="n">obs_names</span><span class="p">[</span><span class="n">neighbor_idx</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">get_neighborhood_score</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">spot_id</span><span class="p">,</span> <span class="n">target_column</span><span class="p">):</span>
+    <span class="s">"""Returns neighborhood score
+    Args:
+    adata(anndata.AnnData): input anndata object
+    spot_id(str): cell id
+    target_column(str): celltype/cluster column
+    """</span>
+    <span class="n">neighbors</span> <span class="o">=</span> <span class="n">fetch_neighbors</span><span class="p">(</span><span class="n">connections</span><span class="p">,</span> <span class="n">spot_id</span><span class="p">)</span>
+    <span class="n">cluster</span> <span class="o">=</span> <span class="n">adata</span><span class="p">.</span><span class="n">obs</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">neighbors</span><span class="o">+</span><span class="p">[</span><span class="n">spot_id</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">cluster</span><span class="p">[</span><span class="n">target_column</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span> <span class="o">/</span> <span class="n">cluster</span><span class="p">[</span><span class="n">target_column</span><span class="p">].</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">get_proximity_score</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">spot_id</span><span class="p">,</span> <span class="n">target_column</span><span class="p">):</span>
+    <span class="s">"""Returns proximity score
+    Args:
+    adata(anndata.AnnData): input anndata object
+    spot_id(str): cell id
+    target_column(str): celltype/cluster column
+    """</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">adata</span><span class="p">.</span><span class="n">obs</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">spot_id</span><span class="p">,</span> <span class="p">[</span><span class="s">'x_centroid'</span><span class="p">,</span> <span class="s">'y_centroid'</span><span class="p">]].</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">proximity</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">centroids</span> <span class="o">=</span> <span class="n">adata</span><span class="p">.</span><span class="n">obs</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">adata</span><span class="p">.</span><span class="n">obs</span><span class="p">.</span><span class="n">index</span> <span class="o">!=</span> <span class="n">spot_id</span><span class="p">,</span> <span class="p">[</span><span class="s">'x_centroid'</span><span class="p">,</span> <span class="s">'y_centroid'</span><span class="p">]].</span><span class="n">values</span>
+    <span class="n">target_celltypes</span> <span class="o">=</span> <span class="n">adata</span><span class="p">.</span><span class="n">obs</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">adata</span><span class="p">.</span><span class="n">obs</span><span class="p">.</span><span class="n">index</span> <span class="o">!=</span> <span class="n">spot_id</span><span class="p">,</span> <span class="n">target_column</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">target_oi</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">unique</span><span class="p">(</span><span class="n">target_celltypes</span><span class="p">):</span>
+        <span class="n">target_idx</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">target_celltypes</span> <span class="o">==</span> <span class="n">target_oi</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">target_coords</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">centroids</span><span class="p">[</span><span class="n">target_idx</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">norm</span><span class="p">(</span><span class="n">target_coords</span> <span class="o">-</span> <span class="n">source</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">proximity</span><span class="p">[</span><span class="n">target_oi</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">distances</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">proximity</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The paper defines this for visium, the code provided here is updated to support xenium data. We can compare neighborhood and proximity scores between conditions across a cohort or compare these scores between different neighborhoods within the same core.</p>
+
+<!-- markdownlint-disable no-trailing-punctuation -->
+<h2 id="lot-of-work-ahead">Lot of work ahead…</h2>
+
+<h3 id="qc---filtering-cells">QC - filtering cells</h3>
+
+<p>Filtering cells using a global threshold for metrics like <code class="language-html highlighter-rouge">n_genes_by_counts</code> or <code class="language-html highlighter-rouge">total_counts</code> can lead to suboptimal results by discarding biologically relevant cells that appear low-quality in a global context but are consistent with their local tissue environment. This is because global thresholds ignore the inherent spatial structure of tissues, potentially confounding biological variation with technical noise. SpotSweeper<sup>[<a href="#ref5">5</a>]</sup> addresses this limitation by introducing a spatially aware quality control framework that leverages local neighborhood information to detect outliers based on a zscore.</p>
+
+<h2 id="references">References</h2>
+
+<p id="ref1">[1] Marx, V. Method of the Year: spatially resolved transcriptomics. Nat Methods 18, 9–14 (2021). <a href="https://doi.org/10.1038/s41592-020-01033-y">https://doi.org/10.1038/s41592-020-01033-y</a></p>
+<p id="ref2">[2] Xenium In Situ Multimodal Cell Segmentation: Workflow and Data Highlights. <a href="https://cdn.10xgenomics.com/image/upload/v1710785020/CG000750_XeniumInSitu_CellSegmentation_TechNote_RevA.pdf">https://cdn.10xgenomics.com/image/upload/v1710785020/CG000750_XeniumInSitu_CellSegmentation_TechNote_RevA.pdf</a></p>
+<p id="ref3">[3] Xenium Output Files at a Glance. <a href="https://www.10xgenomics.com/support/software/xenium-onboard-analysis/2.0/tutorials/outputs/xoa-output-at-a-glance">https://www.10xgenomics.com/support/software/xenium-onboard-analysis/2.0/tutorials/outputs/xoa-output-at-a-glance</a></p>
+<p id="ref4">[4] Barkley, D., Moncada, R., Pour, M. et al. Cancer cell states recur across tumor types and form specific interactions with the tumor microenvironment. Nat Genet 54, 1192–1201 (2022). <a href="https://doi.org/10.1038/s41588-022-01141-9">https://doi.org/10.1038/s41588-022-01141-9</a></p>
+<p id="ref5">[5] Totty, M., Hicks, S.C. &amp; Guo, B. SpotSweeper: spatially aware quality control for spatial transcriptomics. Nat Methods 22, 1520–1530 (2025). <a href="https://doi.org/10.1038/s41592-025-02713-3">https://doi.org/10.1038/s41592-025-02713-3</a></p>
+
+
+    </main>
+    <footer>
+	<div id="footer-left">
+		<a href="" class="copy-link" data-tooltip="Copy" onclick="copyText(this, 'atharva.bhagwat42@gmail.com')"><i class="fa-lg fa fa-envelope footer-icon" aria-hidden="true"></i></a>
+		<a href="https://github.com/atharva-bhagwat" target="_blank"><i class="fa-lg fab fa-github footer-icon" aria-hidden="true"></i></a>
+		<a href="http://www.linkedin.com/in/atharva-bhagwat" target="_blank"><i class="fa-lg fab fa-linkedin-in footer-icon" aria-hidden="true"></i></a>
+		<a href="https://scholar.google.com/citations?user=SczV-GUAAAAJ&hl=en" target="_blank"><i class="fa-lg fa fa-graduation-cap footer-icon" aria-hidden="true"></i></a>
+		<br>
+		<br>
+		<!-- &copy; <time datetime="November 4, 2026">2026</time> Fred Hohman -->
+	</div>
+	<div id="footer-right">
+		Atharva Bhagwat is a PhD student in the Cell Molecular and Systems Biology (CMSB) Program at the University of Pittsburgh.
+		<br>
+		<br>
+		<br>
+		<span class="footlink">
+		Appendix:<br>
+		Template by <a href="https://fredhohman.com" target="_blank">Fred Hohman</a>, Favicon by <a href="https://www.flaticon.com/free-icons/t-cell" target="_blank">Freepik</a>
+		</span>
+	</div>
+</footer>
+  </body>
+  
+</html>

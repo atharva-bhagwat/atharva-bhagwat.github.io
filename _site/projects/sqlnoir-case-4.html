@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="utf-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <link href="https://fonts.googleapis.com/css?family=Gaegu:300,700" rel="stylesheet">
+
+  <!-- Enable responsiveness on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Share card -->
+  <meta property="og:url" content="https://atharva-bhagwat.github.io/" />
+  <meta property="og:title" content="Atharva Bhagwat" />
+  <meta property="og:description" content="Atharva Bhagawt is an Associate Computational Researcher at Tsankov Lab, Mount Sinai working on lung senescence." />
+  <meta property="og:image" content="http://atharva-bhagwat.github.io/images/share.png" />
+
+  <title>
+    
+    Atharva Bhagwat - Case #004: The Midnight Masquerade Murder
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/styles.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png?v=xQdLjRyXLj">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png?v=xQdLjRyXLj">
+  <link rel="manifest" href="/icons/site.webmanifest?v=xQdLjRyXLj">
+  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=xQdLjRyXLj" color="#313131">
+  <link rel="shortcut icon" href="/icons/favicon.ico?v=xQdLjRyXLj">
+  <meta name="msapplication-TileColor" content="#313131">
+  <meta name="msapplication-config" content="/icons/browserconfig.xml?v=xQdLjRyXLj">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Feed -->
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Atharva Bhagwat" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YMVTT71WC1"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="/assets/js/imports.js"></script>
+  <script src="/assets/js/papaparse.min.js"></script>
+  <script src="/assets/js/incident_load.js"></script>
+  <script src="/assets/js/shooter_load.js"></script>
+  <script src="/assets/js/weapon_load.js"></script>
+  <script src="/assets/js/stateab_load.js"></script>
+  <script src="/assets/js/usageo_load.js"></script>
+  <script src="/assets/js/plots.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-YMVTT71WC1');
+
+    function copyText(element, text) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          element.setAttribute('data-tooltip', 'Copied!');
+          setTimeout(() => {
+            element.setAttribute('data-tooltip', 'Copy');
+          }, 1500); // Change back after 1.5 seconds
+        })
+        .catch(err => console.error('Failed to copy text: ', err));
+    }
+  </script>
+
+</head>
+
+  <body>
+    <header id="masthead">
+	<h1>
+  		<a href="/" title="Home">Atharva Bhagwat</a>
+	</h1>
+	<nav>
+		<a href="/"><div><i class="fa fa-home icon icon-right-space"></i>Home</div></a>
+		<a href="http://localhost:4000/articles"><div><i class="fa fa-newspaper icon icon-right-space"></i>Articles</div></a>
+		<a href="http://localhost:4000/everything-else"><div><i class="fa fa-ellipsis-h icon icon-right-space"></i>Everything else</div></a>
+	</nav>
+</header>
+    <main>
+      <div class="post-header">
+  <div class="post-title-group">
+    <h1 class="post-title">Case #004: The Midnight Masquerade Murder</h1>
+    <time datetime="May 23, 2025" class="post-date">
+      May 23, 2025
+    </time>
+  </div>
+
+  
+</div>
+
+<!-- markdownlint-disable MD032 MD033 -->
+
+<p>On October 31, 1987, at a Coconut Grove mansion masked ball, Leonard Pierce was found dead in the garden.</p>
+
+<p>Reading the case description these are the <strong>clues</strong> we can pick up:</p>
+
+<ul>
+  <li>Location: <strong>Coconut Grove mansion</strong></li>
+  <li>Date: <strong>October 31, 1987</strong></li>
+  <li>Leonard Pierce was found dead; Type of crime: <strong>murder</strong></li>
+</ul>
+
+<h2 id="going-over-the-schema">Going over the schema</h2>
+
+<p>There are 9 tables:</p>
+<ul>
+  <li>crime_scene:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+    </ul>
+  </li>
+  <li>person:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+    </ul>
+  </li>
+  <li>witness_statements:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>crime_scene_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">crime_scene</code></li>
+      <li>witness_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">person</code></li>
+    </ul>
+  </li>
+  <li>final_interviews:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>person_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">person</code></li>
+    </ul>
+  </li>
+  <li>vehicle_registry:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>person_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">person</code></li>
+    </ul>
+  </li>
+  <li>catering_orders:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>person_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">person</code></li>
+    </ul>
+  </li>
+  <li>phone_records:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>caller_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">person</code></li>
+      <li>recipient_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">person</code></li>
+    </ul>
+  </li>
+  <li>hotel_checkins:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>person_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">person</code></li>
+    </ul>
+  </li>
+  <li>surveillance_records:
+    <ul>
+      <li>id: <strong>PRIMARY KEY</strong></li>
+      <li>hotel_checkin_id: <strong>FOREIGN KEY</strong> referencing <code class="language-html highlighter-rouge">id</code> in <code class="language-html highlighter-rouge">hotel_checkins</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/images/articles/sqlnoir_case4/schema.png" alt="case4_schema" /></p>
+
+<h2 id="investigation">Investigation</h2>
+
+<p>We start by looking through all the crime scenes where the <code class="language-html highlighter-rouge">location</code> has Coconut Grove and <code class="language-html highlighter-rouge">date</code> is October 31, 1987.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">crime_scene</span> <span class="k">where</span> <span class="nb">date</span> <span class="o">=</span> <span class="mi">19871031</span> <span class="k">and</span> <span class="k">location</span> <span class="k">like</span> <span class="s1">'%Coconut Grove%'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>During a masked ball, a body was found in the garden. Witnesses mentioned a hotel booking and suspicious phone activity.</p>
+</blockquote>
+
+<p>Let us also look at witness statements for this crime. We can do this by using a <code class="language-html highlighter-rouge">JOIN</code> on <code class="language-html highlighter-rouge">crime_scene</code> and <code class="language-html highlighter-rouge">witness_statements</code> tables.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="n">witness_statements</span><span class="p">.</span><span class="n">witness_id</span><span class="p">,</span> <span class="n">witness_statements</span><span class="p">.</span><span class="n">clue</span> <span class="k">from</span> <span class="n">witness_statements</span> 
+<span class="k">join</span> <span class="n">crime_scene</span> <span class="k">on</span> <span class="n">witness_statements</span><span class="p">.</span><span class="n">crime_scene_id</span> <span class="o">=</span> <span class="n">crime_scene</span><span class="p">.</span><span class="n">id</span> 
+<span class="k">where</span> <span class="n">crime_scene</span><span class="p">.</span><span class="nb">date</span> <span class="o">=</span> <span class="mi">19871031</span> <span class="k">and</span> 
+<span class="n">crime_scene</span><span class="p">.</span><span class="k">location</span> <span class="k">like</span> <span class="s1">'%Coconut Grove%'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>I overheard a booking at The Grand Regency.</p>
+</blockquote>
+
+<blockquote>
+  <p>I noticed someone at the front desk discussing Room 707 for a reservation made yesterday.</p>
+</blockquote>
+
+<p>New <strong>clues</strong>:</p>
+<ul>
+  <li>Hotel booking at <em>The Grand Regency</em></li>
+  <li>Room <em>707</em> booked on <em>October 30, 1987</em></li>
+</ul>
+
+<p>We look into all the surveillance records for hotel checkins at The Grand Regency for room 707 on October 30, 1987.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="n">surveillance_records</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">surveillance_records</span><span class="p">.</span><span class="n">hotel_checkin_id</span><span class="p">,</span> 
+<span class="n">surveillance_records</span><span class="p">.</span><span class="n">note</span> <span class="k">from</span> <span class="n">surveillance_records</span> 
+<span class="k">join</span> <span class="n">hotel_checkins</span> <span class="k">on</span> <span class="n">surveillance_records</span><span class="p">.</span><span class="n">hotel_checkin_id</span> <span class="o">=</span> <span class="n">hotel_checkins</span><span class="p">.</span><span class="n">id</span>
+<span class="k">where</span> <span class="n">hotel_checkins</span><span class="p">.</span><span class="n">hotel_name</span> <span class="o">=</span> <span class="s1">'The Grand Regency'</span> <span class="k">and</span> 
+<span class="n">hotel_checkins</span><span class="p">.</span><span class="n">room_number</span> <span class="o">=</span> <span class="mi">707</span> <span class="k">and</span>
+<span class="n">hotel_checkins</span><span class="p">.</span><span class="n">check_in_date</span> <span class="o">=</span> <span class="mi">19871030</span> <span class="k">and</span>
+<span class="n">surveillance_records</span><span class="p">.</span><span class="n">note</span> <span class="k">is</span> <span class="k">not</span> <span class="k">NULL</span><span class="p">;</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>hotel_checkin_id</th>
+      <th>note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>119</td>
+      <td>Subject was overheard yelling on a phone: “Did you kill him?”</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We can look at hotel checkins for id 119 and see which person checked in.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">hotel_checkins</span> <span class="k">where</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">119</span><span class="p">;</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>person_id</th>
+      <th>hotel_name</th>
+      <th>check_in_date</th>
+      <th>room_number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>119</td>
+      <td>11</td>
+      <td>The Grand Regency</td>
+      <td>19871030</td>
+      <td>707</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We now look into the phone records for person id 11. <em>(Query below also looks at phone records for person id 58 as they are the recipient of the call)</em></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">phone_records</span> <span class="k">where</span> <span class="n">caller_id</span> <span class="k">in</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">58</span><span class="p">)</span> <span class="k">or</span> <span class="n">recipient_id</span> <span class="k">in</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">58</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>“Why did you kill him, bro? You should have left the carpenter do it himself!”</p>
+</blockquote>
+
+<blockquote>
+  <p>“I will do it. Only if you give me that nice Lambo of yours.”</p>
+</blockquote>
+
+<p>New <strong>clues</strong>:</p>
+<ul>
+  <li>Suspect maybe be a carpenter</li>
+  <li>Suspect owns a Lamborghini</li>
+</ul>
+
+<p>We can use <code class="language-html highlighter-rouge">JOIN</code> on <code class="language-html highlighter-rouge">person</code> and <code class="language-html highlighter-rouge">vehicle_registry</code> to find our suspect.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">vehicle_registry</span> 
+<span class="k">join</span> <span class="n">person</span> <span class="k">on</span> <span class="n">person</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">vehicle_registry</span><span class="p">.</span><span class="n">person_id</span> 
+<span class="k">where</span> <span class="n">car_make</span> <span class="o">=</span> <span class="s1">'Lamborghini'</span> <span class="k">and</span> 
+<span class="n">person</span><span class="p">.</span><span class="n">occupation</span> <span class="k">like</span> <span class="s1">'carpenter'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><em>Marco Santos</em> is the only name which pops up. Let us look at final interview for this person.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">final_interviews</span>
+<span class="k">where</span> <span class="n">person_id</span> <span class="o">=</span> <span class="mi">97</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>“I ordered the hit. It was me. You caught me.” ~ Marco Santos</p>
+</blockquote>
+
+<p>We got him. The mask slipped.</p>
+
+<hr />
+
+<p>Thank you <a href="https://github.com/hristo2612">Chris</a> for creating <a href="https://www.sqlnoir.com/">SQL Noir</a>.</p>
+
+
+    </main>
+    <footer>
+	<div id="footer-left">
+		<a href="" class="copy-link" data-tooltip="Copy" onclick="copyText(this, 'atharva.bhagwat42@gmail.com')"><i class="fa-lg fa fa-envelope footer-icon" aria-hidden="true"></i></a>
+		<a href="https://github.com/atharva-bhagwat" target="_blank"><i class="fa-lg fab fa-github footer-icon" aria-hidden="true"></i></a>
+		<a href="http://www.linkedin.com/in/atharva-bhagwat" target="_blank"><i class="fa-lg fab fa-linkedin-in footer-icon" aria-hidden="true"></i></a>
+		<a href="https://scholar.google.com/citations?user=SczV-GUAAAAJ&hl=en" target="_blank"><i class="fa-lg fa fa-graduation-cap footer-icon" aria-hidden="true"></i></a>
+		<br>
+		<br>
+		<!-- &copy; <time datetime="November 4, 2026">2026</time> Fred Hohman -->
+	</div>
+	<div id="footer-right">
+		Atharva Bhagwat is a PhD student in the Cell Molecular and Systems Biology (CMSB) Program at the University of Pittsburgh.
+		<br>
+		<br>
+		<br>
+		<span class="footlink">
+		Appendix:<br>
+		Template by <a href="https://fredhohman.com" target="_blank">Fred Hohman</a>, Favicon by <a href="https://www.flaticon.com/free-icons/t-cell" target="_blank">Freepik</a>
+		</span>
+	</div>
+</footer>
+  </body>
+  
+</html>
