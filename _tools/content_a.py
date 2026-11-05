@@ -58,21 +58,31 @@ STAGES_A.append(stage(
         ),
         p("VS Code opens with that folder. Always open the <em>folder</em>, not single files. It is what lets VS Code find your data, scripts and environment."),
         h3("5. Add extensions"),
-        p("Open the Extensions panel (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd>, or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> on Mac) and search by name, "
-          "or paste these in the terminal:"),
-        code("code --install-extension ms-python.python\n"
-             "code --install-extension ms-toolsai.jupyter\n"
-             "code --install-extension mechatroner.rainbow-csv\n"
-             "code --install-extension ms-toolsai.datawrangler\n"
-             "code --install-extension usernamehw.errorlens",
-             "bash", "terminal"),
-        table(["Extension", "What it does for you"], [
-            ["<strong>Python</strong>", "Runs and debugs <code>.py</code> files, finds your conda environments, adds autocomplete."],
-            ["<strong>Jupyter</strong>", "Opens <code>.ipynb</code> notebooks inside VS Code and runs cells."],
-            ["<strong>Rainbow CSV</strong>", "Colours each column of a CSV differently so you can read raw data files."],
-            ["<strong>Data Wrangler</strong>", "Opens a DataFrame as a scrollable grid with summary stats."],
-            ["<strong>Error Lens</strong>", "Prints errors and warnings at the end of the offending line. Great for making errors feel normal."],
+        p("An <strong>extension</strong> is an add-on that teaches VS Code new skills. You install them from inside VS Code, and you will use the same few clicks every time you want a new one."),
+        ol([
+            "Click the <strong>Extensions</strong> icon in the vertical bar on the far left of the window. It looks like four squares with one flying off. "
+            "No icon bar? Use the menu: <strong>View</strong>, then <strong>Extensions</strong>. Keyboard shortcut: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> (Windows, Linux) or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> (Mac).",
+            "Click the search box at the top of the panel. It says <em>Search Extensions in Marketplace</em>. The Marketplace is VS Code's app store, and everything in it is free to install.",
+            "Type the name from the table below, for example <code>Python</code>. Results appear underneath, most popular first.",
+            "Pick the right result: check the <strong>publisher name</strong> under the title, and the download count (the good ones have millions or hundreds of thousands). Click the result to read its description on the right.",
+            "Click the blue <strong>Install</strong> button. Wait a few seconds until it changes to a gear icon. That means it worked. If a <strong>Reload</strong> or <strong>Restart Extensions</strong> button appears, click it.",
+            "Repeat for each extension in the table.",
         ]),
+        table(["Search for", "Publisher", "What it does for you"], [
+            ["<strong>Python</strong>", "Microsoft", "Runs and debugs <code>.py</code> files, finds your conda environments, adds autocomplete."],
+            ["<strong>Jupyter</strong>", "Microsoft", "Opens <code>.ipynb</code> notebooks inside VS Code and runs cells."],
+            ["<strong>Rainbow CSV</strong>", "mechatroner", "Colours each column of a CSV differently so you can read raw data files."],
+            ["<strong>Data Wrangler</strong>", "Microsoft", "Opens a DataFrame as a scrollable grid with summary stats."],
+            ["<strong>Error Lens</strong>", "Alexander (usernamehw)", "Prints errors and warnings at the end of the offending line. Great for making errors feel normal."],
+        ]),
+        callout("tip", "Find an exact extension with its ID",
+                p("Every extension has a unique ID. Typing it with <code>@id:</code> in front shows exactly one result, so you cannot pick a look-alike. Try <code>@id:ms-python.python</code>. "
+                  "The IDs for this guide are <code>ms-python.python</code>, <code>ms-toolsai.jupyter</code>, <code>mechatroner.rainbow-csv</code>, <code>ms-toolsai.datawrangler</code> and <code>usernamehw.errorlens</code>.")),
+        callout("trap", "Look-alikes",
+                p("Searching <code>Python</code> returns many extensions. Choose the one published by <strong>Microsoft</strong> with the blue verified checkmark next to the publisher name and the largest download count. "
+                  "Installing the Python extension also adds a few helpers (such as Pylance) automatically. That is normal.")),
+        p("To confirm everything is installed, type <code>@installed</code> in the search box. You should see all five in the list. "
+          "The same box shows other useful filters: <code>@recommended</code> for suggestions, and the clock icon for recently updated extensions."),
         h3("6. Tell VS Code which Python to use"),
         p("Press <kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>, type <code>Python: Select Interpreter</code>, and choose the one named <code>pandas-quest</code>. "
           "Its path contains <code>envs/pandas-quest</code>. A notebook has its own picker, which you will use in the next stage."),
