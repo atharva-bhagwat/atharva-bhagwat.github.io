@@ -93,9 +93,9 @@ def certificate():
 
 def credits():
     return (
-        '<footer class="q-credits">'
+        '<div class="q-credits">'
         '<p><button type="button" class="q-reset">Reset all stars on this browser</button></p>'
-        '</footer>'
+        '</div>'
     )
 
 
