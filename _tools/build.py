@@ -162,7 +162,7 @@ def certificate():
 def credits():
     return (
         '<div class="q-credits">'
-        '<p class="q-credit-line">With <span class="q-heart" role="img" aria-label="panda">&#x1F43C;</span> from '
+        '<p class="q-credit-line">With <span class="q-heart" role="img" aria-label="love">&#x2764;&#xFE0F;</span> from '
         '<a href="https://atharvabhagwat.dev" target="_blank" rel="noopener">Atharva</a> &middot; Made with '
         '<a href="https://claude.ai" target="_blank" rel="noopener">Claude</a> &middot; Humanized by '
         '<a href="https://github.com/itsjustnilay" target="_blank" rel="noopener">Nilay</a>.</p>'
