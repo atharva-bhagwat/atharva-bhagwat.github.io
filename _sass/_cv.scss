@@ -3,7 +3,7 @@
 	margin-bottom: 3rem;
 }
 
-#cv > * {
+#cv>* {
 	grid-column: text-start / page-end;
 	// font-size: 1em;
 }
@@ -28,7 +28,8 @@
 	margin-bottom: 0rem;
 }
 
-#cv-title > a, #cv-title > a:hover {
+#cv-title>a,
+#cv-title>a:hover {
 	color: $dark-gray;
 	font-weight: 600;
 	text-decoration: none;
@@ -80,7 +81,7 @@
 	flex: 1;
 }
 
-.cv-social-link-text-wrapper > a {
+.cv-social-link-text-wrapper>a {
 	color: $text-color;
 }
 
@@ -88,7 +89,7 @@
 	grid-column: page-start / kicker-end;
 }
 
-#cv-toc > ul {
+#cv-toc>ul {
 	list-style-type: none;
 }
 
@@ -98,8 +99,8 @@
 	text-align: right;
 	font-size: 0.7rem;
 	display: flex;
-    flex-direction: column;
-    justify-content: center;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .cv-left-date-article {
@@ -141,12 +142,14 @@
 	display: block;
 }
 
-.appears-on, .appears-on a {
+.appears-on,
+.appears-on a {
 	font-size: 0.825rem;
 	font-weight: 400;
 }
 
-.grouped-article, .grouped-article-description {
+.grouped-article,
+.grouped-article-description {
 	font-size: 0.825rem !important;
 }
 
@@ -219,15 +222,17 @@
 	font-size: 0.75rem;
 }
 
-.highlight {width: 0;}
+.highlight {
+	width: 0;
+}
 
 // .highlight pre {
-	// width: 100vw;
-	// max-width: 100px;
-	// overflow-x: scroll !important;
-	// grid-column: text;
-	// width: min-content;
-	// white-space:pre-wrap;
+// width: 100vw;
+// max-width: 100px;
+// overflow-x: scroll !important;
+// grid-column: text;
+// width: min-content;
+// white-space:pre-wrap;
 // }
 
 @media screen and (max-width: $mobile) {
@@ -235,8 +240,8 @@
 	.cv-left-date {
 		text-align: left;
 	}
-	
-	.cv-left-date-article { 
+
+	.cv-left-date-article {
 		padding-left: 1rem !important;
 		border-left: 1px solid $border-color;
 	}
@@ -272,3 +277,27 @@
 // 	// margin-left: auto;
 // 	// margin-right: auto;
 // }
+
+// ---------------------------------------------------------------------------
+// Responsive fix: dates in the left margin only when the window is wide enough.
+// Below this width the grid's left margin column is too narrow, so the date is
+// squeezed into it and overlaps the entry. Stack the date above the entry instead.
+// ---------------------------------------------------------------------------
+@media screen and (max-width: 1180px) {
+
+	.cv-left-date {
+		grid-column: page !important;
+		text-align: left !important;
+		flex-direction: row !important;
+		justify-content: flex-start !important;
+		margin-top: 0.9rem;
+		font-size: 0.8rem !important;
+		color: $gray;
+	}
+
+	.cv-left-date-article {
+		padding-left: 0 !important;
+		border-left: 0 !important;
+		color: $silver !important;
+	}
+}

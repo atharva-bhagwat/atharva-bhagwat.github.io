@@ -28,6 +28,7 @@
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   color: var(--text);
+  min-width: 0;
   margin-top: 1rem;
   margin-bottom: 4rem;
   line-height: 1.6;
@@ -212,8 +213,8 @@
 .q-details[open] > summary { margin-bottom: 0.5rem; }
 
 /* ------------------------------ puzzles ---------------------------- */
-.q-puzzles { margin-top: 2.2rem; display: grid; gap: 1.2rem; max-width: 52rem; }
-.q-puzzle { border: 2px solid var(--ink); border-radius: 8px; background: var(--paper); padding: 1rem 1.2rem 1.1rem; }
+.q-puzzles { margin-top: 2.2rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.2rem; max-width: 52rem; }
+.q-puzzle { min-width: 0; border: 2px solid var(--ink); border-radius: 8px; background: var(--paper); padding: 1rem 1.2rem 1.1rem; }
 .q-puzzle[hidden] { display: none; }
 .q-puzzle-head { display: flex; align-items: center; gap: 0.5rem; }
 .q-star { font-size: 1.5rem; line-height: 1; color: #cfd3c8; display: inline-block; transition: color 0.2s; }
@@ -322,7 +323,9 @@
 .q-cert small { color: var(--muted); }
 
 /* ------------------------------ credits ---------------------------- */
-.q-credits { max-width: 44rem; margin-top: 3.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-size: 0.88rem; color: var(--muted); }
+.q-credits { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem 1.5rem; max-width: 52rem; margin-top: 3.5rem; padding-top: 0.6rem; border-top: 1px solid var(--line); font-size: 0.88rem; color: var(--muted); }
+.q-credits p { margin: 0; }
+.q-credit-line a { color: var(--ink); }
 .q-credits a { color: inherit; }
 .quest .q-reset { font: inherit; font-size: 0.85rem; padding: 0; margin: 0; color: var(--muted); background: transparent; border: 0; text-decoration: underline; cursor: pointer; transition: none; }
 .quest .q-reset:hover { color: var(--rust); background: transparent; }
@@ -357,4 +360,51 @@
   body.q-printing .q-cert-wrap { border: 0; margin: 0; padding: 0; }
   body.q-printing .q-cert-wrap > :not(.q-cert) { display: none !important; }
   body.q-printing .q-cert { margin: 3rem auto 0; max-width: none; }
+}
+
+/* ------------------------------ touch and small screens ------------- */
+.quest img, .quest svg, .quest video { max-width: 100%; height: auto; }
+.quest .qcode pre, .quest .q-trace pre, .quest .q-tree { -webkit-overflow-scrolling: touch; }
+.quest p, .quest li, .quest td, .quest th, .quest .q-callout { overflow-wrap: anywhere; }
+.quest code { overflow-wrap: anywhere; }
+.quest .qcode code, .quest .q-trace code, .quest .q-tree code { overflow-wrap: normal; }
+
+@media (pointer: coarse), (max-width: 768px) {
+  /* 16px inputs stop iOS Safari zooming the page when a field is focused */
+  .q-answer input[type="text"], .q-answer textarea, .q-cert-controls input { font-size: 16px; min-height: 44px; }
+  .quest .q-check, .quest .q-os-tabs button { min-height: 44px; padding-top: 0.5rem; padding-bottom: 0.5rem; }
+  .quest .qcopy { min-height: 36px; min-width: 56px; }
+  .quest .q-reset { min-height: 44px; padding: 0.6rem 0; }
+  .quest .q-details > summary, .quest summary { padding: 0.6rem 0; }
+  .q-choice { padding: 0.55rem 0.5rem; }
+  .q-ex-done { padding: 0.4rem 0; }
+  .q-bar-links { gap: 0.4rem; }
+  .q-bar-links a { padding: 0.5rem 0.4rem; }
+}
+
+@media (max-width: 768px) {
+  .q-bar { gap: 0.5rem; padding: 0.3rem 0; }
+  .q-part { margin-top: 3rem; padding: 1.1rem 1.1rem 1.2rem; }
+  .q-part h2 { font-size: 1.35rem; }
+  .q-stage { margin-top: 2.6rem; padding-top: 1.6rem; }
+  .q-stage-head { flex-wrap: wrap; row-gap: 0.2rem; }
+  .q-stage-stars { padding-top: 0; }
+  .q-puzzle { padding: 0.85rem 0.9rem 1rem; }
+  .q-ex { padding: 0.8rem 0.9rem 0.9rem; }
+  .q-ex-head { flex-wrap: wrap; row-gap: 0.1rem; }
+  .qcode pre { padding: 0.7rem 0.8rem 0.8rem; font-size: 0.8rem; }
+  .q-colab-row { gap: 0.4rem; }
+  .quest a.q-colab { width: 100%; justify-content: center; min-height: 44px; }
+  .q-answer .q-check { flex: 1 1 100%; }
+  .q-cert { padding: 1.4rem 1rem; }
+  .q-cert-name { font-size: 1.5rem; }
+  .q-nb-code, .q-nb-result { font-size: 0.8rem; }
+  .q-df { font-size: 0.78rem; }
+}
+
+@media (max-width: 380px) {
+  .quest { font-size: 0.97rem; }
+  .q-df th, .q-df td { padding: 0.3rem 0.4rem; }
+  .q-stage-stars { font-size: 1.1rem; }
+  .q-bar-links a { display: none; }
 }
