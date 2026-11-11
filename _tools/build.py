@@ -1,4 +1,4 @@
-"""Assemble the MSCBIO2025 The Right Way article, its answers file and print a summary."""
+"""Assemble the Introduction to Bioinformatics Programming in Python article, its answers file and print a summary."""
 import json
 import re
 from pathlib import Path
@@ -150,10 +150,10 @@ def certificate():
         '<div class="q-cert">'
         '<p>This certifies that</p>'
         '<p class="q-cert-name" id="q-cert-name">Your name here</p>'
-        '<p>completed <strong>MSCBIO2025: The Right Way</strong>: set up a Python environment, learned pandas, wrote reusable functions, audited a real dataset and plotted it more than a dozen ways.</p>'
+        '<p>completed <strong>Introduction to Bioinformatics Programming in Python</strong>: set up a Python environment, learned pandas, wrote reusable functions, audited a real dataset and plotted it more than a dozen ways.</p>'
         '<p class="q-cert-stars" id="q-cert-stars" aria-hidden="true"></p>'
         '<p class="q-cert-rank" id="q-cert-rank"></p>'
-        '<p><small>atharva-bhagwat.github.io/articles/mscbio2025-the-right-way</small></p>'
+        '<p><small>atharvabhagwat.dev</small></p>'
         '</div>'
         '</section>'
     )
@@ -190,7 +190,7 @@ def static_answers():
     return a
 
 
-ANSWERS_TEMPLATE = r"""/* Answers for MSCBIO2025 The Right Way.
+ANSWERS_TEMPLATE = r"""/* Answers for Introduction to Bioinformatics Programming in Python.
    - Toy-table answers are fixed (integers and text stored as short hashes).
    - Real-table answers live in REAL below. Generate them once with make_answer_key.py
      (pandas-quest-source/), which rewrites the block between the two markers.
@@ -269,7 +269,7 @@ def answers_js():
 # ------------------------------------------------------------------ post
 FRONT = """---
 layout: post
-title: "MSCBIO2025: The Right Way"
+title: "Introduction to Bioinformatics Programming in Python"
 categories: articles
 permalink: articles/mscbio2025-the-right-way
 author: Atharva Bhagwat
@@ -291,6 +291,7 @@ def post():
         + content_hpc.HPC + "\n"
         + certificate() + "\n"
         + credits() + "\n"
+        + '<button type="button" class="q-top" aria-label="Back to top"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>\n'
         '</div>\n'
     )
     return FRONT + "{% raw %}\n" + renumber(body) + "{% endraw %}\n"
@@ -298,7 +299,7 @@ def post():
 
 if __name__ == "__main__":
     out = post()
-    path = SITE / "_posts" / "articles" / "2026-11-04-mscbio2025-the-right-way.md"
+    path = SITE / "_posts" / "articles" / "2026-11-04-introduction-to-bioinformatics-programming-in-python.md"
     path.write_text(out, encoding="utf-8")
     (SITE / "assets" / "js" / "quest-answers.js").write_text(answers_js(), encoding="utf-8")
     print("post bytes:", len(out.encode()), "lines:", out.count("\n"))

@@ -1,15 +1,15 @@
 # feature-parametric-order: 1000 = inf
 
-- title: "MSCBIO2025: The Right Way"
+- title: "Introduction to Bioinformatics Programming in Python"
   authors:
     - Atharva Bhagwat
   description: "Interactive guide: set up Python, learn pandas, plot real data, then scale up on HPC"
   month: "November"
   year: 2026
   url: https://atharva-bhagwat.github.io/articles/mscbio2025-the-right-way
-  image: /images/featured/mscbio2025_the_right_way.png
-  feature-title: "MSCBIO2025: The Right Way"
-  feature-description: "12 stages, 24 stars: from a blank laptop to the HPC cluster"
+  image: /images/featured/bioinformatics_programming_python.png
+  feature-title: "Introduction to Bioinformatics Programming in Python"
+  feature-description: "14 stages, 29 stars: from your browser to the HPC cluster"
   featured: true
   parametric: false
   feature-parametric-order: 1000
