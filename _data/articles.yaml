@@ -6,7 +6,7 @@
   description: "Interactive guide: set up Python, learn pandas, plot real data, then scale up on HPC"
   month: "November"
   year: 2026
-  url: https://atharva-bhagwat.github.io/articles/mscbio2025-the-right-way
+  url: https://atharvabhagwat.dev/articles/intro-to-python-biosci
   image: /images/featured/bioinformatics_programming_python.png
   feature-title: "Introduction to Bioinformatics Programming in Python"
   feature-description: "14 stages, 29 stars: from your browser to the HPC cluster"

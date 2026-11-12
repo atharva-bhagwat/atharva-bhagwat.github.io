@@ -2,7 +2,7 @@
 layout: post
 title: "Introduction to Bioinformatics Programming in Python"
 categories: articles
-permalink: articles/mscbio2025-the-right-way
+permalink: articles/intro-to-python-biosci
 author: Atharva Bhagwat
 ---
 {% raw %}
