@@ -62,7 +62,8 @@ def finish_stage(key):
     elif stars == 0:
         h = re.sub(r'<div class="q-stage-stars".*?</div>', '', h, count=1, flags=re.S)
     if nb is not None:
-        url = "https://colab.research.google.com/drive/" + COLAB_TOKENS[nb]
+        # The ID comes from _data/colab.yaml at site build time, so replacing this post never loses the links.
+        url = "https://colab.research.google.com/drive/{% endraw %}{{ site.data.colab.nb" + str(nb) + " }}{% raw %}"
         row = (f'<p class="q-colab-row"><a class="q-colab" href="{url}" target="_blank" rel="noopener">Open in Colab: {COLAB_TEXT[nb]}</a>'
                f'<span class="q-colab-note">Free Google account needed. Use File, Save a copy in Drive.</span></p>')
         h = h.replace('<div class="q-prose">', row + '<div class="q-prose">', 1)
@@ -291,7 +292,6 @@ def post():
         + content_hpc.HPC + "\n"
         + certificate() + "\n"
         + credits() + "\n"
-        + '<button type="button" class="q-top" aria-label="Back to top"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>\n'
         '</div>\n'
     )
     return FRONT + "{% raw %}\n" + renumber(body) + "{% endraw %}\n"

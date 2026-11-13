@@ -1,0 +1,8 @@
+# Google Drive file IDs of the Colab notebooks (the part after /drive/ in the Colab address).
+# The article reads these at build time, so re-generating or replacing the article never loses them.
+nb0: "1xygnSSVSzXMVdpr1WQw-2pCm-vWMWIaF"   # 00_project0_python_to_data
+nb1: "1yAUJUn72LTULEuni9t29IpTa9atUeTRy"   # 01_python_kernel_and_errors
+nb2: "1qemskXV5DWgptRJEC5JYMCXvuOX-BPXe"   # 02_pandas_and_functions
+nb3: "1dWF7ig7S_mERFARZgtlhNlvScw7MfZHW"   # 03_pten_data_audit_and_regions
+nb4: "1lONDXpaA3sN9V1x7LUSLIfPaNKUu7s2Q"   # 04_plots
+nb5: "1iLTVLDRKijBww8RR9bOgDgjWWatFpoRw"   # 05_sensitivity_and_conclusions
