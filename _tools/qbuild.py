@@ -171,7 +171,7 @@ def puzzle(qid, part, question, kind="text", placeholder="", hint="", solution=N
             COLLECTED_CODE.append((test, solution.strip("\n")))
         parts.append(code(solution, solution_lang, "one way to get it"))
     if parts:
-        helper = details("Stuck? Nudge and solution" if kind != "reflect" else "Stuck? How to start", "".join(parts), "q-help")
+        helper = details(("Stuck? Nudge and solution" if solution else "Stuck? Get a nudge") if kind != "reflect" else "Stuck? How to start", "".join(parts), "q-help")
     hidden = " hidden" if part >= 2 else ""
     cls = "q-puzzle is-part2" if part >= 2 else "q-puzzle"
     return (

@@ -298,10 +298,12 @@ def post():
 
 
 if __name__ == "__main__":
-    out = post()
-    path = SITE / "_posts" / "articles" / "2026-11-04-introduction-to-bioinformatics-programming-in-python.md"
-    path.write_text(out, encoding="utf-8")
+    import pages
+    files = pages.write_all(SITE)
     (SITE / "assets" / "js" / "quest-answers.js").write_text(answers_js(), encoding="utf-8")
-    print("post bytes:", len(out.encode()), "lines:", out.count("\n"))
-    qids = re.findall(r'data-qid="(\w+)"', out)
+    total = 0
+    for p, text in files.items():
+        total += len(text.encode())
+    print("pages:", len(files), "bytes:", total)
+    qids = [q for text in files.values() for q in re.findall(r'data-qid="(\w+)"', text)]
     print("puzzles:", len(qids), qids)

@@ -119,6 +119,36 @@ def fresh_setup(extra=""):
 
 NOTEBOOKS = {}
 
+# =============================================================== WARM-UP
+NOTEBOOKS["warmup_first_10_minutes"] = [
+    ("md", "# Your first 10 minutes with code\n\nNo experience needed, and nothing to install. Code is just **a list of instructions the computer follows from top to bottom**. Today you will not write much: you will learn to **read** it, run it, and change it to see what happens.\n\n**How this works**\n\n* Click into a grey cell and press **Shift + Enter** (or the \u25b6 button on its left) to run it. The result appears underneath.\n* Go from top to bottom.\n* You cannot break anything. If something looks strange, choose **Runtime, Restart session and run all**.\n* Where you see `____`, fill in the blank, then run the cell."),
+    ("md", "## 1. Your first line of code\n\nThe line below tells the computer to *print* some words. Lines that start with `#` are notes for humans, and the computer ignores them. Run it, then change the words inside the quotes and run it again."),
+    ("code", '# print() shows something on the screen\nprint("Hello, biology!")'),
+    ("md", "## 2. Variables are labelled boxes\n\nA **variable** stores a value under a name, so you can use it later. The `=` sign means *store this under that name* (it does not mean \"equals\" like in maths).\n\nHere the name is `dna` and the value is a piece of text (text always goes inside quotes)."),
+    ("code", 'dna = "ATGGAAGCTCTGTTTAAAGGCTAA"\nprint(dna)'),
+    ("md", "`len()` counts how many letters are in a piece of text. Fill in the blank so the sentence prints the length."),
+    ("code", 'length = len(dna)\nprint("My DNA has", ' + blank("length") + ', "letters")'),
+    ("md", "## 3. Arithmetic\n\nPython is a calculator. Run this cell and look at each answer.\n\n| symbol | meaning |\n|---|---|\n| `+` `-` `*` | add, subtract, multiply |\n| `/` | divide |\n| `//` | divide and drop the remainder |\n| `%` | the remainder |\n| `**` | power |"),
+    ("code", 'print(2 + 3)\nprint(10 - 4)\nprint(6 * 7)\nprint(10 / 4)\nprint(10 // 4)\nprint(10 % 4)\nprint(2 ** 5)'),
+    ("md", "**Predict first, then run:** what will `print(17 // 5)` and `print(17 % 5)` show? Write your guess here, then check it by adding those two lines to the cell above.\n\n*(double-click this cell to type your guess)*"),
+    ("md", "DNA is read three letters at a time. How many groups of three are in our DNA? Fill in the blank with the symbol for \"divide and drop the remainder\"."),
+    ("code", 'groups = length ' + blank("//") + ' 3\nprint("That is", groups, "groups of three letters")'),
+    ("md", "A variable can be **updated**: take the old value, do something to it, store the result under the same name. Read each line, guess the final number, then run it."),
+    ("code", 'count = 0\ncount = count + 1\ncount = count + 1\ncount = count + 1\nprint(count)'),
+    ("md", "## 4. Working with text\n\nText has its own tools. Each line below does one thing. Run the cell and match each output to its line."),
+    ("code", 'print(dna.lower())                # all lowercase\nprint(dna.count("G"))             # how many G letters\nprint(dna + "AAA")                # glue text together\nprint(dna[0:3])                   # the first three letters (counting starts at 0)\nprint(f"G appears {dna.count(\'G\')} times and C appears {dna.count(\'C\')} times")'),
+    ("md", "## 5. Putting it together: GC content\n\nScientists often ask what fraction of a DNA sequence is the letters G and C (the **GC fraction**). You can now read this whole recipe: count the Gs, count the Cs, add them, divide by the length."),
+    ("code", 'g = dna.count("G")\nc = dna.count("C")\ngc = (g + c) / len(dna)\nprint("GC fraction:", gc)\nprint("As a percentage:", round(gc * 100, 1), "%")'),
+    ("md", "\u2b50 **Write down the GC fraction of this DNA, rounded to 3 decimal places.** You will type it into the guide in a moment. (Run the next cell to see it rounded.)"),
+    ("code", 'print(round(gc, 3))'),
+    ("md", "## 6. Making a decision\n\n`if` runs some code only when a condition is true, and `else` runs when it is not. Notice that the lines inside are **indented** (pushed in): that is how Python knows they belong to the `if`. Fill in a threshold and run it, then try a different number."),
+    ("code", 'if gc > ' + blank("0.5") + ':\n    print("This DNA is GC-rich")\nelse:\n    print("This DNA is AT-rich")'),
+    ("md", "## 7. Doing something many times\n\nA **loop** repeats code once for each item in a list. Read this one aloud: *for each sequence in the list, work out its GC fraction and print it.*"),
+    ("code", 'sequences = ["ATATAT", "GGGCCC", "ATGGAAGCT"]\n\nfor seq in sequences:\n    fraction = (seq.count("G") + seq.count("C")) / len(seq)\n    print(seq, "->", round(fraction, 2))'),
+    ("md", "### Your turn\n\nAdd your own DNA (any letters from A, C, G, T, in quotes) to the `sequences` list above, run the cell again, and see its GC fraction appear. Then type one sentence below on what a high GC fraction would mean (a sequence made mostly of G and C).\n\n*(double-click this cell to type)*"),
+    ("md", "## What you just learned\n\n* **print** shows things; **#** starts a note for humans\n* **variables** store values under names\n* **arithmetic**: `+ - * / // % **`\n* **text** has tools such as `len`, `count`, slicing and `lower`\n* **if / else** makes decisions, **for** repeats things\n\nThat is the real foundation. Everything in the guide is built from these pieces. And you read all of it.\n\n**Next:** go back to the guide, type the GC fraction you wrote down, and see the plan. Everything after this is optional, and you choose the pace."),
+]
+
 # =============================================================== NB0
 NOTEBOOKS["00_project0_python_to_data"] = [
     ("md", "# Project 0: from Python basics to your first analysis\n\nAbout 60 minutes. You will climb a ladder: **value, list, dictionary, numpy array, pandas Series, pandas DataFrame**, using DNA sequences as the thing to analyse. Each rung is built from the one below, and by the end you will see how they connect.\n\n" + HOW),

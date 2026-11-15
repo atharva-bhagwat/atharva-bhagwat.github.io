@@ -161,13 +161,15 @@
     box.classList.add("is-solved");
     if (!quiet && first) box.classList.add("is-just-solved");
     var part = box.getAttribute("data-part");
-    var stage = box.closest(".q-stage").getAttribute("data-stage");
+    var stageEl = box.closest(".q-stage");
+    var stage = stageEl ? stageEl.getAttribute("data-stage") : "";
     var next = box.parentNode.querySelector('.q-puzzle[data-part="' + (parseInt(part, 10) + 1) + '"]');
     if (!quiet) {
       var msg = next
         ? "Star earned. The next part is unlocked just below."
         : "Star earned. This stage is complete.";
-      if (stage === "11" && part === "1") msg = "Star earned. Your certificate is at the bottom of the page.";
+      if (box.getAttribute("data-done-msg")) msg = box.getAttribute("data-done-msg");
+      if (stage === "11" && part === "1") msg = "Star earned. Your certificate is unlocked: find it at the end of the guide.";
       setFeedback(box, "ok", msg);
     } else {
       setFeedback(box, "ok", "Solved.");
@@ -194,10 +196,15 @@
     var n = starsCount();
     var total = document.getElementById("q-total");
     if (total) total.textContent = n;
+    var quiet = root.hasAttribute("data-hide-total") && n === 0;
     var out = document.getElementById("q-bar-count");
-    if (out) out.textContent = n + " / " + TOTAL_STARS;
+    if (out) out.textContent = quiet ? String(n) : n + " / " + TOTAL_STARS;
     var rank = document.getElementById("q-bar-rank");
-    if (rank) rank.textContent = rankFor(n);
+    if (rank) rank.textContent = quiet ? "" : rankFor(n);
+    var barEl = root.querySelector(".q-bar");
+    if (barEl) barEl.classList.toggle("is-quiet", quiet);
+    root.querySelectorAll("[data-reveal-on]").forEach(function (el) { el.hidden = !state.solved[el.getAttribute("data-reveal-on")]; });
+    root.querySelectorAll("[data-show-when-stars]").forEach(function (el) { el.hidden = n < parseInt(el.getAttribute("data-show-when-stars"), 10); });
     var bar = root.querySelector(".q-bar");
     if (bar && justSolved) { bar.classList.remove("is-bump"); void bar.offsetWidth; bar.classList.add("is-bump"); }
 
@@ -217,13 +224,15 @@
 
     var exBox = document.getElementById("q-bar-ex");
     if (exBox) {
-      var total = root.querySelectorAll(".q-ex").length, done = 0;
+      var total = parseInt(root.getAttribute("data-total-ex"), 10) || root.querySelectorAll(".q-ex").length, done = 0;
       for (var k in state.ex) if (state.ex[k]) done++;
-      exBox.textContent = total ? "Practice " + done + " / " + total : "";
+      exBox.textContent = (total && !quiet) ? "Practice " + done + " / " + total : "";
     }
 
     var cert = document.getElementById("q-cert-wrap");
     if (cert) cert.hidden = !state.solved.s11p1;
+    var locked = document.getElementById("q-cert-locked");
+    if (locked) locked.hidden = !!state.solved.s11p1;
     var stars = document.getElementById("q-cert-stars");
     if (stars) {
       var s = "";
@@ -336,18 +345,44 @@
     });
   }
 
+  function initTop() {
+    var btn = root.querySelector(".q-top");
+    if (!btn) return;
+    var ticking = false;
+    function update() {
+      btn.classList.toggle("is-visible", window.pageYOffset > 400);
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    btn.addEventListener("click", function () {
+      var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: calm ? "auto" : "smooth" });
+      var bar = root.querySelector(".q-bar a, .q-bar button");
+      if (bar) bar.focus({ preventScroll: true });
+    });
+    update();
+  }
+
   function start() {
     root = document.getElementById("quest");
     A = window.QUEST_ANSWERS;
     if (!root || !A) return;
+    var map = root.getAttribute("data-hash-map");
+    var hm = /^#stage-(\d+)$/.exec(window.location.hash || "");
+    if (map && hm) {
+      try { var target = JSON.parse(map)[hm[1]]; if (target) { window.location.replace(target); return; } } catch (e) { /* ignore */ }
+    }
     state = load();
-    TOTAL_STARS = root.querySelectorAll(".q-puzzle").length || TOTAL_STARS;
+    TOTAL_STARS = parseInt(root.getAttribute("data-total-stars"), 10) || root.querySelectorAll(".q-puzzle").length || TOTAL_STARS;
     initCopy();
     initOS();
     initPuzzles();
     initExercises();
     initCertificate();
     initReset();
+    initTop();
     refresh(null);
   }
 
