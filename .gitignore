@@ -1,1 +1,14 @@
+# macOS
 .DS_Store
+
+# Python (the generator scripts in _tools/)
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Jekyll local build output and cache
+.jekyll-cache/
+_site/
+.sass-cache/
