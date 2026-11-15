@@ -20,28 +20,28 @@ BATCH = r'''
 
 # 1. make the same Python the same way you did on your laptop
 #    (how to load conda or Python on the cluster is on the manual's Python page)
-conda activate pandas-quest
+conda activate pybio
 
 # 2. run from the project root so relative paths behave
 cd "$SLURM_SUBMIT_DIR"
 
 # 3. run the script, not a notebook
-python src/make_figures.py
+python make_figure.py
 '''
 
 HPC = stage_html = (
     '<section class="q-stage" id="hpc">'
-    '<header class="q-stage-head"><div class="q-stage-title"><span class="q-stage-num">After the summit</span>'
+    '<header class="q-stage-head"><div class="q-stage-title"><span class="q-stage-num">Part 2</span>'
     '<h2>Taking your work to the HPC cluster</h2></div></header>'
     '<p class="q-promise">What this guide was for, when a laptop stops being enough, and how to move the same project onto the cluster. '
     '<span class="q-time">No stars here, just a map.</span></p>'
     '<div class="q-prose">'
     + h3("What this guide was really for")
     + p("Your laptop is where you learn and where you develop. Data is small, feedback is instant, and a mistake costs seconds. "
-        "Everything in the twelve stages was practice for the habits that make a cluster usable later:")
+        "Everything in the earlier stages was practice for the habits that make a cluster usable later:")
     + table(["Habit you built", "Why the cluster needs it"], [
         ["Isolated environment plus <code>environment.yml</code>", "You rebuild the exact same Python on the cluster in one command."],
-        ["Scripts like <code>src/make_figures.py</code>", "A cluster job runs a script, not a notebook you click through."],
+        ["Scripts like <code>make_figure.py</code>", "A cluster job runs a script, not a notebook you click through."],
         ["Relative paths from a project root", "The same code runs in a different folder on a different machine."],
         ["Functions with parameters", "One script can process any sample or setting you hand it."],
         ["Raw data never edited, results regenerated", "Jobs can be re-run safely, and you always know where an output came from."],
@@ -64,7 +64,7 @@ HPC = stage_html = (
         "<strong>Log in.</strong> Use a terminal (" + link("getting-started/terminal/", "SSH") + ") or the browser portal (" + link("getting-started/open-ondemand/", "Open OnDemand") + "). OnDemand also offers " + link("getting-started/quickstart-python-ondemand/", "Python and Jupyter sessions") + " if you want a notebook on a compute node.",
         "<strong>Bring your code.</strong> Put the project in a Git repository on your laptop, then <code>git clone</code> it on the cluster. Code travels through Git; it keeps a history and avoids \"which copy is newest?\".",
         "<strong>Bring your data.</strong> Large files go through a transfer tool, not Git. See " + link("data-management/file-transfer-methods/", "file transfer") + " (" + link("data-management/file-transfer-methods/globus/", "Globus") + " is the usual choice) and the " + link("data-management/file-systems/", "file systems") + " page to decide where files should live. Big temporary files belong in " + link("slurm/scratch-storage/", "scratch") + ".",
-        "<strong>Rebuild the environment.</strong> Load conda or Python the way the " + link("applications/python/", "Python page") + " describes, then recreate yours: <code>conda env create -f environment.yml</code>. This is why you froze it in Stage 6.",
+        "<strong>Rebuild the environment.</strong> Load conda or Python the way the " + link("applications/python/", "Python page") + " describes, then recreate yours: <code>conda env create -f environment.yml</code>. This is why you saved it in Stage 11.",
         "<strong>Test on a small slice.</strong> Ask for a short " + link("slurm/interactive-jobs/", "interactive job") + ", run your script on a few rows, and fix errors where you can see them.",
         "<strong>Submit a batch job.</strong> Write a short job script and hand it to Slurm (" + link("slurm/batch-jobs/", "batch jobs") + ").",
         "<strong>Check, then copy results home.</strong> Read the log, confirm the outputs look right, and copy <code>results/</code> back to your laptop for figures and writing.",

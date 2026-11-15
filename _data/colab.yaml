@@ -1,10 +1,12 @@
 # Google Drive file IDs of the Colab notebooks (the part after /drive/ in the Colab address).
 # The pages read these at build time, so re-generating or replacing them never loses the links.
 # To change a link, edit the ID here. Do not put IDs in the pages themselves.
-warmup: "1TP4kKyVq9WYhvUGwN37WAW5s5yT9tIam"   # warmup_first_10_minutes
-nb0: "1xygnSSVSzXMVdpr1WQw-2pCm-vWMWIaF"      # 00_project0_python_to_data
-nb1: "1yAUJUn72LTULEuni9t29IpTa9atUeTRy"      # 01_python_kernel_and_errors
-nb2: "1qemskXV5DWgptRJEC5JYMCXvuOX-BPXe"      # 02_pandas_and_functions
-nb3: "1dWF7ig7S_mERFARZgtlhNlvScw7MfZHW"      # 03_pten_data_audit_and_regions
-nb4: "1lONDXpaA3sN9V1x7LUSLIfPaNKUu7s2Q"      # 04_plots
-nb5: "1iLTVLDRKijBww8RR9bOgDgjWWatFpoRw"      # 05_sensitivity_and_conclusions
+warmup: "1REd93Zy0POwOcKR8x0L3EVD44wNbcDE9"     # warmup_first_10_minutes
+nb0: "1bHkghxRedkd0HyVKtkC0S7l0TEid5vAB"        # 00_python_building_blocks      (Stage 0)
+nb1: "1pyuWYRSvC4SgCdsnvIwF79tTvDrRHrjg"        # 01_notebooks_text_loops        (Stage 1)
+nberrors: "1H6RoDwzFn7yensJ7Xdk20RN0edfgzWLe"      # 02_error_messages              (Stage 2)  NEW
+nb2: "1humbw6zEvwOaYaGDj4h7Lpxw1hN-t-cM"        # 03_pandas_tables_and_functions (Stages 3 to 5)
+nb3: "1kjkG_QSQg2gXmHiPD6473FBPPHyk0MYk"        # 04_checking_real_data          (Stages 6 and 7)
+nb4: "1DowAH4qJ-7sSd7PbuNkvK8Bh8rxvoNNN"        # 05_plots                       (Stages 8 and 9)
+nb5: "16Ykr59a7JRQXE5F6dXVoCEygw8-vZEV3"        # 06_checking_conclusion         (Stage 10)
+nbbio: "1xA5gujmg5Or2EkOIcMcCCZbEpA_4nzea"        # 07_extra_biopython             (Extra)    NEW

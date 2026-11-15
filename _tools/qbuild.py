@@ -129,6 +129,9 @@ def puzzle(qid, part, question, kind="text", placeholder="", hint="", solution=N
         if "value" in spec: attrs += f' data-value="{spec["value"]}"'
         if "dp" in spec: attrs += f' data-dp="{spec["dp"]}"'
         if "hs" in spec: attrs += f' data-hs="{",".join(spec["hs"])}"'
+        if "patterns" in spec:
+            import json as _json
+            attrs += ' data-patterns="' + html.escape(_json.dumps(spec["patterns"]), quote=True) + '"'
     if kind == "reflect":
         attrs += f' data-kind="reflect" data-minwords="{minwords}"'
     if kind == "choices":
@@ -194,11 +197,11 @@ def stage(n, place, title, minutes, promise, blocks, puzzles):
         f'<section class="q-stage" id="stage-{n}" data-stage="{n}">'
         f'<header class="q-stage-head">'
         f'<div class="q-stage-title"><span class="q-stage-num">Stage {n}</span>'
-        f'<h2>{place}: {title}</h2></div>'
+        f'<h2>{place}{(": " + title) if title else ""}</h2></div>'
         f'<div class="q-stage-stars" data-stars-for="{n}" aria-label="Stars earned in this stage">'
         f'<span class="q-s" data-part="1">&#9733;</span><span class="q-s" data-part="2">&#9733;</span></div>'
         f'</header>'
-        f'<p class="q-promise">{promise} <span class="q-time">About {minutes} minutes.</span></p>'
+        f'<p class="q-promise">{promise}</p>'
         f'<div class="q-prose">{body}</div>'
         f'<div class="q-puzzles">{pz}</div>'
         f'</section>'

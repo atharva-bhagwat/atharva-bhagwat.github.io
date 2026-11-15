@@ -100,13 +100,24 @@
     if (d.value !== undefined) spec.value = parseFloat(d.value);
     if (d.dp !== undefined) spec.dp = parseInt(d.dp, 10);
     if (d.hs) spec.hs = d.hs.split(",");
+    if (d.patterns) {
+      var pats = [];
+      try { pats = JSON.parse(d.patterns); } catch (e) { pats = []; }
+      spec.kind = "paste";
+      spec.test = function (text) {
+        for (var i = 0; i < pats.length; i++) {
+          if (!new RegExp(pats[i][0], "i").test(text)) return { ok: false, msg: pats[i][1] };
+        }
+        return { ok: true };
+      };
+    }
     return spec;
   }
 
   function wordCount(t) { var m = String(t).trim().match(/\S+/g); return m ? m.length : 0; }
 
   function check(box) {
-    var qid = box.getAttribute("data-qid"), spec = A.checks[qid] || datasetSpec(box);
+    var qid = box.getAttribute("data-qid"), spec = datasetSpec(box) || A.checks[qid];
     if (!spec) { setFeedback(box, "bad", "This puzzle has no answer registered. Check quest-answers.js."); return; }
     if (spec.missing) { setFeedback(box, "bad", "The answer key for this puzzle has not been generated yet. See the setup notes for the site owner."); return; }
     var val = readAnswer(box, spec);
@@ -259,6 +270,7 @@
     root.querySelectorAll(".q-ex").forEach(function (box) {
       var id = box.getAttribute("data-ex");
       var cb = box.querySelector(".q-ex-check");
+      if (!cb) return;
       cb.checked = !!state.ex[id];
       box.classList.toggle("is-done", cb.checked);
       cb.addEventListener("change", function () {
