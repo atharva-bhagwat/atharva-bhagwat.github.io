@@ -151,16 +151,16 @@ NOTEBOOKS["warmup_first_10_minutes"] = [
 
 # =============================================================== NB0
 NOTEBOOKS["00_project0_python_to_data"] = [
-    ("md", "# Project 0: from Python basics to your first analysis\n\nAbout 60 minutes. You will climb a ladder: **value, list, dictionary, numpy array, pandas Series, pandas DataFrame**, using DNA sequences as the thing to analyse. Each rung is built from the one below, and by the end you will see how they connect.\n\n" + HOW),
-    ("md", "## Rung 1: values\n\nOne thing at a time: a number, some text, a yes/no."),
+    ("md", "# Project 0: from Python basics to your first analysis\n\nAbout 60 minutes. You will take six small steps: **value, list, dictionary, numpy array, pandas Series, pandas DataFrame**, using DNA sequences as the thing to analyse. Each step is built from the one before it, and by the end you will see how they connect.\n\n" + HOW),
+    ("md", "## Step 1: values\n\nOne thing at a time: a number, some text, a yes/no."),
     ("code", 'gene = "geneC"                 # text (a string)\nlength = ' + blank("30") + '                    # a whole number (an int)\nis_long = length > ' + blank("32") + '          # True or False (a bool)\nprint(gene, length, is_long)\ntype(length), type(gene), type(is_long)'),
     ("md", "**Predict before you run:** what will `is_long` be? Then run the cell and check yourself."),
-    ("md", "## Rung 2: lists and dictionaries\n\nA **list** holds many values in order. A **dictionary** stores values under names."),
+    ("md", "## Steps 2 and 3: lists and dictionaries\n\nA **list** holds many values in order. A **dictionary** stores values under names."),
     ("code", 'names = ["geneA", "geneB", "geneC", "geneD"]\nlengths = [36, 36, 30, 33]\n\nprint(lengths[0], lengths[' + blank("-1") + '], len(lengths))     # first, last, how many\n\nlength_of = dict(zip(names, lengths))\nprint(length_of["' + blank("geneB") + '"])\n\nfor name in names:\n    print(name, length_of[name] // 3, "codons")'),
-    ("md", "## Rung 3: libraries and numpy\n\nA **library** is a package of extra tools loaded with `import`. Why bother? Compare the loop with the numpy version."),
+    ("md", "## Step 4: libraries and numpy\n\nA **library** is a package of extra tools loaded with `import`. Why bother? Compare the loop with the numpy version."),
     ("code", site("p0_numpy", ("np.array(lengths)", "np." + blank("array") + "(lengths)"), ("arr > 31", "arr > " + blank("31")))),
     ("md", "Doing maths on a whole collection at once is called **vectorising**. It is the idea behind pandas.\n\n**Check yourself:** the line `arr[arr > 31]` keeps only the lengths above 31. Change the 31 and predict the result before running."),
-    ("md", "## Rungs 4 and 5: from arrays to tables"),
+    ("md", "## Steps 5 and 6: from arrays to tables"),
     ("code", site("p0_pandas", ("pd.Series(lengths", "pd." + blank("Series") + "(lengths"))),
     ("md", "A DataFrame is a bundle of Series that share the same row labels. Selecting a column gives you a Series, and everything you did with arrays works on it."),
     ("md", "## A taste of Biopython\n\nDNA is text, but Biopython gives it biology-aware tools. Install it (Colab may already have it):"),
