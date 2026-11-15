@@ -12,9 +12,10 @@ def ex(stage, eid, title, task, starter, tests, solution, stretch=False, lang="p
     stretch = stretch or eid in STRETCH
     EXERCISES.append(dict(stage=stage, id=eid, title=title, starter=starter.strip("\n"),
                           tests=(tests or "").strip("\n"), solution=solution.strip("\n"), manual=tests is None))
+    badge = ' <span class="q-badge is-stretch">Stretch</span>' if stretch else ""
     html = (
         f'<div class="q-ex" data-ex="{eid}">'
-        f'<div class="q-ex-head"><h4>Your turn: {title}{" <span class=\"q-badge is-stretch\">Stretch</span>" if stretch else ""}</h4>'
+        f'<div class="q-ex-head"><h4>Your turn: {title}{badge}</h4>'
         f'<label class="q-ex-done"><input type="checkbox" class="q-ex-check"> Done</label></div>'
         f'<div class="q-ex-task">{task}</div>'
         + code(starter, lang, "starter: copy into a cell and complete it" if lang == "python" else "your commands")
