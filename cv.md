@@ -76,8 +76,8 @@ I'm currently exploring how <b><span class="cv-vis">cellular senescence</span></
 ## Mentoring
 
 {::nomarkdown}
-{% for mentee in site.data.mentoring %}
-{% include cv/mentee.html mentee=mentee %}
+{% for mentoring in site.data.mentoring %}
+{% include cv/mentoring.html mentoring=mentoring %}
 {% endfor %}
 {:/}
 

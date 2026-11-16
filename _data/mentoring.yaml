@@ -1,14 +1,4 @@
-- name: Angelina & Ethan
-  intern: Roaring Cubs Collective
-  year: "Spring 2026"
-  description: "Topics in Biology"
-
-- name: Qwyen & Yesha
-  intern: Roaring Cubs Collective
-  year: "Spring 2025"
-  description: "Topics in AI"
-
-- name: Meiling & Shaan
-  intern: Roaring Cubs Collective
-  year: "Fall 2024"
-  description: "Topics in AI"
+- role: STEM Research Mentor
+  organization: Roaring Cubs Collective
+  year: "Fall 2024, Spring 2025, Spring 2026"
+  description: "Mentored high school students on independent research projects in AI and computational biology."
